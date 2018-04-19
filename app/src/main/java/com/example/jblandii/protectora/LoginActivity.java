@@ -1,5 +1,6 @@
 package com.example.jblandii.protectora;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -43,9 +44,22 @@ public class LoginActivity extends AppCompatActivity {
         tv_recordar_contrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentRecordarContrasena = new Intent(LoginActivity.this, RecordarContrasenaActivity.class);
+                startActivity(intentRecordarContrasena);
             }
         });
 
+    }
+
+    /**
+     * Configuro que al pulsar el botón de atras se salga de la aplicación pero que siga funcionando en 2º plano.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        moveTaskToBack(true);
+        startActivity(intent);
     }
 }
