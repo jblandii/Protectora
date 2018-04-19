@@ -4,7 +4,9 @@
     <string name="login">Usuario</string>
     <string name="contrasena">Contraseña</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
-    <string name="registrar">Registrar</string>
+    <string name="registrar">Crear Cuenta</string>
     <string name="recordar_contrasena">Recordar Contraseña</string>
     <string name="indicar_login">Indica el login</string>
+    <string name="separador_o">O</string>
+    <string name="olvide_contrasena">¿Has olvidado la contraseña?</string>
 </resources>

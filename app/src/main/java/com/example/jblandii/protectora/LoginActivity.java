@@ -4,16 +4,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.jblandii.protectora.R;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btn_iniciar_sesion, btn_registrar, btn_recordar_contrasena;
+    Button btn_iniciar_sesion, btn_registrar;
+    TextView tv_recordar_contrasena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login2);
         cargarBotones();
     }
 
@@ -37,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_recordar_contrasena = findViewById(R.id.btn_recordar_contrasena);
-        btn_recordar_contrasena.setOnClickListener(new View.OnClickListener() {
+        tv_recordar_contrasena = findViewById(R.id.tv_recordar_contrasena);
+        tv_recordar_contrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
