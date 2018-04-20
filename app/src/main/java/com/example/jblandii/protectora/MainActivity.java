@@ -28,12 +28,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Boolean inicio;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inicio = true;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (inicio) {
-            lanzarLogin();
-        }
+        lanzarLogin();
     }
 
     /**
@@ -89,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), LoginActivity.class);
                 startActivityForResult(intent, Tags.LOGIN);
-            } else {
-                inicializar();
             }
         }
     }
@@ -105,60 +98,6 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         moveTaskToBack(true);
         startActivity(intent);
-    }
-
-    private void inicializar() {
-//        contador++;
-        comprobarFotoEmail();
-    }
-
-    public void comprobarFotoEmail() {
-        //Creamos el JSON que vamos a mandar al servidor
-        JSONObject jsonConsulta = new JSONObject();
-        try {
-            jsonConsulta.put(Tags.USUARIO_ID, Usuario.getID(MainActivity.this));
-            jsonConsulta.put(Tags.TOKEN, Usuario.getToken(MainActivity.this));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //Hacemos petición de lista de centros al servidor
-        jsonConsulta = JSONUtil.hacerPeticionServidor("usuarios/java/get_perfil/", jsonConsulta);
-        Log.i("DATOS", jsonConsulta.toString());
-
-
-        try {
-            String p = jsonConsulta.getString(Tags.RESULTADO);
-            Log.i("DATOS", p);
-            if (p.contains(Tags.OK)) {
-
-                Usuario user = new Usuario(jsonConsulta);
-                Log.i("DATOS", "correo" + user.getCorreo() + "9999");
-                Log.i("DATOS", "foto " + user.getImagenURL());
-                if (user.getImagenURL().equals("") || user.getImagenURL().contains("noavatar.png") || user.getCorreo().equals("")) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setCancelable(false);
-                    builder.setMessage("Te falta configurar una foto o el correo");
-                    builder.setNegativeButton("Ahora no", new DialogInterface.OnClickListener() {
-                        //Al pulsar el boton llamar, activa la agenda con el numero para llamar
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setPositiveButton("Configurar", new DialogInterface.OnClickListener() {
-                        //Al pulsar el boton llamar, activa la agenda con el numero para llamar
-                        public void onClick(DialogInterface dialog, int id) {
-//                            Intent i = new Intent(MainActivity.this, UserActivity.class);
-//                            startActivity(i);
-                        }
-                    }).show();
-
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
