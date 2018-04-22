@@ -48,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (login()) {
-                    Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    mensaje = "";
+                    if (!mensaje.isEmpty()) {
+                        Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        mensaje = "";
+                    }
                     finish();
                 } else {
                     Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -122,7 +124,8 @@ public class LoginActivity extends AppCompatActivity {
             else if (p.contains(Tags.OK)) {
                 /* Guarda en las preferencias el token. */
                 Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
-                mensaje = "Iniciando sesión";
+                mensaje = "";
+//                mensaje = "Iniciando sesión";
                 setResult(Tags.LOGIN_OK);
                 Log.v("Entrada", "No es la 1º");
                 return true;
