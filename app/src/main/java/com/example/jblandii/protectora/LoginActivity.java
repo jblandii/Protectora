@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Usuario;
-import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
@@ -31,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
         cargarBotones();
     }
 
@@ -108,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("usuarios/java/login/", json); //En contacto activity, es sesiones/java/getcentros
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/login/", json);
 
         Log.v("login", json.toString());
         try {

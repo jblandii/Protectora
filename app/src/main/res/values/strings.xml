@@ -9,4 +9,10 @@
     <string name="indicar_login">Indica el login</string>
     <string name="separador_o">O</string>
     <string name="olvide_contrasena">¿Has olvidado la contraseña?</string>
+    <string name="mensaje_recuperar_login">Introduzca el login para recurperar la contraseña</string>
+    <string name="mensaje_recuperar_login_error">El login tiene como minimo 5 caracteres</string>
+    <string name="mensaje_advertencia_recordar_contrasena">Si acepta se generará una contraseña que le será enviada a su correo.</string>
+    <string name="error_conexion">Error de conexión.</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
 </resources>
