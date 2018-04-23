@@ -44,15 +44,24 @@ public class LoginActivity extends AppCompatActivity {
         btn_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (login()) {
-                    if (!mensaje.isEmpty()) {
+                if (tie_login.getText().toString().isEmpty()) {
+                    til_login.setError(getResources().getString(R.string.mensaje_login_vacio));
+                } else if (tie_contrasena.getText().toString().isEmpty()) {
+                    til_login.setErrorEnabled(false);
+                    til_contrasena.setError(getResources().getString(R.string.mensaje_contrasena_vacia));
+                } else {
+                    til_login.setErrorEnabled(false);
+                    til_contrasena.setErrorEnabled(false);
+                    if (login()) {
+                        if (!mensaje.isEmpty()) {
+                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            mensaje = "";
+                        }
+                        finish();
+                    } else {
                         Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         mensaje = "";
                     }
-                    finish();
-                } else {
-                    Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    mensaje = "";
                 }
             }
         });
