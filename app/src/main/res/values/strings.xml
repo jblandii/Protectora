@@ -17,8 +17,14 @@
     <string name="aceptar">Aceptar</string>
     <string name="mensaje_login_vacio">Debe introducir el nombre de usuario</string>
     <string name="mensaje_contrasena_vacia">Debe de introducir la contraseña</string>
+    <string name="mensaje_email_vacio">Debe de introducir el email</string>
+    <string name="mensaje_email_confirmar_vacio">Debe de confirmar el email</string>
+    <string name="mensaje_contrasena_confirmar_vacia">Debe de confirmar la contraseña</string>
     <string name="email">Email</string>
     <string name="email_confirmar">Confirmar email</string>
     <string name="contrasena_confirmar">Confirmar contrasena</string>
     <string name="enviar">Enviar</string>
+    <string name="mensaje_contrasenas_coincidir">Las contraseñas deben coincidir</string>
+    <string name="mensaje_email_coincidir">Los emails deben coincidir</string>
+    <string name="mensaje_email_no_formato">Debe introducir un email válido</string>
 </resources>
