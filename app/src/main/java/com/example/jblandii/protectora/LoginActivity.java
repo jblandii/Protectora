@@ -70,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentRegistrar = new Intent(LoginActivity.this, RegistrarActivity.class);
+                startActivity(intentRegistrar);
             }
         });
 

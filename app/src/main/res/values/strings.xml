@@ -17,4 +17,8 @@
     <string name="aceptar">Aceptar</string>
     <string name="mensaje_login_vacio">Debe introducir el nombre de usuario</string>
     <string name="mensaje_contrasena_vacia">Debe de introducir la contraseña</string>
+    <string name="email">Email</string>
+    <string name="email_confirmar">Confirmar email</string>
+    <string name="contrasena_confirmar">Confirmar contrasena</string>
+    <string name="enviar">Enviar</string>
 </resources>
