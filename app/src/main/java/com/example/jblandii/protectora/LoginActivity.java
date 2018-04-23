@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Usuario;
-import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
@@ -31,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
         cargarBotones();
     }
 
@@ -47,13 +44,24 @@ public class LoginActivity extends AppCompatActivity {
         btn_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (login()) {
-                    Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    mensaje = "";
-                    finish();
+                if (tie_login.getText().toString().isEmpty()) {
+                    til_login.setError(getResources().getString(R.string.mensaje_login_vacio));
+                } else if (tie_contrasena.getText().toString().isEmpty()) {
+                    til_login.setErrorEnabled(false);
+                    til_contrasena.setError(getResources().getString(R.string.mensaje_contrasena_vacia));
                 } else {
-                    Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    mensaje = "";
+                    til_login.setErrorEnabled(false);
+                    til_contrasena.setErrorEnabled(false);
+                    if (login()) {
+                        if (!mensaje.isEmpty()) {
+                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            mensaje = "";
+                        }
+                        finish();
+                    } else {
+                        Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        mensaje = "";
+                    }
                 }
             }
         });
@@ -62,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentRegistrar = new Intent(LoginActivity.this, RegistrarActivity.class);
+                startActivity(intentRegistrar);
             }
         });
 
@@ -106,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("usuarios/java/login/", json); //En contacto activity, es sesiones/java/getcentros
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/login/", json);
 
         Log.v("login", json.toString());
         try {
@@ -122,7 +131,8 @@ public class LoginActivity extends AppCompatActivity {
             else if (p.contains(Tags.OK)) {
                 /* Guarda en las preferencias el token. */
                 Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
-                mensaje = "Iniciando sesión";
+                mensaje = "";
+//                mensaje = "Iniciando sesión";
                 setResult(Tags.LOGIN_OK);
                 Log.v("Entrada", "No es la 1º");
                 return true;
