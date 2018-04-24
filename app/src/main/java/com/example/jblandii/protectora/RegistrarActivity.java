@@ -6,16 +6,25 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import static com.example.jblandii.protectora.ValidatorUtil.validateEmail;
+import com.example.jblandii.protectora.Models.Usuario;
+import com.example.jblandii.protectora.peticionesBD.JSONUtil;
+import com.example.jblandii.protectora.peticionesBD.Tags;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.jblandii.protectora.Util.ValidatorUtil.validateEmail;
 
 public class RegistrarActivity extends AppCompatActivity {
 
     TextInputLayout til_login, til_contrasena, til_contrasena_confirmar, til_email, til_email_confirmar;
     TextInputEditText tie_login, tie_contrasena, tie_contrasena_confirmar, tie_email, tie_email_confirmar;
     Button btn_enviar;
+    String mensaje = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +60,18 @@ public class RegistrarActivity extends AppCompatActivity {
                 } else if (tie_email.getText().toString().isEmpty()) {
                     til_login.setErrorEnabled(false);
                     til_email.setError(getResources().getString(R.string.mensaje_email_vacio));
-                } /*else if (validateEmail(tie_email.getText().toString())) {
+                } else if (!validateEmail(tie_email.getText().toString())) {
                     til_login.setErrorEnabled(false);
                     til_email.setError(getResources().getString(R.string.mensaje_email_no_formato));
-                }*/ else if (tie_email_confirmar.getText().toString().isEmpty()) {
+                } else if (tie_email_confirmar.getText().toString().isEmpty()) {
                     til_login.setErrorEnabled(false);
                     til_email.setErrorEnabled(false);
                     til_email_confirmar.setError(getResources().getString(R.string.mensaje_email_confirmar_vacio));
-                } /*else if (validateEmail(tie_email_confirmar.getText().toString())) {
+                } else if (!validateEmail(tie_email_confirmar.getText().toString())) {
                     til_login.setErrorEnabled(false);
                     til_email.setErrorEnabled(false);
-                    tie_email_confirmar.setError(getResources().getString(R.string.mensaje_email_no_formato));
-                } */ else if (tie_contrasena.getText().toString().isEmpty()) {
+                    til_email_confirmar.setError(getResources().getString(R.string.mensaje_email_no_formato));
+                } else if (tie_contrasena.getText().toString().isEmpty()) {
                     til_login.setErrorEnabled(false);
                     til_email.setErrorEnabled(false);
                     til_email_confirmar.setErrorEnabled(false);
@@ -84,10 +93,66 @@ public class RegistrarActivity extends AppCompatActivity {
                     } else if (!tie_contrasena.getText().toString().equals(tie_contrasena_confirmar.getText().toString())) {
                         Snackbar.make(view, getResources().getString(R.string.mensaje_contrasenas_coincidir), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
-
+                        if (registrar()) {
+                            if (!mensaje.isEmpty()) {
+                                Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                mensaje = "";
+                            }
+                        } else {
+                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            mensaje = "";
+                        }
                     }
                 }
             }
         });
+    }
+
+    /**
+     * Registra en el servidor. Crea un JSON..
+     */
+    protected boolean registrar() {
+        String usuario = tie_login.getText().toString();
+        String contrasena = tie_contrasena.getText().toString();
+        String email = tie_email.getText().toString();
+
+        /* Creo el JSON que voy a mandar al servidor. */
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.USUARIO, usuario);
+            json.put(Tags.PASSWORD, contrasena);
+            json.put(Tags.EMAIL, email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/registrar_usuario/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                mensaje = "Error de conexión";
+                return false;
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                mensaje = "";
+//                mensaje = "Iniciando sesión";
+                setResult(Tags.REGISTRO_OK);
+                return true;
+            }
+
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+                mensaje = msg;
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
