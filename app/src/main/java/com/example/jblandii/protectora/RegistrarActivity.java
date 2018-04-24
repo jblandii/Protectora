@@ -9,11 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -154,5 +156,39 @@ public class RegistrarActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarComunidades();
+    }
+
+    private void cargarComunidades() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.TOKENFINGIDO, Tags.TOKENFINGIDOGENERADO);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        json = JSONUtil.hacerPeticionServidor("comunidad/comunidades/", json);
+        try {
+            String p = json.getString(Tags.RESULTADO);
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_conexion), Toast.LENGTH_SHORT).show();
+
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                String res = json.getString(Tags.RESULTADO);
+                JSONArray array = json.getJSONArray(Tags.COMUNIDAD);
+                Log.v("comunidad", array.toString());
+            } else if (p.contains(Tags.ERROR)) {
+                Toast.makeText(getApplicationContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

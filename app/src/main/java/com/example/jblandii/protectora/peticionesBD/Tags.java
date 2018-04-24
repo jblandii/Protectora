@@ -2,8 +2,8 @@ package com.example.jblandii.protectora.peticionesBD;
 
 public class Tags {
 
-    //    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
-    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
+    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
+//    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
 
     public static final String USUARIO = "usuario",
             USUARIOS = "usuarios",
@@ -11,12 +11,12 @@ public class Tags {
             PASSWORD_ANTIGUA = "antigua",
             PASSWORD_NUEVA = "nueva",
             USERNAME = "username",
+            PK = "pk",
+            COMUNIDAD_AUTONOMA = "comunidad_autonoma",
             USERID_NOTIF = "userid_notificaciones",
             REGISTRATIONID_NOTIF = "registrationid_notificaciones",
             DISPOSITIVO = "dispositivo",
-            PK_SESION = "pk",
             NOMBRE_SESION = "nombre",
-            DESCRIPCION_SESION = "descripcion",
             DIA_SESION = "dia",
             DIASEMANA_SESION = "diasemana",
             HORA_SESION = "hora",
@@ -50,21 +50,16 @@ public class Tags {
             DEVICE_ID = "device_id",
             SEMANA = "semana",
             FOTO = "foto",
-            PK = "pk",
             URL = "url",
             TIPO = "tipo",
             BUSQUEDA = "busqueda",
             EMAIL = "email",
             ASUNTO = "asunto",
             MSG = "message",
-            SEMANA_CADUCIDAD = "semana_caducidad",
-            SEMANA_CREACION = "semana_creacion",
-            LIMITE_PLAZAS = "limite_plazas",
-            PLAZAS_OCUPADAS = "plazas_ocupadas",
-            DIA_SEMANA = "dia_semana",
-            DIA_NUMERO = "dia_numero",
-            PRIMERASESION = "noesprimerasesion",
-            APUNTADO = "apuntado";
+            COMUNIDAD = "comunidades",
+            TOKENFINGIDO = "tokenFingido",
+            APUNTADO = "apuntado",
+            TOKENFINGIDOGENERADO = "JAMAGELEjamagele";
 
 
     public static final String ERRORCONEXION = "error conexion";
@@ -95,16 +90,10 @@ public class Tags {
             MENSAJES_NO_CARGADOS = 21,
             SIN_AVISOS = 22,
             AVISOS_ACTUALIZADOS_DESDE_SERVICIO = 23,
-            PARAR_SERVICIO_POR_ERROR_DE_TOKEN = 24,
-            LOGIN_OK_PRIMERA = 25;
+            PARAR_SERVICIO_POR_ERROR_DE_TOKEN = 24;
 
 
     public static final String PREMIUM_ADMINISTRADO = "premium_administrado";
-
-    public static final int UN_MES = 30,
-            DOS_MESES = 60,
-            SEIS_MESES = 180,
-            UN_ANO = 365;
 
 
 }
