@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.Models.Usuario;
+import com.example.jblandii.protectora.Models.Comunidad;
+import com.example.jblandii.protectora.Models.Provincia;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
@@ -19,14 +23,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import static com.example.jblandii.protectora.Util.ValidatorUtil.validateEmail;
 
 public class RegistrarActivity extends AppCompatActivity {
-
+    private ArrayList<Comunidad> comunidades;
+    private ArrayList<Provincia> provincias;
+    ArrayList<String> lista_comunidades, lista_provincias;
     TextInputLayout til_login, til_contrasena, til_contrasena_confirmar, til_email, til_email_confirmar;
     TextInputEditText tie_login, tie_contrasena, tie_contrasena_confirmar, tie_email, tie_email_confirmar;
     Button btn_enviar;
     String mensaje = "";
+    Spinner s_comunidades, s_provincias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +48,15 @@ public class RegistrarActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         cargarBotones();
+        comunidades = new ArrayList<>();
+        provincias = new ArrayList<>();
+        lista_comunidades = new ArrayList<>();
+        lista_provincias = new ArrayList<>();
     }
 
     private void cargarBotones() {
+        s_comunidades = findViewById(R.id.s_comunidades);
+        s_provincias = findViewById(R.id.s_provincias);
         btn_enviar = findViewById(R.id.btn_enviar);
         til_login = findViewById(R.id.til_login);
         til_contrasena = findViewById(R.id.til_contrasena);
@@ -53,6 +68,29 @@ public class RegistrarActivity extends AppCompatActivity {
         tie_contrasena_confirmar = findViewById(R.id.tie_contrasena_confirmar);
         tie_email = findViewById(R.id.tie_email);
         tie_email_confirmar = findViewById(R.id.tie_email_confirmar);
+
+        s_comunidades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cargarProvincias();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        s_provincias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         btn_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +222,57 @@ public class RegistrarActivity extends AppCompatActivity {
                 String res = json.getString(Tags.RESULTADO);
                 JSONArray array = json.getJSONArray(Tags.COMUNIDAD);
                 Log.v("comunidad", array.toString());
+                if (array != null) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Comunidad comunidad = new Comunidad(array.getJSONObject(i));
+                        comunidades.add(comunidad);
+                        lista_comunidades.add(comunidad.getComunidad_autonoma());
+                    }
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, lista_comunidades);
+                    s_comunidades.setAdapter(adapter);
+                }
+            } else if (p.contains(Tags.ERROR)) {
+                Toast.makeText(getApplicationContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarProvincias() {
+        lista_provincias.clear();
+        provincias.clear();
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.TOKENFINGIDO, Tags.TOKENFINGIDOGENERADO);
+            json.put(Tags.COMUNIDAD_AUTONOMA, s_comunidades.getSelectedItem().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        json = JSONUtil.hacerPeticionServidor("comunidad/provincias/", json);
+        try {
+            String p = json.getString(Tags.RESULTADO);
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_conexion), Toast.LENGTH_SHORT).show();
+
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                String res = json.getString(Tags.RESULTADO);
+                JSONArray array = json.getJSONArray(Tags.COMUNIDAD);
+                Log.v("provincia", array.toString());
+                if (array != null) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Provincia provincia = new Provincia(array.getJSONObject(i));
+                        provincias.add(provincia);
+                        lista_provincias.add(provincia.getProvincia());
+                    }
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
+                            android.R.layout.simple_spinner_item, lista_provincias);
+                    s_provincias.setAdapter(adapter);
+                }
             } else if (p.contains(Tags.ERROR)) {
                 Toast.makeText(getApplicationContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_SHORT).show();
             }

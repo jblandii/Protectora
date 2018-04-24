@@ -9,13 +9,13 @@ import org.json.JSONObject;
  * Created by jblandii on 24/04/18.
  */
 
-public class Comunidad {
+public class Provincia {
     private int pk;
-    private String comunidad_autonoma;
+    private String provincia;
 
-    public Comunidad(int pk, String comunidad_autonoma) {
+    public Provincia(int pk, String provincia) {
         this.setPk(pk);
-        this.setComunidad_autonoma(comunidad_autonoma);
+        this.setProvincia(provincia);
     }
 
     public int getPk() {
@@ -26,15 +26,15 @@ public class Comunidad {
         this.pk = pk;
     }
 
-    public String getComunidad_autonoma() {
-        return comunidad_autonoma;
+    public String getProvincia() {
+        return provincia;
     }
 
-    public void setComunidad_autonoma(String comunidad_autonoma) {
-        this.comunidad_autonoma = comunidad_autonoma;
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
-    public Comunidad(JSONObject json) {
+    public Provincia(JSONObject json) {
         try {
             setPk(json.getInt(Tags.PK));
         } catch (JSONException e) {
@@ -42,7 +42,7 @@ public class Comunidad {
         }
 
         try {
-            setComunidad_autonoma(json.getString(Tags.COMUNIDAD_AUTONOMA));
+            setProvincia(json.getString(Tags.COMUNIDAD_AUTONOMA));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class Comunidad {
     public String toString() {
         return "Comunidad{" +
                 "pk=" + pk +
-                ", comunidad_autonoma='" + comunidad_autonoma + '\'' +
+                ", comunidad_autonoma='" + provincia + '\'' +
                 '}';
     }
 }
