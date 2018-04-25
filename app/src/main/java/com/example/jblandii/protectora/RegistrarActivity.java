@@ -1,6 +1,8 @@
 package com.example.jblandii.protectora;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -96,7 +98,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
         btn_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (tie_login.getText().toString().isEmpty()) {
                     til_login.setError(getResources().getString(R.string.mensaje_login_vacio));
                 } else if (tie_email.getText().toString().isEmpty()) {
@@ -135,20 +137,50 @@ public class RegistrarActivity extends AppCompatActivity {
                     } else if (!tie_contrasena.getText().toString().equals(tie_contrasena_confirmar.getText().toString())) {
                         Snackbar.make(view, getResources().getString(R.string.mensaje_contrasenas_coincidir), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
-                        if (registrar()) {
-                            if (!mensaje.isEmpty()) {
-                                Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                                mensaje = "";
+                        AlertDialog alertDialog = new AlertDialog.Builder(RegistrarActivity.this).create();
+                        alertDialog.setTitle(getResources().getString(R.string.registrar));
+                        alertDialog.setMessage(getResources().getString(R.string.mensaje_advertencia_crear_cuenta));
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getText(R.string.aceptar), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (registrar()) {
+                                    if (!mensaje.isEmpty()) {
+                                        Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                        mensaje = "";
+                                    }
+                                    Intent intentSecond = getIntent();
+                                    intentSecond.putExtra("login", tie_login.getText().toString());
+                                    setResult(Activity.RESULT_OK, intentSecond);
+                                    finish();
+                                } else {
+                                    Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    mensaje = "";
+                                }
+                                dialog.dismiss();
                             }
-                            Intent intentSecond = getIntent();
-                            Log.v("login", tie_login.getText().toString());
-                            intentSecond.putExtra("login", tie_login.getText().toString());
-                            setResult(Activity.RESULT_OK, intentSecond);
-                            finish();
-                        } else {
-                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                            mensaje = "";
-                        }
+                        });
+
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getText(R.string.cancelar), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
+
+
+//                        if (registrar()) {
+//                            if (!mensaje.isEmpty()) {
+//                                Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//                                mensaje = "";
+//                            }
+//                            Intent intentSecond = getIntent();
+//                            Log.v("login", tie_login.getText().toString());
+//                            intentSecond.putExtra("login", tie_login.getText().toString());
+//                            setResult(Activity.RESULT_OK, intentSecond);
+//                            finish();
+//                        } else {
+//                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//                            mensaje = "";
+//                        }
                     }
                 }
             }
