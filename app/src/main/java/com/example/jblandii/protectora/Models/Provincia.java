@@ -42,7 +42,7 @@ public class Provincia {
         }
 
         try {
-            setProvincia(json.getString(Tags.COMUNIDAD_AUTONOMA));
+            setProvincia(json.getString(Tags.PROVINCIA));
         } catch (JSONException e) {
             e.printStackTrace();
         }

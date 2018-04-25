@@ -72,7 +72,7 @@ public class RegistrarActivity extends AppCompatActivity {
         s_comunidades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cargarProvincias();
+                cargarProvincias(position);
             }
 
             @Override
@@ -220,7 +220,7 @@ public class RegistrarActivity extends AppCompatActivity {
             /* En caso de que conecte */
             else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
-                JSONArray array = json.getJSONArray(Tags.COMUNIDAD);
+                JSONArray array = json.getJSONArray(Tags.COMUNIDADES);
                 Log.v("comunidad", array.toString());
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
@@ -240,13 +240,14 @@ public class RegistrarActivity extends AppCompatActivity {
         }
     }
 
-    private void cargarProvincias() {
+    private void cargarProvincias(int posicion) {
         lista_provincias.clear();
         provincias.clear();
         JSONObject json = new JSONObject();
         try {
             json.put(Tags.TOKENFINGIDO, Tags.TOKENFINGIDOGENERADO);
             json.put(Tags.COMUNIDAD_AUTONOMA, s_comunidades.getSelectedItem().toString());
+            json.put(Tags.ID_COMUNIDAD, comunidades.get(posicion).getPk());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -261,7 +262,7 @@ public class RegistrarActivity extends AppCompatActivity {
             /* En caso de que conecte */
             else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
-                JSONArray array = json.getJSONArray(Tags.COMUNIDAD);
+                JSONArray array = json.getJSONArray(Tags.PROVINCIAS);
                 Log.v("provincia", array.toString());
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
