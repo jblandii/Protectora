@@ -34,6 +34,9 @@ public class RecordarContrasenaActivity extends AppCompatActivity {
         cargarBotones();
     }
 
+    /**
+     * Metodo que utilizo para cargar los botones que tengo en el layout.
+     */
     private void cargarBotones() {
         til_login = findViewById(R.id.til_login);
         tie_login = findViewById(R.id.tie_login);

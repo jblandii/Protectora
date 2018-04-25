@@ -58,6 +58,9 @@ public class RegistrarActivity extends AppCompatActivity {
         lista_provincias = new ArrayList<>();
     }
 
+    /**
+     * Metodo que utilizo para cargar los botones que tengo en el layout.
+     */
     private void cargarBotones() {
         s_comunidades = findViewById(R.id.s_comunidades);
         s_provincias = findViewById(R.id.s_provincias);
@@ -188,7 +191,7 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     /**
-     * Registra en el servidor. Crea un JSON..
+     * Registra en el servidor un usuario que se lo manda a traves de JSON.
      */
     protected boolean registrar() {
         String usuario = tie_login.getText().toString();
@@ -243,7 +246,11 @@ public class RegistrarActivity extends AppCompatActivity {
         cargarComunidades();
     }
 
+    /**
+     * Metodo que permite cargar las comunidades que estan en la base de datos, recibiendolas a través de JSON
+     */
     private void cargarComunidades() {
+        comunidades.clear();
         JSONObject json = new JSONObject();
         try {
             json.put(Tags.TOKENFINGIDO, Tags.TOKENFINGIDOGENERADO);
@@ -281,6 +288,12 @@ public class RegistrarActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que permite cargar las provincias que pertenecen a la comunidad autonoma seleccionada, que estan en la base de datos, recibiendolas a través de JSON
+     *
+     * @param posicion recibe la posición del array list de comunidades para pasarselo al servidor, saber de que comunidad se trata, y obtener las provincias
+     *                 que pertencen a la comunidad autonoma seleccionada
+     */
     private void cargarProvincias(int posicion) {
         lista_provincias.clear();
         provincias.clear();
