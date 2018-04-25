@@ -1,5 +1,7 @@
 package com.example.jblandii.protectora;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -138,6 +140,11 @@ public class RegistrarActivity extends AppCompatActivity {
                                 Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                                 mensaje = "";
                             }
+                            Intent intentSecond = getIntent();
+                            Log.v("login", tie_login.getText().toString());
+                            intentSecond.putExtra("login", tie_login.getText().toString());
+                            setResult(Activity.RESULT_OK, intentSecond);
+                            finish();
                         } else {
                             Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             mensaje = "";
@@ -162,6 +169,8 @@ public class RegistrarActivity extends AppCompatActivity {
             json.put(Tags.USUARIO, usuario);
             json.put(Tags.PASSWORD, contrasena);
             json.put(Tags.EMAIL, email);
+            Log.v("provincia escogida", s_provincias.getSelectedItem().toString());
+            json.put(Tags.PROVINCIA, s_provincias.getSelectedItem().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -246,7 +255,6 @@ public class RegistrarActivity extends AppCompatActivity {
         JSONObject json = new JSONObject();
         try {
             json.put(Tags.TOKENFINGIDO, Tags.TOKENFINGIDOGENERADO);
-            json.put(Tags.COMUNIDAD_AUTONOMA, s_comunidades.getSelectedItem().toString());
             json.put(Tags.ID_COMUNIDAD, comunidades.get(posicion).getPk());
         } catch (JSONException e) {
             e.printStackTrace();

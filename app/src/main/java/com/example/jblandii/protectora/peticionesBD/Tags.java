@@ -62,6 +62,7 @@ public class Tags {
             TOKENFINGIDO = "tokenFingido",
             APUNTADO = "apuntado",
             ID_COMUNIDAD = "id_comunidad",
+            ID_PROVINCIA = "id_provincia",
             TOKENFINGIDOGENERADO = "JAMAGELEjamagele";
 
 

@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentRegistrar = new Intent(LoginActivity.this, RegistrarActivity.class);
-                startActivity(intentRegistrar);
+                startActivityForResult(intentRegistrar, Tags.REGISTRO);
             }
         });
 
@@ -123,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
 
             /* Se comprueba la conexión al servidor. */
             if (p.contains(Tags.ERRORCONEXION)) {
-//                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_LONG).show(); //Si no conecta imprime un toast
                 mensaje = "Error de conexión";
                 return false;
             }
@@ -132,7 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                 /* Guarda en las preferencias el token. */
                 Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
                 mensaje = "";
-//                mensaje = "Iniciando sesión";
                 setResult(Tags.LOGIN_OK);
                 Log.v("Entrada", "No es la 1º");
                 return true;
@@ -141,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 mensaje = msg;
                 return false;
             }
@@ -149,5 +146,18 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Tags.REGISTRO:
+                    tie_login.setText(data.getStringExtra("login"));
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 }
