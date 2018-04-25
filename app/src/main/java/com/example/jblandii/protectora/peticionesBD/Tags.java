@@ -2,8 +2,8 @@ package com.example.jblandii.protectora.peticionesBD;
 
 public class Tags {
 
-    //    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
-    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
+    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
+//    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
 
     public static final String USUARIO = "usuario",
             USUARIOS = "usuarios",
@@ -94,7 +94,8 @@ public class Tags {
             MENSAJES_NO_CARGADOS = 21,
             SIN_AVISOS = 22,
             AVISOS_ACTUALIZADOS_DESDE_SERVICIO = 23,
-            PARAR_SERVICIO_POR_ERROR_DE_TOKEN = 24;
+            PARAR_SERVICIO_POR_ERROR_DE_TOKEN = 24,
+            RECORDAR = 25;
 
 
     public static final String PREMIUM_ADMINISTRADO = "premium_administrado";

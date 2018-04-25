@@ -1,13 +1,16 @@
 package com.example.jblandii.protectora;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -65,15 +68,20 @@ public class RecordarContrasenaActivity extends AppCompatActivity {
                             JSONObject json = new JSONObject();
                             try {
                                 json.put(Tags.USUARIO, tie_login.getText().toString());
-                                JSONUtil.hacerPeticionServidor("usuarios/java/recuperar_contrasena/", json);
+                                json = JSONUtil.hacerPeticionServidor("usuarios/java/recuperar_contrasena/", json);
 
 
                                 String p = json.getString(Tags.RESULTADO);
+                                Log.v("json2", p);
                                 /* Compruebo la conexión con el servidor. */
                                 if (p.contains(Tags.ERRORCONEXION)) {
                                     /* Si no conecta imprime un snackbar con un mensaje de error de conexión. */
-//                                    Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_LONG).show();
                                     Snackbar.make(view, getResources().getText(R.string.error_conexion), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                } else if (p.contains(Tags.OK)) {
+                                    Intent intentSecond = getIntent();
+                                    intentSecond.putExtra("login", tie_login.getText().toString());
+                                    setResult(Activity.RESULT_OK, intentSecond);
+                                    finish();
                                 }
                                 /* Fallo por otro error. */
                                 else if (p.contains(Tags.ERROR)) {

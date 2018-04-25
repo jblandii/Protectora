@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentRecordarContrasena = new Intent(LoginActivity.this, RecordarContrasenaActivity.class);
-                startActivity(intentRecordarContrasena);
+//                startActivity(intentRecordarContrasena);
+                startActivityForResult(intentRecordarContrasena, Tags.RECORDAR);
             }
         });
 
@@ -117,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         /* Se hace petición de login al servidor. */
         json = JSONUtil.hacerPeticionServidor("usuarios/java/login/", json);
 
-        Log.v("login", json.toString());
         try {
             String p = json.getString(Tags.RESULTADO);
 
@@ -153,6 +153,9 @@ public class LoginActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.REGISTRO:
+                    tie_login.setText(data.getStringExtra("login"));
+                    break;
+                case Tags.RECORDAR:
                     tie_login.setText(data.getStringExtra("login"));
                     break;
                 default:
