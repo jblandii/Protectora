@@ -1,72 +1,101 @@
 package com.example.jblandii.protectora;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Usuario;
-import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+import com.example.jblandii.protectora.fragments.AnimalFragment;
+import com.example.jblandii.protectora.fragments.ProtectoraFragment;
+import com.example.jblandii.protectora.fragments.MeGustaFragment;
+import com.example.jblandii.protectora.fragments.MensajeFragment;
+import com.example.jblandii.protectora.fragments.ConfiguracionFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bnv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-        /*Hacer que el teclado se superponga y no se mueva*/
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        final Fragment protectoraFragment = new ProtectoraFragment();
+        final Fragment animalFragment = new AnimalFragment();
+        final Fragment meGustaFragment = new MeGustaFragment();
+        final Fragment mensajeFragment = new MensajeFragment();
+        final Fragment configuracionFragment = new ConfiguracionFragment();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
         }
 
-        return super.onOptionsItemSelected(item);
+        bnv = findViewById(R.id.bnv);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+//                switch (item.getItemId()) {
+//                    case R.id.navigation_animales:
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
+//                        break;
+//                    case R.id.navigation_protectoras:
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragmentContainer, protectoraFragment).commit();
+//                        break;
+//                    case R.id.navigation_megustas:
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragmentContainer, meGustaFragment).commit();
+//                        break;
+//                    case R.id.navigation_mensajes:
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragmentContainer, mensajeFragment).commit();
+//                        break;
+//                    case R.id.navigation_configuracion:
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragmentContainer, configuracionFragment).commit();
+//                        break;
+//                }
+                if (item.getItemId() == R.id.navigation_animales) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
+                } else if (item.getItemId() == R.id.navigation_protectoras) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, protectoraFragment).commit();
+                } else if (item.getItemId() == R.id.navigation_megustas) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, meGustaFragment).commit();
+                } else if (item.getItemId() == R.id.navigation_mensajes) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, mensajeFragment).commit();
+                } else if (item.getItemId() == R.id.navigation_configuracion) {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, configuracionFragment).commit();
+                }
+                return true;
+            }
+        });
+
+
+        /*Hacer que el teclado se superponga y no se mueva*/
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override
@@ -86,6 +115,22 @@ public class MainActivity extends AppCompatActivity {
                 intent.setClass(getApplicationContext(), LoginActivity.class);
                 startActivityForResult(intent, Tags.LOGIN);
             }
+        } else {
+            Toast.makeText(MainActivity.this, Tags.SIN_CONEXION_INTERNET, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Metodo que utilizo para cargar los animales de la provincia a la que pertenece el usuario.
+     */
+    public void cargarAnimales() {
+        if (hayInternet()) {
+            String token = Usuario.getToken(getApplicationContext());
+            if (token == null || token == "" || !JSONUtil.compruebaToken(token)) {
+
+            }
+        } else {
+            Toast.makeText(MainActivity.this, Tags.SIN_CONEXION_INTERNET, Toast.LENGTH_LONG).show();
         }
     }
 

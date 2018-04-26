@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_animales"
+        android:icon="@drawable/ic_animal"
+        android:title="@string/animales" />
+
+    <item
+        android:id="@+id/navigation_protectoras"
+        android:icon="@drawable/ic_protectora"
+        android:title="@string/protectoras" />
+
+    <item
+        android:id="@+id/navigation_megustas"
+        android:icon="@drawable/ic_megusta"
+        android:title="@string/me_gusta" />
+    <item
+        android:id="@+id/navigation_mensajes"
+        android:icon="@drawable/ic_mensaje"
+        android:title="@string/mensaje" />
+
+    <item
+        android:id="@+id/navigation_configuracion"
+        android:icon="@drawable/ic_configuracion"
+        android:title="@string/configuracion" />
+
+</menu>

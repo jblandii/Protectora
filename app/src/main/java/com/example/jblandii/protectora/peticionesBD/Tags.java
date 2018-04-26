@@ -2,13 +2,14 @@ package com.example.jblandii.protectora.peticionesBD;
 
 public class Tags {
 
-    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
-//    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
+    //    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
+    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
 
     public static final String USUARIO = "usuario",
             USUARIOS = "usuarios",
             PASSWORD = "password",
             PASSWORD_ANTIGUA = "antigua",
+            SIN_CONEXION_INTERNET = "Sin conexión a internet.",
             PASSWORD_NUEVA = "nueva",
             USERNAME = "username",
             NOMBREPROTECTORA = "nombre_protectora",

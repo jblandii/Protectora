@@ -28,4 +28,12 @@
     <string name="mensaje_contrasenas_coincidir">Las contraseñas deben coincidir</string>
     <string name="mensaje_email_coincidir">Los emails deben coincidir</string>
     <string name="mensaje_email_no_formato">Debe introducir un email válido</string>
+    <string name="animales">Animales</string>
+    <string name="protectoras">Protectoras</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="me_gusta">Me Gusta</string>
+    <string name="configuracion">Configuración</string>
+    <string name="mensaje">Mensajes</string>
+    <string name="title_activity_animal_fragment">AnimalFragment</string>
+    <string name="title_activity_protectora_fragment">ProtectoraFragment</string>
 </resources>
