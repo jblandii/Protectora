@@ -132,7 +132,6 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
                 mensaje = "";
                 setResult(Tags.LOGIN_OK);
-                Log.v("Entrada", "No es la 1º");
                 return true;
             }
 

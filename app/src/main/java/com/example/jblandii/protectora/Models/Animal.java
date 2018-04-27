@@ -22,12 +22,14 @@ public class Animal {
     private String enfermedad;
     private String vacuna;
     private String chip;
+    private String estado;
     private String id_protectora;
     private String me_gusta;
     private String descripcion;
+    private String fecha;
 
     public Animal(int pk, String mascota, String raza, String color, String edad, String tipo_pelaje, String sexo, String tamano, String peso,
-                  String enfermedad, String vacuna, String chip, String id_protectora, String me_gusta, String descripcion) {
+                  String enfermedad, String vacuna, String chip,String estado, String id_protectora, String me_gusta, String descripcion, String fecha) {
         this.setPk(pk);
         this.setMascota(mascota);
         this.setRaza(raza);
@@ -37,12 +39,14 @@ public class Animal {
         this.setSexo(sexo);
         this.setTamano(tamano);
         this.setPeso(peso);
+        this.setEstado(estado);
         this.setEnfermedad(enfermedad);
         this.setVacuna(vacuna);
         this.setChip(chip);
         this.setId_protectora(id_protectora);
         this.setMe_gusta(me_gusta);
         this.setMe_gusta(descripcion);
+        this.setFecha(fecha);
     }
 
     public int getPk() {
@@ -165,6 +169,22 @@ public class Animal {
         this.descripcion = descripcion;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     public Animal(JSONObject json) {
         try {
             setPk(json.getInt(Tags.PK));
@@ -252,6 +272,18 @@ public class Animal {
 
         try {
             setDescripcion(json.getString(Tags.DESCRIPCION));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            setFecha(json.getString(Tags.FECHA));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            setEstado(json.getString(Tags.ESTADO));
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jblandii.protectora.LoginActivity;
 import com.example.jblandii.protectora.Models.Animal;
@@ -22,6 +23,7 @@ import com.example.jblandii.protectora.peticionesBD.Tags;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
 import static com.example.jblandii.protectora.peticionesBD.Preferencias.getToken;
 
 public class AnimalFragment extends Fragment {
@@ -34,7 +36,6 @@ public class AnimalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cargarAnimales();
     }
 
     @Override
@@ -57,8 +58,6 @@ public class AnimalFragment extends Fragment {
     public void cargarAnimales() {
         String token = Preferencias.getToken(getActivity());
         String usuario_id = Preferencias.getID(getActivity());
-        Log.v("token", token);
-        Log.v("token", usuario_id);
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
         try {
@@ -69,7 +68,7 @@ public class AnimalFragment extends Fragment {
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("protectora/cargar_animales_provincia_usuario/", json);
+        json = JSONUtil.hacerPeticionServidor("protectora/cargar_animales/", json);
 
         try {
             String p = json.getString(Tags.RESULTADO);
@@ -78,14 +77,12 @@ public class AnimalFragment extends Fragment {
             if (p.contains(Tags.ERRORCONEXION)) {
 //                mensaje = "Error de conexión";
             }
-            /* En caso de que conecte */
-            else if (p.contains(Tags.OK)) {
-                /* Guarda en las preferencias el token. */
-//                Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
-//                mensaje = "";
-                Log.v("Entrada", "No es la 1º");
-            }
+            /* En caso de que conecte y no haya animales para dicha busqueda. */
+            else if (p.contains(Tags.OK_SIN_ANIMALES)) {
+                Toast.makeText(getContext(), ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
+            } else if (p.contains(Tags.OK)) {
 
+            }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
@@ -94,5 +91,11 @@ public class AnimalFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarAnimales();
     }
 }
