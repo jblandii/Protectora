@@ -1,21 +1,19 @@
 package com.example.jblandii.protectora.fragments;
 
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.LoginActivity;
+import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
 import com.example.jblandii.protectora.Models.Animal;
-import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
-import com.example.jblandii.protectora.RecordarContrasenaActivity;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -23,12 +21,15 @@ import com.example.jblandii.protectora.peticionesBD.Tags;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
-import static com.example.jblandii.protectora.peticionesBD.Preferencias.getToken;
 
 public class AnimalFragment extends Fragment {
 
     FloatingActionButton fab_filtrar_protectora;
+    ArrayList<Animal> listaAnimales;
+    RecyclerView recyclerView;
 
     public AnimalFragment() {
     }
@@ -42,14 +43,30 @@ public class AnimalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_animal_fragment, container, false);
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_protectora);
-//        fab_filtrar_protectora.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intentRecordarContrasena = new Intent(getActivity(), RecordarContrasenaActivity.class);
-//                startActivity(intentRecordarContrasena);
-//            }
-//        });
+        listaAnimales = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.rv_recycleranimales);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        llenarListaAnimales();
+
+        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales);
+        recyclerView.setAdapter(adaptadorAnimales);
+
+        adaptadorAnimales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Seleccion: " +
+                        listaAnimales.get(recyclerView.getChildAdapterPosition(view)).getColor(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         return view;
+    }
+
+    private void llenarListaAnimales() {
+        listaAnimales.add(new Animal(1, "Perro", "Bichon Maltes", "Blanco", "2", "Largo", "Hembra", "Pequeño", "2kg",
+                "No tiene", "Todas", "Sí", "Adopción", "1", "MG", "Mu bonica", "12-12-12"));
     }
 
     /**
