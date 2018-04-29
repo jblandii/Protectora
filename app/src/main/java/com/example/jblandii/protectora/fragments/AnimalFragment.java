@@ -69,7 +69,7 @@ public class AnimalFragment extends Fragment {
 
         return view;
     }
-    
+
     /**
      * Metodo que permite cargar los animales que pertenecen a la misma comunidad que el usuario.
      */
