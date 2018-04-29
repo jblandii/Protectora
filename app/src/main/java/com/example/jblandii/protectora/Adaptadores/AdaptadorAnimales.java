@@ -39,7 +39,7 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
 
     @Override
     public void onBindViewHolder(AnimalesViewHolder holder, int position) {
-        holder.txtNombre.setText(listaAnimales.get(position).getColor());
+        holder.txtNombre.setText(listaAnimales.get(position).getRaza());
         holder.txtInformacion.setText(listaAnimales.get(position).getChip());
         holder.foto.setImageResource(R.drawable.ic_launcher_background);
     }

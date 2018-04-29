@@ -1,6 +1,7 @@
 package com.example.jblandii.protectora.fragments;
 
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
+import com.example.jblandii.protectora.DetallesAnimal;
+import com.example.jblandii.protectora.LoginActivity;
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.R;
+import com.example.jblandii.protectora.RegistrarActivity;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -61,17 +65,15 @@ public class AnimalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Seleccion: " +
-                        listaAnimales.get(recyclerView.getChildAdapterPosition(view)).getColor(), Toast.LENGTH_SHORT).show();
+                        listaAnimales.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+
+                Intent intentDetalleAnimal = new Intent(getContext(), DetallesAnimal.class);
+                startActivity(intentDetalleAnimal);
             }
         });
 
 
         return view;
-    }
-
-    private void llenarListaAnimales() {
-        listaAnimales.add(new Animal(1, "Perro", "Bichon Maltes", "Blanco", "2", "Largo", "Hembra", "Pequeño", "2kg",
-                "No tiene", "Todas", "Sí", "Adopción", "1", "MG", "Mu bonica", "12-12-12"));
     }
 
     /**

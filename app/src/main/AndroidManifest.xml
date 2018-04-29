@@ -41,6 +41,7 @@
             android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetallesAnimal"></activity>
     </application>
 
 </manifest>
