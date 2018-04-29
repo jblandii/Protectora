@@ -1,5 +1,6 @@
 package com.example.jblandii.protectora.Adaptadores;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.AnimalesViewHolder> implements View.OnClickListener {
 
     ArrayList<Animal> listaAnimales;
+    Context context;
     private View.OnClickListener listener;
 
     public AdaptadorAnimales(ArrayList<Animal> listaAnimales) {
@@ -39,9 +41,10 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
 
     @Override
     public void onBindViewHolder(AnimalesViewHolder holder, int position) {
-        holder.txtNombre.setText(listaAnimales.get(position).getRaza());
-        holder.txtInformacion.setText(listaAnimales.get(position).getChip());
-        holder.foto.setImageResource(R.drawable.ic_launcher_background);
+        holder.tv_raza_animal.setText(listaAnimales.get(position).getRaza());
+        holder.tv_nombre_animal.setText(listaAnimales.get(position).getNombre());
+        holder.iv_animal.setImageResource(R.drawable.nueva_pancarta);
+//        Picasso.with(get).load(R.drawable.ic_launcher_background).fit().into(holder.iv_animal);
     }
 
     @Override
@@ -61,14 +64,14 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
     }
 
     public class AnimalesViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtInformacion;
-        ImageView foto;
+        TextView tv_raza_animal, tv_nombre_animal;
+        ImageView iv_animal;
 
         public AnimalesViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.idNombre);
-            txtInformacion = itemView.findViewById(R.id.idInfo);
-            foto = itemView.findViewById(R.id.idImagen);
+            tv_raza_animal = itemView.findViewById(R.id.tv_raza_animal);
+            tv_nombre_animal = itemView.findViewById(R.id.tv_nombre_animal);
+            iv_animal = itemView.findViewById(R.id.iv_animal);
         }
     }
 }

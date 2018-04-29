@@ -54,7 +54,7 @@ public class AnimalFragment extends Fragment {
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_animal);
         listaAnimales = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_animales);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         cargarAnimales();
         Log.v("animalesoncreateview", listaAnimales.toString());

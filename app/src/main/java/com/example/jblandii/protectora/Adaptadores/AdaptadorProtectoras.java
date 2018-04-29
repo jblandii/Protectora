@@ -66,9 +66,9 @@ public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtecto
 
         public ProtectorasViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.idNombre);
-            txtInformacion = itemView.findViewById(R.id.idInfo);
-            foto = itemView.findViewById(R.id.idImagen);
+            txtNombre = itemView.findViewById(R.id.tv_raza_animal);
+            txtInformacion = itemView.findViewById(R.id.tv_nombre_animal);
+            foto = itemView.findViewById(R.id.iv_animal);
         }
     }
 }

@@ -1,9 +1,9 @@
 <resources>
-    <dimen name="fab_margin">72dp</dimen>
-    <dimen name="fab_margin_right">16dp</dimen>
+    <dimen name="fab_margin">56dp</dimen>
     <dimen name="margen_32_layout">32dp</dimen>
     <dimen name="margen_16_layout">16dp</dimen>
     <dimen name="margen_8_layout">8dp</dimen>
     <dimen name="margen_20_layout">20dp</dimen>
     <dimen name="margen_24_layout">24dp</dimen>
+    <dimen name="margen_4_layout">4dp</dimen>
 </resources>

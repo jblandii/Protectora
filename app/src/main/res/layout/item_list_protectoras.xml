@@ -18,17 +18,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/idImagen"
+                android:id="@+id/iv_animal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_launcher_foreground"
                 card:layout_constraintBottom_toBottomOf="parent"
-                card:layout_constraintEnd_toStartOf="@+id/idNombre"
+                card:layout_constraintEnd_toStartOf="@+id/tv_raza_animal"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/idNombre"
+                android:id="@+id/tv_raza_animal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Nombre"
@@ -36,18 +36,18 @@
                 android:textStyle="bold"
                 card:layout_constraintEnd_toEndOf="parent"
                 card:layout_constraintHorizontal_bias="1.0"
-                card:layout_constraintStart_toEndOf="@+id/idImagen"
+                card:layout_constraintStart_toEndOf="@+id/iv_animal"
                 card:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/idInfo"
+                android:id="@+id/tv_nombre_animal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="Descripcion "
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintStart_toEndOf="@+id/idImagen"
-                card:layout_constraintTop_toBottomOf="@+id/idNombre" />
+                card:layout_constraintStart_toEndOf="@+id/iv_animal"
+                card:layout_constraintTop_toBottomOf="@+id/tv_raza_animal" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

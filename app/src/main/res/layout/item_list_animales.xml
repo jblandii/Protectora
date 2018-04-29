@@ -1,56 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ImageViewandroid="http://schemas.android.com/tools"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_id"
+    android:layout_width="192dp"
+    android:layout_height="138dp"
+    android:layout_margin="10dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    cardview:cardCornerRadius="5dp">
 
-    <android.support.v7.widget.CardView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        card:cardBackgroundColor="#dcddde">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:id="@+id/iv_animal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="108dp"
+            android:layout_marginBottom="@dimen/margen_4_layout"
+            android:background="@color/secondaryTextColor"
+            android:scaleType="centerCrop"
+            cardview:layout_constraintBottom_toTopOf="@+id/tv_nombre_animal"
+            cardview:layout_constraintEnd_toEndOf="parent"
+            cardview:layout_constraintStart_toStartOf="parent"
+            cardview:layout_constraintTop_toTopOf="parent"
+            cardview:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/idImagen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_foreground"
-                card:layout_constraintBottom_toBottomOf="parent"
-                card:layout_constraintEnd_toStartOf="@+id/idNombre"
-                card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_nombre_animal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margen_4_layout"
+            android:layout_marginEnd="@dimen/margen_8_layout"
+            android:layout_marginStart="@dimen/margen_8_layout"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp"
+            cardview:layout_constraintBottom_toTopOf="@+id/tv_raza_animal"
+            cardview:layout_constraintEnd_toStartOf="@+id/imageButton"
+            cardview:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/idNombre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintHorizontal_bias="1.0"
-                card:layout_constraintStart_toEndOf="@+id/idImagen"
-                card:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_raza_animal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margen_8_layout"
+            android:layout_marginEnd="@dimen/margen_8_layout"
+            android:layout_marginStart="@dimen/margen_8_layout"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp"
+            cardview:layout_constraintBottom_toBottomOf="parent"
+            cardview:layout_constraintEnd_toStartOf="@+id/imageButton"
+            cardview:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/idInfo"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="Descripcion "
-                card:layout_constraintBottom_toBottomOf="parent"
-                card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintStart_toEndOf="@+id/idImagen"
-                card:layout_constraintTop_toBottomOf="@+id/idNombre" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margen_8_layout"
+            android:layout_marginEnd="@dimen/margen_8_layout"
+            android:background="?android:selectableItemBackground"
+            android:tint="@color/colorPrimary"
+            cardview:layout_constraintBottom_toBottomOf="parent"
+            cardview:layout_constraintEnd_toEndOf="parent"
+            cardview:srcCompat="@drawable/ic_megusta_borde" />
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
+
+    <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:card_view="http://schemas.android.com/apk/res-auto"--><!--android:id="@+id/cardView"--><!--android:layout_width="match_parent"--><!--android:layout_height="200dp"--><!--android:clickable="true"--><!--android:focusable="true"--><!--android:foreground="?android:attr/selectableItemBackground"--><!--card_view:cardBackgroundColor="#E2E2E2"--><!--card_view:cardCornerRadius="10dp"--><!--card_view:cardElevation="14dp"--><!--card_view:layout_constraintEnd_toEndOf="parent"--><!--card_view:layout_constraintStart_toStartOf="parent"--><!--card_view:layout_constraintTop_toTopOf="parent">-->
+
+    <!--<ImageView--><!--android:id="@+id/iv_animal"--><!--android:layout_width="match_parent"--><!--android:layout_height="170dp"--><!--android:src="@drawable/nueva_pancarta" />-->
+
+    <!--<TextView--><!--android:id="@+id/tv_raza_animal"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="bottom"--><!--android:layout_marginBottom="5dp"--><!--android:layout_marginLeft="10dp"--><!--android:autoSizeMaxTextSize="30dp"--><!--android:maxLines="1" />-->
+
+    <!--<TextView--><!--android:id="@+id/tv_nombre_animal"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="top"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginTop="5dp"--><!--android:textSize="24dp"--><!--android:textStyle="bold" />-->
 
 
-</android.support.constraint.ConstraintLayout>
+    <!--<ImageButtonandroid:id="@+id/imageButton"android:layout_width="wrap_content"android:layout_height="wrap_content"android:layout_gravity="bottom|right"android:layout_marginBottom="5dp"android:layout_marginRight="10dp"android:background="?android:selectableItemBackground"android:tint="@color/secondaryTextColor"card_view:srcCompat="@drawable/ic_megusta" /></android.support.v7.widget.CardView>-->
+
+    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:card="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
+
+    <!--<android.support.v7.widget.CardView--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_marginBottom="10dp"--><!--android:layout_marginLeft="20dp"--><!--android:layout_marginRight="20dp"--><!--card:cardBackgroundColor="#dcddde">-->
+
+    <!--<android.support.constraint.ConstraintLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
+
+    <!--<ImageViewandroid:id="@+id/idImagen"android:layout_width="wrap_content"android:layout_height="wrap_content"android:src="@drawable/ic_launcher_foreground"card:layout_constraintBottom_toBottomOf="parent"card:layout_constraintEnd_toStartOf="@+id/idNombre"card:layout_constraintStart_toStartOf="parent"card:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView--><!--android:id="@+id/idImagen"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:text="Nombre"--><!--android:textSize="25sp"--><!--android:textStyle="bold"--><!--card:layout_constraintEnd_toEndOf="parent"--><!--card:layout_constraintHorizontal_bias="1.0"--><!--card:layout_constraintStart_toEndOf="@+id/idImagen"--><!--card:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView--><!--android:id="@+id/idInfo"--><!--android:layout_width="0dp"--><!--android:layout_height="0dp"--><!--android:text="Descripcion "--><!--card:layout_constraintBottom_toBottomOf="parent"--><!--card:layout_constraintEnd_toEndOf="parent"--><!--card:layout_constraintStart_toEndOf="@+id/idImagen"--><!--card:layout_constraintTop_toBottomOf="@+id/idNombre" />-->
+
+    <!--</android.support.constraint.ConstraintLayout>--><!--</android.support.v7.widget.CardView>-->
+
+
+    <!--</android.support.constraint.ConstraintLayout>-->
