@@ -140,4 +140,14 @@ public class AnimalFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
+
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if(context instanceof Activity){
+//            this.activity = (Activity) context;
+//            interfaceComunicaFragments = (IComunicaFragments) this.activity;
+//        }
+//    }
 }
