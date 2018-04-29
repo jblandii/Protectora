@@ -4,6 +4,7 @@ package com.example.jblandii.protectora.fragments;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class AnimalFragment extends Fragment {
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_animal);
         listaAnimales = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_animales);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         cargarAnimales();
         Log.v("animalesoncreateview", listaAnimales.toString());
@@ -68,12 +69,7 @@ public class AnimalFragment extends Fragment {
 
         return view;
     }
-
-    private void llenarListaAnimales() {
-        listaAnimales.add(new Animal(1, "Perro", "Bichon Maltes", "Blanco", "2", "Largo", "Hembra", "Pequeño", "2kg",
-                "No tiene", "Todas", "Sí", "Adopción", "1", "MG", "Mu bonica", "12-12-12"));
-    }
-
+    
     /**
      * Metodo que permite cargar los animales que pertenecen a la misma comunidad que el usuario.
      */
