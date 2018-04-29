@@ -168,22 +168,6 @@ public class RegistrarActivity extends AppCompatActivity {
                             }
                         });
                         alertDialog.show();
-
-
-//                        if (registrar()) {
-//                            if (!mensaje.isEmpty()) {
-//                                Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                                mensaje = "";
-//                            }
-//                            Intent intentSecond = getIntent();
-//                            Log.v("login", tie_login.getText().toString());
-//                            intentSecond.putExtra("login", tie_login.getText().toString());
-//                            setResult(Activity.RESULT_OK, intentSecond);
-//                            finish();
-//                        } else {
-//                            Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                            mensaje = "";
-//                        }
                     }
                 }
             }

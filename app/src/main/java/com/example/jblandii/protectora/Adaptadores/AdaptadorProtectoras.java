@@ -16,37 +16,37 @@ import java.util.ArrayList;
  * Created by jblandii on 28/04/18.
  */
 
-public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.AnimalesViewHolder> implements View.OnClickListener {
+public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtectoras.ProtectorasViewHolder> implements View.OnClickListener {
 
-    ArrayList<Animal> listaAnimales;
+    ArrayList<Animal> listaProtectoras;
     private View.OnClickListener listener;
 
-    public AdaptadorAnimales(ArrayList<Animal> listaAnimales) {
-        this.listaAnimales = listaAnimales;
+    public AdaptadorProtectoras(ArrayList<Animal> listaProtectoras) {
+        this.listaProtectoras = listaProtectoras;
     }
 
     @Override
-    public AnimalesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
+    public ProtectorasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_protectoras, null, false);
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);
 
         view.setOnClickListener(this);
 
-        return new AnimalesViewHolder(view);
+        return new ProtectorasViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AnimalesViewHolder holder, int position) {
-        holder.txtNombre.setText(listaAnimales.get(position).getColor());
-        holder.txtInformacion.setText(listaAnimales.get(position).getChip());
+    public void onBindViewHolder(ProtectorasViewHolder holder, int position) {
+        holder.txtNombre.setText(listaProtectoras.get(position).getColor());
+        holder.txtInformacion.setText(listaProtectoras.get(position).getChip());
         holder.foto.setImageResource(R.drawable.ic_launcher_background);
     }
 
     @Override
     public int getItemCount() {
-        return listaAnimales.size();
+        return listaProtectoras.size();
     }
 
     public void setOnClickListener(View.OnClickListener listener) {
@@ -60,11 +60,11 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         }
     }
 
-    public class AnimalesViewHolder extends RecyclerView.ViewHolder {
+    public class ProtectorasViewHolder extends RecyclerView.ViewHolder {
         TextView txtNombre, txtInformacion;
         ImageView foto;
 
-        public AnimalesViewHolder(View itemView) {
+        public ProtectorasViewHolder(View itemView) {
             super(itemView);
             txtNombre = itemView.findViewById(R.id.idNombre);
             txtInformacion = itemView.findViewById(R.id.idInfo);

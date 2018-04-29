@@ -29,7 +29,7 @@ public class Animal {
     private String fecha;
 
     public Animal(int pk, String mascota, String raza, String color, String edad, String tipo_pelaje, String sexo, String tamano, String peso,
-                  String enfermedad, String vacuna, String chip,String estado, String id_protectora, String me_gusta, String descripcion, String fecha) {
+                  String enfermedad, String vacuna, String chip, String estado, String id_protectora, String me_gusta, String descripcion, String fecha) {
         this.setPk(pk);
         this.setMascota(mascota);
         this.setRaza(raza);
@@ -287,5 +287,28 @@ public class Animal {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "pk=" + pk +
+                ", mascota='" + mascota + '\'' +
+                ", raza='" + raza + '\'' +
+                ", color='" + color + '\'' +
+                ", edad='" + edad + '\'' +
+                ", tipo_pelaje='" + tipo_pelaje + '\'' +
+                ", sexo='" + sexo + '\'' +
+                ", tamano='" + tamano + '\'' +
+                ", peso='" + peso + '\'' +
+                ", enfermedad='" + enfermedad + '\'' +
+                ", vacuna='" + vacuna + '\'' +
+                ", chip='" + chip + '\'' +
+                ", estado='" + estado + '\'' +
+                ", id_protectora='" + id_protectora + '\'' +
+                ", me_gusta='" + me_gusta + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fecha='" + fecha + '\'' +
+                '}';
     }
 }

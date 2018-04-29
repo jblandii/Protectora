@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +32,8 @@ public class AnimalFragment extends Fragment {
     FloatingActionButton fab_filtrar_protectora;
     ArrayList<Animal> listaAnimales;
     RecyclerView recyclerView;
+    String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
+            peso = "", chip = "", id_protectora = "", fecha = "", estado = "";
 
     public AnimalFragment() {
     }
@@ -42,12 +46,13 @@ public class AnimalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_animal_fragment, container, false);
-        fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_protectora);
+        fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_animal);
         listaAnimales = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.rv_recycleranimales);
+        recyclerView = view.findViewById(R.id.rv_recycler_animales);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        llenarListaAnimales();
+        cargarAnimales();
+        Log.v("animalesoncreateview", listaAnimales.toString());
 
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales);
         recyclerView.setAdapter(adaptadorAnimales);
@@ -80,6 +85,18 @@ public class AnimalFragment extends Fragment {
         try {
             json.put(Tags.TOKEN, token);
             json.put(Tags.USUARIO_ID, usuario_id);
+            json.put(Tags.MASCOTA, mascota);
+            json.put(Tags.RAZA, raza);
+            json.put(Tags.COLOR, color);
+            json.put(Tags.EDAD, edad);
+            json.put(Tags.PELAJE, pelaje);
+            json.put(Tags.SEXO, sexo);
+            json.put(Tags.TAMANO, tamano);
+            json.put(Tags.PESO, peso);
+            json.put(Tags.CHIP, chip);
+            json.put(Tags.ID_PROTECTORA, id_protectora);
+            json.put(Tags.FECHA, fecha);
+            json.put(Tags.ESTADO, estado);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -98,7 +115,16 @@ public class AnimalFragment extends Fragment {
             else if (p.contains(Tags.OK_SIN_ANIMALES)) {
                 Toast.makeText(getContext(), ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
             } else if (p.contains(Tags.OK)) {
-
+                String res = json.getString(Tags.RESULTADO);
+                JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
+                Log.v("animalesjson", array.toString());
+                if (array != null) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Animal animal = new Animal(array.getJSONObject(i));
+                        Log.v("animalesbucle", animal.toString());
+                        listaAnimales.add(animal);
+                    }
+                }
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
@@ -113,6 +139,5 @@ public class AnimalFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        cargarAnimales();
     }
 }
