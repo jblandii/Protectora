@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.jblandii.protectora.RecordarContrasenaActivity">
 
-
-    <!--<ImageView-->
-        <!--android:id="@+id/iv_logo"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:srcCompat="@mipmap/ic_launcher" />-->
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="0dp"
@@ -51,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margen_32_layout"
         android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/margen_24_layout"
         android:background="@color/colorPrimary"
         android:text="@string/recordar_contrasena"
         android:textColor="@color/secondaryTextColor"

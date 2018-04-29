@@ -5,4 +5,5 @@
     <dimen name="margen_16_layout">16dp</dimen>
     <dimen name="margen_8_layout">8dp</dimen>
     <dimen name="margen_20_layout">20dp</dimen>
+    <dimen name="margen_24_layout">24dp</dimen>
 </resources>
