@@ -27,7 +27,7 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
 
     @Override
     public AnimalesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_animales, null, false);
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);

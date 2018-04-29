@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_detalle_animal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cons_detalle_animal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_animal_detalle"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:contentDescription="TODO"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/nueva_pancarta" />
+
+        <TextView
+            android:id="@+id/tipo_animal_detalle"
+            android:layout_width="150dp"
+            android:layout_height="17dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/margen_izquierdoyderecho_layout"
+            android:layout_marginTop="172dp"
+            android:text="Perro / Pastor Aleman"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nombre_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/margen_izquierdoyderecho_layout"
+            android:layout_marginTop="152dp"
+            android:text="Nombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/fav_animal_detalle"
+            android:layout_width="47dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="144dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_megusta" />
+
+        <TextView
+            android:id="@+id/edad_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Edad"
+            app:layout_constraintEnd_toEndOf="@+id/fecha_animal_detalle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/fecha_animal_detalle"
+            app:layout_constraintTop_toBottomOf="@+id/fecha_animal_detalle" />
+
+        <TextView
+            android:id="@+id/sexo_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo"
+            app:layout_constraintBottom_toBottomOf="@+id/edad_animal_detalle"
+            app:layout_constraintEnd_toEndOf="@+id/tamanio_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/tamanio_animal_detalle"
+            app:layout_constraintTop_toTopOf="@+id/edad_animal_detalle" />
+
+        <TextView
+            android:id="@+id/chip_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="Chip"
+            app:layout_constraintBottom_toBottomOf="@+id/estado_animal_detalle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/estado_animal_detalle"
+            app:layout_constraintVertical_bias="0.75" />
+
+        <TextView
+            android:id="@+id/color_animal_detalle"
+            android:layout_width="34dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="16dp"
+            android:text="Color"
+            app:layout_constraintEnd_toEndOf="@+id/edad_animal_detalle"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/edad_animal_detalle"
+            app:layout_constraintTop_toBottomOf="@+id/edad_animal_detalle" />
+
+        <TextView
+            android:id="@+id/tipo_pelaje_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pelaje"
+            app:layout_constraintBottom_toBottomOf="@+id/sexo_animal_detalle"
+            app:layout_constraintEnd_toEndOf="@+id/chip_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/chip_animal_detalle"
+            app:layout_constraintTop_toTopOf="@+id/sexo_animal_detalle" />
+
+        <TextView
+            android:id="@+id/peso_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peso"
+            app:layout_constraintBottom_toBottomOf="@+id/tamanio_animal_detalle"
+            app:layout_constraintEnd_toEndOf="@+id/tipo_pelaje_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/tipo_pelaje_animal_detalle"
+            app:layout_constraintTop_toTopOf="@+id/tamanio_animal_detalle" />
+
+        <TextView
+            android:id="@+id/tamanio_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tamaño"
+            app:layout_constraintBottom_toBottomOf="@+id/color_animal_detalle"
+            app:layout_constraintEnd_toEndOf="@+id/vacuna_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/vacuna_animal_detalle"
+            app:layout_constraintTop_toTopOf="@+id/color_animal_detalle" />
+
+        <TextView
+            android:id="@+id/enfermedad_animal_detalle"
+            android:layout_width="335dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Enfermedad"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vacuna_animal_detalle" />
+
+        <TextView
+            android:id="@+id/fecha_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Fecha"
+            app:layout_constraintEnd_toStartOf="@+id/estado_animal_detalle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descripcion_animal_detalle" />
+
+        <TextView
+            android:id="@+id/estado_animal_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="Estado"
+            app:layout_constraintBottom_toBottomOf="@+id/fecha_animal_detalle"
+            app:layout_constraintEnd_toEndOf="@+id/sexo_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/sexo_animal_detalle"
+            app:layout_constraintTop_toTopOf="@+id/fecha_animal_detalle" />
+
+        <TextView
+            android:id="@+id/vacuna_animal_detalle"
+            android:layout_width="335dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Vacunas"
+            app:layout_constraintEnd_toEndOf="@+id/enfermedad_animal_detalle"
+            app:layout_constraintStart_toStartOf="@+id/enfermedad_animal_detalle"
+            app:layout_constraintTop_toBottomOf="@+id/tamanio_animal_detalle" />
+
+        <TextView
+            android:id="@+id/descripcion_animal_detalle"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Descripcion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_animal_detalle" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

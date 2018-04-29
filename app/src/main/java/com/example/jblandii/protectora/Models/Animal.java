@@ -5,11 +5,13 @@ import com.example.jblandii.protectora.peticionesBD.Tags;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by jblandii on 25/04/18.
  */
 
-public class Animal {
+public class Animal implements Serializable{
     private int pk;
     private String mascota;
     private String raza;

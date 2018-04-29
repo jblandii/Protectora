@@ -47,7 +47,7 @@ public class AnimalFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv_recycleranimales);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        llenarListaAnimales();
+        cargarAnimales();
 
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales);
         recyclerView.setAdapter(adaptadorAnimales);
@@ -98,7 +98,7 @@ public class AnimalFragment extends Fragment {
             else if (p.contains(Tags.OK_SIN_ANIMALES)) {
                 Toast.makeText(getContext(), ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
             } else if (p.contains(Tags.OK)) {
-
+                //Aqui rellena el ararylist del json
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
@@ -113,6 +113,15 @@ public class AnimalFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        cargarAnimales();
     }
+
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if(context instanceof Activity){
+//            this.activity = (Activity) context;
+//            interfaceComunicaFragments = (IComunicaFragments) this.activity;
+//        }
+//    }
 }
