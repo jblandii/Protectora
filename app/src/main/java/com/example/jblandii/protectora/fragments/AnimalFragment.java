@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class AnimalFragment extends Fragment {
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_animal);
         listaAnimales = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_animales);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         cargarAnimales();
         Log.v("animalesoncreateview", listaAnimales.toString());
