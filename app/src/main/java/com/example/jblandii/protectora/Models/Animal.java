@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class Animal {
     private int pk;
     private String mascota;
+    private String nombre;
     private String raza;
     private String color;
     private String edad;
@@ -28,9 +29,10 @@ public class Animal {
     private String descripcion;
     private String fecha;
 
-    public Animal(int pk, String mascota, String raza, String color, String edad, String tipo_pelaje, String sexo, String tamano, String peso,
+    public Animal(int pk, String nombre, String mascota, String raza, String color, String edad, String tipo_pelaje, String sexo, String tamano, String peso,
                   String enfermedad, String vacuna, String chip, String estado, String id_protectora, String me_gusta, String descripcion, String fecha) {
         this.setPk(pk);
+        this.setNombre(nombre);
         this.setMascota(mascota);
         this.setRaza(raza);
         this.setColor(color);
@@ -55,6 +57,14 @@ public class Animal {
 
     public void setPk(int pk) {
         this.pk = pk;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getMascota() {
@@ -193,6 +203,12 @@ public class Animal {
         }
 
         try {
+            setNombre(json.getString(Tags.NOMBRE));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
             setMascota(json.getString(Tags.MASCOTA));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -294,6 +310,7 @@ public class Animal {
         return "Animal{" +
                 "pk=" + pk +
                 ", mascota='" + mascota + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", raza='" + raza + '\'' +
                 ", color='" + color + '\'' +
                 ", edad='" + edad + '\'' +
