@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Protectora</string>
+    <string name="app_name">Mímame</string>
     <string name="action_settings">Settings</string>
     <string name="login">Usuario</string>
     <string name="contrasena">Contraseña</string>
@@ -36,4 +36,5 @@
     <string name="mensaje">Mensajes</string>
     <string name="title_activity_animal_fragment">AnimalFragment</string>
     <string name="title_activity_protectora_fragment">ProtectoraFragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
