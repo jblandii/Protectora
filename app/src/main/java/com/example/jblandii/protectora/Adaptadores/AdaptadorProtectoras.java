@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jblandii.protectora.Models.Animal;
+import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.R;
 
 import java.util.ArrayList;
@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtectoras.ProtectorasViewHolder> implements View.OnClickListener {
 
-    ArrayList<Animal> listaProtectoras;
+    ArrayList<Protectora> listaProtectoras;
     private View.OnClickListener listener;
 
-    public AdaptadorProtectoras(ArrayList<Animal> listaProtectoras) {
+    public AdaptadorProtectoras(ArrayList<Protectora> listaProtectoras) {
         this.listaProtectoras = listaProtectoras;
     }
 
@@ -39,9 +39,9 @@ public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtecto
 
     @Override
     public void onBindViewHolder(ProtectorasViewHolder holder, int position) {
-        holder.txtNombre.setText(listaProtectoras.get(position).getColor());
-        holder.txtInformacion.setText(listaProtectoras.get(position).getChip());
-        holder.foto.setImageResource(R.drawable.ic_launcher_background);
+        holder.tv_nombre_protectora.setText(listaProtectoras.get(position).getNombre());
+        holder.tv_nombre_provincia.setText(listaProtectoras.get(position).getProvincia());
+        holder.tv_direccion.setText(listaProtectoras.get(position).getDireccion());
     }
 
     @Override
@@ -61,14 +61,13 @@ public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtecto
     }
 
     public class ProtectorasViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtInformacion;
-        ImageView foto;
+        TextView tv_nombre_protectora, tv_nombre_provincia, tv_direccion;
 
         public ProtectorasViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.tv_raza_animal);
-            txtInformacion = itemView.findViewById(R.id.tv_nombre_animal);
-            foto = itemView.findViewById(R.id.iv_animal);
+            tv_nombre_protectora = itemView.findViewById(R.id.tv_nombre_protectora);
+            tv_nombre_provincia = itemView.findViewById(R.id.tv_nombre_provincia);
+            tv_direccion = itemView.findViewById(R.id.tv_direccion);
         }
     }
 }

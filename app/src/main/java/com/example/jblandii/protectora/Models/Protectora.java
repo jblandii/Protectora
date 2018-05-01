@@ -10,16 +10,26 @@ import org.json.JSONObject;
  */
 
 public class Protectora {
+    private int pk;
     private String nombre;
     private String provincia;
     private String direccion;
     private String codigo_postal;
 
-    public Protectora(String nombre, String direccion, String provincia, String codigo_postal) {
+    public Protectora(int pk, String nombre, String direccion, String provincia, String codigo_postal) {
+        this.setPk(pk);
         this.setNombre(nombre);
         this.setDireccion(direccion);
         this.setProvincia(provincia);
         this.setCodigo_postal(codigo_postal);
+    }
+
+    public int getPk() {
+        return pk;
+    }
+
+    public void setPk(int pk) {
+        this.pk = pk;
     }
 
     public String getNombre() {
@@ -56,7 +66,12 @@ public class Protectora {
 
     public Protectora(JSONObject json) {
         try {
-            setNombre(json.getString(Tags.NOMBREPROTECTORA));
+            setPk(json.getInt(Tags.PK));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            setNombre(json.getString(Tags.NOMBRE));
         } catch (JSONException e) {
             e.printStackTrace();
         }

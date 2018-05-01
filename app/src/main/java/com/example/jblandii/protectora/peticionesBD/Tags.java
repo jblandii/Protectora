@@ -86,6 +86,7 @@ public class Tags {
             ID_COMUNIDAD = "id_comunidad",
             ID_PROVINCIA = "id_provincia",
             LISTA_ANIMALES = "lista_animales",
+            LISTA_PROTECTORAS = "lista_protectoras",
             TOKENFINGIDOGENERADO = "JAMAGELEjamagele";
 
 
