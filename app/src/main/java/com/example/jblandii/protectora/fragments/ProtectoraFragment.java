@@ -66,7 +66,7 @@ public class ProtectoraFragment extends Fragment {
     }
 
     /**
-     * Metodo que permite cargar los animales que pertenecen a la misma comunidad que el usuario.
+     * Metodo que permite cargar las protectoras.
      */
     public void cargarProtectoras() {
         String token = Preferencias.getToken(getActivity());
