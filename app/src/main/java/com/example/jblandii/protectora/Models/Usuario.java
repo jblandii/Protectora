@@ -20,8 +20,9 @@ public class Usuario {
     public static final int ADMINISTRADOR = 1;
 
     private String username;
-    private String password;
+    //    private String password;
     private String nombre;
+    private String password;
     private String apellidos;
     private String correo;
     private String telefono;
@@ -30,6 +31,14 @@ public class Usuario {
     public Usuario(String username, String pass, String correo, String nombre, String apellidos, String telefono) {
         this.setUsername(username);
         this.password = pass;
+        this.setCorreo(correo);
+        this.setNombre(nombre);
+        this.setApellidos(apellidos);
+        this.setTelefono(telefono);
+    }
+
+    public Usuario(String username, String correo, String nombre, String apellidos, String telefono) {
+        this.setUsername(username);
         this.setCorreo(correo);
         this.setNombre(nombre);
         this.setApellidos(apellidos);

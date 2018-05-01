@@ -2,7 +2,7 @@ package com.example.jblandii.protectora.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -21,11 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
+import java.util.ArrayList;
 
 public class ConfiguracionFragment extends Fragment {
-    TextView tv_nombre_usuario, tv_email_usuario;
+    TextView tv_nombre_usuario, tv_username;
     ImageView iv_perfil_usuario;
+    ArrayList<Usuario> lista_usuario;
+    CardView cv_cerrar_sesion;
 
     public ConfiguracionFragment() {
     }
@@ -38,12 +39,24 @@ public class ConfiguracionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_configuracion_fragment, container, false);
+        lista_usuario = new ArrayList<>();
         /* Cargando el contenido que hay en la vista. */
         tv_nombre_usuario = view.findViewById(R.id.tv_nombre_usuario);
-        tv_email_usuario = view.findViewById(R.id.tv_email_usuario);
+        tv_username = view.findViewById(R.id.tv_username);
         iv_perfil_usuario = view.findViewById(R.id.iv_perfil_usuario);
+        cv_cerrar_sesion = view.findViewById(R.id.cv_cerrar_sesion);
+
+
+        /* Funcionamiento. */
+        cv_cerrar_sesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarSesion();
+            }
+        });
 
         cargarUsuario();
+        cargarDatos();
 
         return view;
     }
@@ -64,7 +77,7 @@ public class ConfiguracionFragment extends Fragment {
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("protectora/cargar_usuario/", json);
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/cargar_usuario/", json);
 
         try {
             String p = json.getString(Tags.RESULTADO);
@@ -72,17 +85,14 @@ public class ConfiguracionFragment extends Fragment {
             /* Se comprueba la conexión al servidor. */
             if (p.contains(Tags.ERRORCONEXION)) {
 //                mensaje = "Error de conexión";
-            }
-            /* En caso de que conecte y no haya animales para dicha busqueda. */
-            else if (p.contains(Tags.OK_SIN_ANIMALES)) {
-                Toast.makeText(getContext(), ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
             } else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
-                JSONObject objeto_usuario = json.getJSONObject(Tags.LISTA_ANIMALES);
-                Log.v("usuariosjson", objeto_usuario.toString());
-                if (objeto_usuario != null) {
-                    Usuario usuario = new Usuario(objeto_usuario.getJSONObject("nombre"));
-                    Log.v("usuario", usuario.toString());
+                JSONArray array = json.getJSONArray(Tags.USUARIO);
+                if (array != null) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Usuario usuario = new Usuario(array.getJSONObject(i));
+                        lista_usuario.add(usuario);
+                    }
                 }
             }
             /* Resultado falla por otro error. */
@@ -91,6 +101,54 @@ public class ConfiguracionFragment extends Fragment {
 //                mensaje = msg;
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo que permite cargar los datos del usuario.
+     */
+    public void cargarDatos() {
+        String nombreyapellidos = lista_usuario.get(0).getNombre() + " " + lista_usuario.get(0).getApellidos();
+        tv_nombre_usuario.setText(nombreyapellidos);
+        tv_username.setText(lista_usuario.get(0).getUsername());
+    }
+
+    /**
+     * Metodo que permite cerrar sesión en la aplicación.
+     */
+    private void cerrarSesion() {
+        JSONObject jsonEnviado = new JSONObject();
+        try {
+            jsonEnviado.put(Tags.USUARIO_ID, Preferencias.getID(getActivity()));
+            jsonEnviado.put(Tags.TOKEN, Preferencias.getToken(getActivity()));
+
+            JSONObject jsonRecibido = new JSONObject();
+            jsonRecibido = JSONUtil.hacerPeticionServidor(
+                    "usuarios/java/logout/", jsonEnviado);
+
+            Usuario.borrarToken(getContext());
+
+            //Usuario.guardarLogin1(getApplicationContext(), false);
+
+            deleteAppData();
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Problemas al cerrar sesion", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private void deleteAppData() {
+        try {
+            // clearing app data
+            String packageName = getContext().getPackageName();
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear " + packageName);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

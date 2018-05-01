@@ -1,59 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ImageViewandroid="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview_id"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margen_8_layout"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    cardview:cardCornerRadius="5dp"
-    cardview:cardUseCompatPadding="true">
+    android:layout_height="match_parent"
+    android:background="@color/primaryLightColor">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_datos_usuario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="@dimen/margen_8_layout"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_perfil_usuario"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_launcher_round"
-            cardview:layout_constraintBottom_toBottomOf="parent"
-            cardview:layout_constraintEnd_toEndOf="parent"
-            cardview:layout_constraintStart_toEndOf="@+id/tv_nombre_usuario"
-            cardview:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_nombre_usuario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textSize="25sp"
-            cardview:layout_constraintEnd_toStartOf="@+id/iv_perfil_usuario"
-            cardview:layout_constraintStart_toStartOf="parent"
-            cardview:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_perfil_usuario"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:src="@mipmap/ic_launcher_round"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_nombre_usuario"
+                cardview:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_email_usuario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:textSize="18sp"
-            cardview:layout_constraintBottom_toBottomOf="parent"
-            cardview:layout_constraintEnd_toStartOf="@+id/iv_perfil_usuario"
-            cardview:layout_constraintStart_toStartOf="parent"
-            cardview:layout_constraintTop_toBottomOf="@+id/tv_nombre_usuario" />
-    </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/tv_nombre_usuario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_perfil_usuario"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_perfil_usuario"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toBottomOf="@+id/tv_nombre_usuario" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_cambiar_datos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintHorizontal_bias="0.0"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toBottomOf="@+id/cv_datos_usuario">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cambiar_datos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:text="@string/cambiar_datos_usuario"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_siguiente4"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/iv_siguiente4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_siguiente"
+                android:tint="@color/colorPrimary"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_cambiar_datos"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_cambiar_contrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintHorizontal_bias="0.0"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toBottomOf="@+id/cv_cambiar_datos">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cambiar_contrasena"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:text="@string/cambiar_contrasena"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_siguiente"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/iv_siguiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_siguiente"
+                android:tint="@color/colorPrimary"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_cambiar_contrasena"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_cambiar_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintHorizontal_bias="0.0"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toBottomOf="@+id/cv_cambiar_contrasena">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cambiar_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:text="@string/cambiar_email"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_siguiente2"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/iv_siguiente2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_siguiente"
+                android:tint="@color/colorPrimary"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_cambiar_email"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_cambiar_imagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintHorizontal_bias="0.0"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toBottomOf="@+id/cv_cambiar_email">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cambiar_imagen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:text="@string/cambiar_imagen"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_siguiente3"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/iv_siguiente3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_siguiente"
+                android:tint="@color/colorPrimary"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_cambiar_imagen"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_cerrar_sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardBackgroundColor="@color/secondaryTextColor"
+        cardview:cardCornerRadius="5dp"
+        cardview:cardUseCompatPadding="true"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintHorizontal_bias="0.0"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toBottomOf="@+id/cv_cambiar_imagen">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cerrar_sesion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:text="@string/cerrar_sesion"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toStartOf="@+id/iv_logout"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toStartOf="parent"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/iv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_8_layout"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_logout"
+                android:tint="@color/colorPrimary"
+                cardview:layout_constraintBottom_toBottomOf="parent"
+                cardview:layout_constraintEnd_toEndOf="parent"
+                cardview:layout_constraintHorizontal_bias="0.5"
+                cardview:layout_constraintStart_toEndOf="@+id/tv_cerrar_sesion"
+                cardview:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
