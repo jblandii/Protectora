@@ -37,7 +37,7 @@
     <string name="title_activity_animal_fragment">AnimalFragment</string>
     <string name="title_activity_protectora_fragment">ProtectoraFragment</string>
     <string name="cambiar_contrasena">Cambiar contraseña</string>
-    <string name="cambiar_datos_usuario">Cambiar datos del usuario</string>
+    <string name="cambiar_datos_usuario">Cambiar datos personales</string>
     <string name="cambiar_email">Cambiar email</string>
     <string name="cambiar_imagen">Cambiar imagen</string>
     <string name="cerrar_sesion">Cerrar sesión</string>

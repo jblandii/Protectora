@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -28,25 +29,26 @@ import com.example.jblandii.protectora.fragments.ConfiguracionFragment;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bnv;
+    Boolean cerradoSesion = false;
+    final Fragment protectoraFragment = new ProtectoraFragment();
+    final Fragment animalFragment = new AnimalFragment();
+    final Fragment meGustaFragment = new MeGustaFragment();
+    final Fragment mensajeFragment = new MensajeFragment();
+    final Fragment configuracionFragment = new ConfiguracionFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bnv = findViewById(R.id.bnv);
 
-
-        final Fragment protectoraFragment = new ProtectoraFragment();
-        final Fragment animalFragment = new AnimalFragment();
-        final Fragment meGustaFragment = new MeGustaFragment();
-        final Fragment mensajeFragment = new MensajeFragment();
-        final Fragment configuracionFragment = new ConfiguracionFragment();
 
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
+            bnv.setSelectedItemId(R.id.navigation_animales);
         }
 
-        bnv = findViewById(R.id.bnv);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -102,6 +104,13 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         lanzarLogin();
+        Log.v("sesion", " on resume" + cerradoSesion.toString());
+        if (cerradoSesion) {
+            cerradoSesion = false;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
+            bnv.setSelectedItemId(R.id.navigation_animales);
+        }
     }
 
     /**
@@ -114,20 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), LoginActivity.class);
                 startActivityForResult(intent, Tags.LOGIN);
-            }
-        } else {
-            Toast.makeText(MainActivity.this, Tags.SIN_CONEXION_INTERNET, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * Metodo que utilizo para cargar los animales de la provincia a la que pertenece el usuario.
-     */
-    public void cargarAnimales() {
-        if (hayInternet()) {
-            String token = Usuario.getToken(getApplicationContext());
-            if (token == null || token == "" || !JSONUtil.compruebaToken(token)) {
-
             }
         } else {
             Toast.makeText(MainActivity.this, Tags.SIN_CONEXION_INTERNET, Toast.LENGTH_LONG).show();
@@ -158,6 +153,22 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Tags.LOGIN:
+                    Log.v("sesion", "on activity result" + cerradoSesion.toString());
+
+                    Log.v("pasando", "pasando");
+                    cerradoSesion = true;
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }

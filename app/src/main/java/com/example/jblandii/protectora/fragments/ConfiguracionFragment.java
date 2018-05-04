@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jblandii.protectora.MainActivity;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -25,8 +26,8 @@ import java.util.ArrayList;
 public class ConfiguracionFragment extends Fragment {
     TextView tv_nombre_usuario, tv_username;
     ImageView iv_perfil_usuario;
-    ArrayList<Usuario> lista_usuario;
     CardView cv_cerrar_sesion;
+    Usuario usuario;
 
     public ConfiguracionFragment() {
     }
@@ -39,7 +40,6 @@ public class ConfiguracionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_configuracion_fragment, container, false);
-        lista_usuario = new ArrayList<>();
         /* Cargando el contenido que hay en la vista. */
         tv_nombre_usuario = view.findViewById(R.id.tv_nombre_usuario);
         tv_username = view.findViewById(R.id.tv_username);
@@ -86,14 +86,11 @@ public class ConfiguracionFragment extends Fragment {
             if (p.contains(Tags.ERRORCONEXION)) {
 //                mensaje = "Error de conexión";
             } else if (p.contains(Tags.OK)) {
-                String res = json.getString(Tags.RESULTADO);
-                JSONArray array = json.getJSONArray(Tags.USUARIO);
-                if (array != null) {
-                    for (int i = 0; i < array.length(); i++) {
-                        Usuario usuario = new Usuario(array.getJSONObject(i));
-                        lista_usuario.add(usuario);
-                    }
-                }
+
+                JSONObject jsonusuario = json.getJSONObject(Tags.USUARIO);
+
+                usuario = new Usuario(jsonusuario);
+
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
@@ -109,9 +106,9 @@ public class ConfiguracionFragment extends Fragment {
      * Metodo que permite cargar los datos del usuario.
      */
     public void cargarDatos() {
-        String nombreyapellidos = lista_usuario.get(0).getNombre() + " " + lista_usuario.get(0).getApellidos();
+        String nombreyapellidos = usuario.getNombre() + " " + usuario.getApellidos();
         tv_nombre_usuario.setText(nombreyapellidos);
-        tv_username.setText(lista_usuario.get(0).getUsername());
+        tv_username.setText(usuario.getUsername());
     }
 
     /**
@@ -129,9 +126,9 @@ public class ConfiguracionFragment extends Fragment {
 
             Usuario.borrarToken(getContext());
 
-            //Usuario.guardarLogin1(getApplicationContext(), false);
+            ((MainActivity) getActivity()).lanzarLogin();
 
-            deleteAppData();
+            //Usuario.guardarLogin1(getApplicationContext(), false);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -139,17 +136,5 @@ public class ConfiguracionFragment extends Fragment {
             Toast.makeText(getContext(), "Problemas al cerrar sesion", Toast.LENGTH_LONG).show();
         }
 
-    }
-
-    private void deleteAppData() {
-        try {
-            // clearing app data
-            String packageName = getContext().getPackageName();
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear " + packageName);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

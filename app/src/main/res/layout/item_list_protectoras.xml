@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
+    cardview:cardBackgroundColor="@color/secondaryTextColor"
     cardview:cardCornerRadius="5dp"
     cardview:cardUseCompatPadding="true">
 
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margen_8_layout"
             android:layout_marginTop="@dimen/margen_8_layout"
+            android:textColor="@color/colorAccent"
             android:textSize="25sp"
             android:textStyle="bold"
             cardview:layout_constraintStart_toStartOf="parent"
@@ -34,6 +36,7 @@
             android:layout_marginEnd="@dimen/margen_8_layout"
             android:layout_marginStart="@dimen/margen_8_layout"
             android:layout_marginTop="@dimen/margen_8_layout"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             cardview:layout_constraintBottom_toBottomOf="parent"
             cardview:layout_constraintEnd_toStartOf="@+id/tv_nombre_provincia"
@@ -47,6 +50,7 @@
             android:layout_marginBottom="@dimen/margen_8_layout"
             android:layout_marginEnd="@dimen/margen_8_layout"
             android:layout_marginStart="@dimen/margen_8_layout"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             cardview:layout_constraintBottom_toBottomOf="parent"
             cardview:layout_constraintEnd_toEndOf="parent"

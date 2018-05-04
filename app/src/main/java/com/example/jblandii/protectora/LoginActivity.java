@@ -1,5 +1,6 @@
 package com.example.jblandii.protectora;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -56,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                             Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             mensaje = "";
                         }
+                        Intent intentmain = getIntent();
+                        setResult(Activity.RESULT_OK, intentmain);
                         finish();
                     } else {
                         Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -130,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
                 /* Guarda en las preferencias el token. */
                 Usuario.guardarEnPref(this, usuario, json.getString(Tags.TOKEN));
                 mensaje = "";
-                setResult(Tags.LOGIN_OK);
                 return true;
             }
 
