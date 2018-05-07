@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ImageViewandroid="http://schemas.android.com/tools"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview_id"
+    android:id="@+id/cv_animales"
     android:layout_width="174.5dp"
     android:layout_height="128.2dp"
     android:clickable="true"
@@ -58,10 +58,8 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margen_8_layout"
-            android:layout_marginEnd="@dimen/margen_8_layout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?android:selectableItemBackground"
             android:tint="@color/colorPrimary"
             cardview:layout_constraintBottom_toBottomOf="parent"

@@ -62,16 +62,16 @@ public class AnimalFragment extends Fragment {
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales);
         recyclerView.setAdapter(adaptadorAnimales);
 
-        adaptadorAnimales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Seleccion: " +
-                        listaAnimales.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
-
-                Intent intentDetalleAnimal = new Intent(getContext(), DetallesAnimal.class);
-                startActivity(intentDetalleAnimal);
-            }
-        });
+//        adaptadorAnimales.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "Seleccion: " +
+//                        listaAnimales.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+//
+//                Intent intentDetalleAnimal = new Intent(getContext(), DetallesAnimal.class);
+//                startActivity(intentDetalleAnimal);
+//            }
+//        });
 
 
         return view;
