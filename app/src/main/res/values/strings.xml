@@ -12,6 +12,7 @@
     <string name="mensaje_recuperar_login">Introduzca el nombre del usuario</string>
     <string name="mensaje_recuperar_login_error">El usuario debe tener como minimo 5 caracteres</string>
     <string name="mensaje_advertencia_recordar_contrasena">Si acepta se generará una contraseña que le será enviada a su correo.</string>
+    <string name="mensaje_advertencia_cambiar_contrasena">Se va a cambiar la contraseña. Se requerirá un nuevo inicio de sesión.</string>
     <string name="mensaje_advertencia_crear_cuenta">Se le enviará un correo notificando el registro.</string>
     <string name="error_conexion">Error de conexión.</string>
     <string name="cancelar">Cancelar</string>
@@ -41,4 +42,6 @@
     <string name="cambiar_email">Cambiar email</string>
     <string name="cambiar_imagen">Cambiar imagen</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="contrasena_nueva">Contraseña nueva</string>
+    <string name="contrasena_actual">Contraseña actual</string>
 </resources>

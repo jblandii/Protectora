@@ -1,8 +1,10 @@
 package com.example.jblandii.protectora.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jblandii.protectora.CambiarContrasena;
 import com.example.jblandii.protectora.MainActivity;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
@@ -23,10 +26,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ConfiguracionFragment extends Fragment {
     TextView tv_nombre_usuario, tv_username;
     ImageView iv_perfil_usuario;
-    CardView cv_cerrar_sesion;
+    CardView cv_cerrar_sesion, cv_cambiar_contrasena;
     Usuario usuario;
 
     public ConfiguracionFragment() {
@@ -45,6 +50,7 @@ public class ConfiguracionFragment extends Fragment {
         tv_username = view.findViewById(R.id.tv_username);
         iv_perfil_usuario = view.findViewById(R.id.iv_perfil_usuario);
         cv_cerrar_sesion = view.findViewById(R.id.cv_cerrar_sesion);
+        cv_cambiar_contrasena = view.findViewById(R.id.cv_cambiar_contrasena);
 
 
         /* Funcionamiento. */
@@ -52,6 +58,13 @@ public class ConfiguracionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 cerrarSesion();
+            }
+        });
+        cv_cambiar_contrasena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentContrasena = new Intent(getContext(), CambiarContrasena.class);
+                startActivityForResult(intentContrasena, Tags.CAMBIAR_CONTRASENA);
             }
         });
 
@@ -136,5 +149,17 @@ public class ConfiguracionFragment extends Fragment {
             Toast.makeText(getContext(), "Problemas al cerrar sesion", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Tags.CAMBIAR_CONTRASENA:
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 }
