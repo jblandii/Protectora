@@ -9,8 +9,10 @@ public class Tags {
             USUARIOS = "usuarios",
             PASSWORD = "password",
             PASSWORD_ANTIGUA = "antigua",
+            EMAIL_ANTIGUO = "antiguo",
             SIN_CONEXION_INTERNET = "Sin conexión a internet.",
             PASSWORD_NUEVA = "nueva",
+            EMAIL_NUEVO = "nuevo",
             USERNAME = "username",
             NOMBREPROTECTORA = "nombre_protectora",
             PK = "pk",
@@ -67,6 +69,8 @@ public class Tags {
             DESTINATARIO_ID = "destinatario_id",
             NOMBRE = "nombre",
             APELLIDOS = "apellidos",
+            COMUNIDAD_USUARIO = "comunidad_usuario",
+            PROVINCIA_USUARIO = "provincia_usuario",
             TOKEN = "token",
             TOKEN_ANDROID = "token_android",
             DEVICE_ID = "device_id",
@@ -120,7 +124,9 @@ public class Tags {
             AVISOS_ACTUALIZADOS_DESDE_SERVICIO = 23,
             PARAR_SERVICIO_POR_ERROR_DE_TOKEN = 24,
             RECORDAR = 25,
-            CAMBIAR_CONTRASENA = 26;
+            CAMBIAR_CONTRASENA = 26,
+            CAMBIAR_EMAIL = 27,
+            CAMBIAR_DATOS = 28;
 
 
     public static final String PREMIUM_ADMINISTRADO = "premium_administrado";

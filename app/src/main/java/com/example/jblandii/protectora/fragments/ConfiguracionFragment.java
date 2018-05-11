@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jblandii.protectora.CambiarContrasena;
+import com.example.jblandii.protectora.CambiarDatos;
+import com.example.jblandii.protectora.CambiarEmail;
 import com.example.jblandii.protectora.MainActivity;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
@@ -31,7 +33,7 @@ import static android.app.Activity.RESULT_OK;
 public class ConfiguracionFragment extends Fragment {
     TextView tv_nombre_usuario, tv_username;
     ImageView iv_perfil_usuario;
-    CardView cv_cerrar_sesion, cv_cambiar_contrasena;
+    CardView cv_cerrar_sesion, cv_cambiar_contrasena, cv_cambiar_email, cv_cambiar_datos;
     Usuario usuario;
 
     public ConfiguracionFragment() {
@@ -51,6 +53,8 @@ public class ConfiguracionFragment extends Fragment {
         iv_perfil_usuario = view.findViewById(R.id.iv_perfil_usuario);
         cv_cerrar_sesion = view.findViewById(R.id.cv_cerrar_sesion);
         cv_cambiar_contrasena = view.findViewById(R.id.cv_cambiar_contrasena);
+        cv_cambiar_email = view.findViewById(R.id.cv_cambiar_email);
+        cv_cambiar_datos = view.findViewById(R.id.cv_cambiar_datos);
 
 
         /* Funcionamiento. */
@@ -65,6 +69,23 @@ public class ConfiguracionFragment extends Fragment {
             public void onClick(View v) {
                 Intent intentContrasena = new Intent(getContext(), CambiarContrasena.class);
                 startActivityForResult(intentContrasena, Tags.CAMBIAR_CONTRASENA);
+            }
+        });
+
+        cv_cambiar_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentEmail = new Intent(getContext(), CambiarEmail.class);
+                startActivityForResult(intentEmail, Tags.CAMBIAR_EMAIL);
+            }
+        });
+
+        cv_cambiar_datos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentDatos = new Intent(getContext(), CambiarDatos.class);
+                intentDatos.putExtra("usuario", usuario);
+                startActivityForResult(intentDatos, Tags.CAMBIAR_DATOS);
             }
         });
 
@@ -156,6 +177,10 @@ public class ConfiguracionFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.CAMBIAR_CONTRASENA:
+                    break;
+                case Tags.CAMBIAR_EMAIL:
+                    break;
+                case Tags.CAMBIAR_DATOS:
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

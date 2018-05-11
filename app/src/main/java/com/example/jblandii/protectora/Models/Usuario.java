@@ -4,6 +4,8 @@ package com.example.jblandii.protectora.Models;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -11,11 +13,13 @@ import com.example.jblandii.protectora.peticionesBD.Tags;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 
 /**
  * Created by JBlanDii.
  */
-public class Usuario {
+public class Usuario implements Parcelable {
 
     public static final int ADMINISTRADOR = 1;
 
@@ -27,22 +31,31 @@ public class Usuario {
     private String correo;
     private String telefono;
     private String imagenURL;
+    private String direccion;
+    private String codigo_postal;
+    private String provincia;
 
-    public Usuario(String username, String pass, String correo, String nombre, String apellidos, String telefono) {
+    public Usuario(String username, String pass, String correo, String nombre, String apellidos, String telefono, String direccion, String codigo_postal, String provincia) {
         this.setUsername(username);
         this.password = pass;
         this.setCorreo(correo);
         this.setNombre(nombre);
         this.setApellidos(apellidos);
         this.setTelefono(telefono);
+        this.setDireccion(direccion);
+        this.setCodigo_postal(codigo_postal);
+        this.setProvincia(provincia);
     }
 
-    public Usuario(String username, String correo, String nombre, String apellidos, String telefono) {
+    public Usuario(String username, String correo, String nombre, String apellidos, String telefono, String direccion, String codigo_postal, String provincia) {
         this.setUsername(username);
         this.setCorreo(correo);
         this.setNombre(nombre);
         this.setApellidos(apellidos);
-        this.setTelefono(telefono);
+        this.setApellidos(telefono);
+        this.setDireccion(direccion);
+        this.setCodigo_postal(codigo_postal);
+        this.setProvincia(provincia);
     }
 
     /**
@@ -83,12 +96,55 @@ public class Usuario {
         }
 
         try {
+            setCodigo_postal(json.getString(Tags.COD_POSTAL));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            setProvincia(json.getString(Tags.PROVINCIA));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            setDireccion(json.getString(Tags.DIRECCION));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
             this.imagenURL = json.getString(Tags.FOTO);
             Log.i("USUARIO", this.imagenURL);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    protected Usuario(Parcel in) {
+        username = in.readString();
+        nombre = in.readString();
+        password = in.readString();
+        apellidos = in.readString();
+        correo = in.readString();
+        telefono = in.readString();
+        imagenURL = in.readString();
+        direccion = in.readString();
+        codigo_postal = in.readString();
+        provincia = in.readString();
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
 
     public static String getIDToken(String token) {
         if (token != null && !token.equals(""))
@@ -207,5 +263,64 @@ public class Usuario {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCodigo_postal() {
+        return codigo_postal;
+    }
+
+    public void setCodigo_postal(String codigo_postal) {
+        this.codigo_postal = codigo_postal;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "username='" + username + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", imagenURL='" + imagenURL + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", codigo_postal='" + codigo_postal + '\'' +
+                ", provincia='" + provincia + '\'' +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(username);
+        dest.writeString(nombre);
+        dest.writeString(password);
+        dest.writeString(apellidos);
+        dest.writeString(correo);
+        dest.writeString(telefono);
+        dest.writeString(imagenURL);
+        dest.writeString(direccion);
+        dest.writeString(codigo_postal);
+        dest.writeString(provincia);
     }
 }

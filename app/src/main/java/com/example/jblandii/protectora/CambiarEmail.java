@@ -21,57 +21,57 @@ import com.example.jblandii.protectora.peticionesBD.Tags;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CambiarContrasena extends AppCompatActivity {
-    TextInputEditText tie_contrasena_actual, tie_contrasena_nueva, tie_contrasena_nueva_repetir;
-    TextInputLayout til_contrasena_actual, til_contrasena_nueva, til_contrasena_nueva_repetir;
-    Button btn_cambiar_contrasena;
+public class CambiarEmail extends AppCompatActivity {
+    TextInputEditText tie_email_actual, tie_email_nueva, tie_email_nueva_repetir;
+    TextInputLayout til_email_actual, til_email_nueva, til_email_nueva_repetir;
+    Button btn_cambiar_email;
     String mensaje = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cambiar_contrasena);
+        setContentView(R.layout.activity_cambiar_email);
         cargarBotones();
     }
 
     private void cargarBotones() {
-        btn_cambiar_contrasena = findViewById(R.id.btn_cambiar);
-        til_contrasena_actual = findViewById(R.id.til_contrasena_actual);
-        til_contrasena_nueva = findViewById(R.id.til_contrasena_nueva);
-        til_contrasena_nueva_repetir = findViewById(R.id.til_contrasena_nueva_repetir);
-        tie_contrasena_actual = findViewById(R.id.tie_contrasena_actual);
-        tie_contrasena_nueva = findViewById(R.id.tie_contrasena_nueva);
-        tie_contrasena_nueva_repetir = findViewById(R.id.tie_contrasena_nueva_repetir);
+        btn_cambiar_email = findViewById(R.id.btn_cambiar_email);
+        til_email_actual = findViewById(R.id.til_email_actual);
+        til_email_nueva = findViewById(R.id.til_email_nueva);
+        til_email_nueva_repetir = findViewById(R.id.til_email_nueva_repetir);
+        tie_email_actual = findViewById(R.id.tie_email_actual);
+        tie_email_nueva = findViewById(R.id.tie_email_nueva);
+        tie_email_nueva_repetir = findViewById(R.id.tie_email_nueva_repetir);
 
-        btn_cambiar_contrasena.setOnClickListener(new View.OnClickListener() {
+        btn_cambiar_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                if (tie_contrasena_actual.getText().toString().isEmpty()) {
-                    til_contrasena_actual.setError(getResources().getString(R.string.mensaje_contrasena_vacia));
-                } else if (tie_contrasena_nueva.getText().toString().isEmpty()) {
-                    til_contrasena_actual.setErrorEnabled(false);
-                    til_contrasena_nueva.setError(getResources().getString(R.string.mensaje_contrasena_vacia));
-                } else if (tie_contrasena_nueva_repetir.getText().toString().isEmpty()) {
-                    til_contrasena_actual.setErrorEnabled(false);
-                    til_contrasena_nueva.setErrorEnabled(false);
-                    til_contrasena_nueva_repetir.setError(getResources().getString(R.string.mensaje_contrasena_confirmar_vacia));
-                } else if (!tie_contrasena_nueva.getText().toString().equals(tie_contrasena_nueva_repetir.getText().toString())) {
-                    til_contrasena_actual.setErrorEnabled(false);
-                    til_contrasena_nueva.setErrorEnabled(false);
-                    til_contrasena_nueva_repetir.setErrorEnabled(false);
-                    Snackbar.make(v, getResources().getString(R.string.mensaje_contrasenas_coincidir), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (tie_email_actual.getText().toString().isEmpty()) {
+                    til_email_actual.setError(getResources().getString(R.string.mensaje_email_vacio));
+                } else if (tie_email_nueva.getText().toString().isEmpty()) {
+                    til_email_actual.setErrorEnabled(false);
+                    til_email_nueva.setError(getResources().getString(R.string.mensaje_email_vacio));
+                } else if (tie_email_nueva_repetir.getText().toString().isEmpty()) {
+                    til_email_actual.setErrorEnabled(false);
+                    til_email_nueva.setErrorEnabled(false);
+                    til_email_nueva_repetir.setError(getResources().getString(R.string.mensaje_email_confirmar_vacio));
+                } else if (!tie_email_nueva.getText().toString().equals(tie_email_nueva_repetir.getText().toString())) {
+                    til_email_actual.setErrorEnabled(false);
+                    til_email_nueva.setErrorEnabled(false);
+                    til_email_nueva_repetir.setErrorEnabled(false);
+                    Snackbar.make(v, getResources().getString(R.string.mensaje_email_coincidir), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(tie_contrasena_actual.getWindowToken(), 0);
-                    inputMethodManager.hideSoftInputFromWindow(tie_contrasena_nueva.getWindowToken(), 0);
-                    inputMethodManager.hideSoftInputFromWindow(tie_contrasena_nueva_repetir.getWindowToken(), 0);
+                    inputMethodManager.hideSoftInputFromWindow(tie_email_actual.getWindowToken(), 0);
+                    inputMethodManager.hideSoftInputFromWindow(tie_email_nueva.getWindowToken(), 0);
+                    inputMethodManager.hideSoftInputFromWindow(tie_email_nueva_repetir.getWindowToken(), 0);
 
-                    AlertDialog alertDialog = new AlertDialog.Builder(CambiarContrasena.this).create();
-                    alertDialog.setTitle(getResources().getString(R.string.cambiar_contrasena));
-                    alertDialog.setMessage(getResources().getString(R.string.mensaje_advertencia_cambiar_contrasena));
+                    AlertDialog alertDialog = new AlertDialog.Builder(CambiarEmail.this).create();
+                    alertDialog.setTitle(getResources().getString(R.string.cambiar_email));
+                    alertDialog.setMessage(getResources().getString(R.string.mensaje_advertencia_cambiar_email));
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getText(R.string.aceptar), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            if (cambiarContrasena()) {
+                            if (cambiaremail()) {
                                 if (!mensaje.isEmpty()) {
 //                                  Snackbar.make(v, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 //                                  mensaje = "";
@@ -98,23 +98,23 @@ public class CambiarContrasena extends AppCompatActivity {
         });
     }
 
-    private boolean cambiarContrasena() {
-        String contrasena_antigua = tie_contrasena_actual.getText().toString();
-        String contrasena_nueva = tie_contrasena_nueva.getText().toString();
+    private boolean cambiaremail() {
+        String email_antigua = tie_email_actual.getText().toString();
+        String email_nueva = tie_email_nueva.getText().toString();
 
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
         try {
-            json.put(Tags.USUARIO_ID, Preferencias.getID(CambiarContrasena.this));
-            json.put(Tags.TOKEN, Preferencias.getToken(CambiarContrasena.this));
-            json.put(Tags.PASSWORD_ANTIGUA, contrasena_antigua);
-            json.put(Tags.PASSWORD_NUEVA, contrasena_nueva);
+            json.put(Tags.USUARIO_ID, Preferencias.getID(CambiarEmail.this));
+            json.put(Tags.TOKEN, Preferencias.getToken(CambiarEmail.this));
+            json.put(Tags.EMAIL_ANTIGUO, email_antigua);
+            json.put(Tags.EMAIL_NUEVO, email_nueva);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("usuarios/java/cambiar_pass/", json);
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/cambiar_email/", json);
 
         try {
             String p = json.getString(Tags.RESULTADO);

@@ -13,6 +13,7 @@
     <string name="mensaje_recuperar_login_error">El usuario debe tener como minimo 5 caracteres</string>
     <string name="mensaje_advertencia_recordar_contrasena">Si acepta se generará una contraseña que le será enviada a su correo.</string>
     <string name="mensaje_advertencia_cambiar_contrasena">Se va a cambiar la contraseña. Se requerirá un nuevo inicio de sesión.</string>
+    <string name="mensaje_advertencia_cambiar_email">Se va a cambiar el email. Se requerirá un nuevo inicio de sesión.</string>
     <string name="mensaje_advertencia_crear_cuenta">Se le enviará un correo notificando el registro.</string>
     <string name="error_conexion">Error de conexión.</string>
     <string name="cancelar">Cancelar</string>
@@ -24,6 +25,8 @@
     <string name="mensaje_contrasena_confirmar_vacia">Debe de confirmar la contraseña</string>
     <string name="email">Email</string>
     <string name="email_confirmar">Confirmar email</string>
+    <string name="email_actual">Email actual</string>
+    <string name="email_nuevo">Email nuevo</string>
     <string name="contrasena_confirmar">Confirmar contrasena</string>
     <string name="enviar">Enviar</string>
     <string name="mensaje_contrasenas_coincidir">Las contraseñas deben coincidir</string>
@@ -36,12 +39,19 @@
     <string name="configuracion">Configuración</string>
     <string name="mensaje">Mensajes</string>
     <string name="title_activity_animal_fragment">AnimalFragment</string>
-    <string name="title_activity_protectora_fragment">ProtectoraFragment</string>
     <string name="cambiar_contrasena">Cambiar contraseña</string>
+    <string name="title_activity_protectora_fragment">ProtectoraFragment</string>
     <string name="cambiar_datos_usuario">Cambiar datos personales</string>
     <string name="cambiar_email">Cambiar email</string>
     <string name="cambiar_imagen">Cambiar imagen</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="contrasena_nueva">Contraseña nueva</string>
     <string name="contrasena_actual">Contraseña actual</string>
+    <string name="nombre">Nombre</string>
+    <string name="appellidos">Apellidos</string>
+    <string name="direccion">Dirección</string>
+    <string name="cod_postal">Código Postal</string>
+    <string name="telefono">Telefono</string>
+    <string name="actualizar">Actualizar Datos</string>
+    <string name="ocurrido_error">Ha ocurrido un error, inténtelo de nuevo o más tarde</string>
 </resources>
