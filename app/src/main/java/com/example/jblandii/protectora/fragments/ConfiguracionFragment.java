@@ -1,6 +1,11 @@
 package com.example.jblandii.protectora.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -18,6 +23,8 @@ import com.example.jblandii.protectora.CambiarEmail;
 import com.example.jblandii.protectora.MainActivity;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
+import com.example.jblandii.protectora.Util.DescargarImagen;
+import com.example.jblandii.protectora.Util.Utilidades;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -33,8 +40,11 @@ import static android.app.Activity.RESULT_OK;
 public class ConfiguracionFragment extends Fragment {
     TextView tv_nombre_usuario, tv_username;
     ImageView iv_perfil_usuario;
-    CardView cv_cerrar_sesion, cv_cambiar_contrasena, cv_cambiar_email, cv_cambiar_datos;
+    CardView cv_cerrar_sesion, cv_cambiar_contrasena, cv_cambiar_email, cv_cambiar_datos, cv_cambiar_imagen;
     Usuario usuario;
+    Bitmap bitmap;
+    private Handler puente;
+    private static final int PERFIL_CARGADO = 1, ABRIR_FICHERO = 2;
 
     public ConfiguracionFragment() {
     }
@@ -55,6 +65,7 @@ public class ConfiguracionFragment extends Fragment {
         cv_cambiar_contrasena = view.findViewById(R.id.cv_cambiar_contrasena);
         cv_cambiar_email = view.findViewById(R.id.cv_cambiar_email);
         cv_cambiar_datos = view.findViewById(R.id.cv_cambiar_datos);
+        cv_cambiar_imagen = view.findViewById(R.id.cv_cambiar_imagen);
 
 
         /* Funcionamiento. */
@@ -89,9 +100,32 @@ public class ConfiguracionFragment extends Fragment {
             }
         });
 
+        cv_cambiar_imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*|file/*");
+                startActivityForResult(intent, ABRIR_FICHERO);
+            }
+        });
+
         cargarUsuario();
         cargarDatos();
 
+        puente = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case PERFIL_CARGADO:
+                        if (bitmap != null) {
+                            iv_perfil_usuario.setImageBitmap(bitmap);
+                        } else {
+                            iv_perfil_usuario.setImageResource(R.mipmap.ic_usuario);
+                        }
+
+                }
+            }
+        };
         return view;
     }
 
@@ -100,7 +134,7 @@ public class ConfiguracionFragment extends Fragment {
      */
     public void cargarUsuario() {
         String token = Preferencias.getToken(getActivity());
-        String usuario_id = Preferencias.getID(getActivity());
+        final String usuario_id = Preferencias.getID(getActivity());
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
         try {
@@ -118,18 +152,25 @@ public class ConfiguracionFragment extends Fragment {
 
             /* Se comprueba la conexión al servidor. */
             if (p.contains(Tags.ERRORCONEXION)) {
-//                mensaje = "Error de conexión";
+                Toast.makeText(getContext(), getResources().getString(R.string.error_conexion), Toast.LENGTH_LONG).show();
             } else if (p.contains(Tags.OK)) {
-
                 JSONObject jsonusuario = json.getJSONObject(Tags.USUARIO);
-
                 usuario = new Usuario(jsonusuario);
-
+                new Thread() {
+                    @Override
+                    public void run() {
+//                        if (descargar) {
+                        bitmap = DescargarImagen.descargarImagen(Tags.SERVIDOR + "static/media/" + usuario.getImagenURL());
+//                        }
+                        Message msg = new Message();
+                        msg.what = PERFIL_CARGADO;
+                        puente.sendMessage(msg);
+                    }
+                }.start();
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
+                Toast.makeText(getContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -155,21 +196,14 @@ public class ConfiguracionFragment extends Fragment {
             jsonEnviado.put(Tags.TOKEN, Preferencias.getToken(getActivity()));
 
             JSONObject jsonRecibido = new JSONObject();
-            jsonRecibido = JSONUtil.hacerPeticionServidor(
-                    "usuarios/java/logout/", jsonEnviado);
-
+            jsonRecibido = JSONUtil.hacerPeticionServidor("usuarios/java/logout/", jsonEnviado);
             Usuario.borrarToken(getContext());
-
             ((MainActivity) getActivity()).lanzarLogin();
-
-            //Usuario.guardarLogin1(getApplicationContext(), false);
-
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             Toast.makeText(getContext(), "Problemas al cerrar sesion", Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override
@@ -180,7 +214,42 @@ public class ConfiguracionFragment extends Fragment {
                     break;
                 case Tags.CAMBIAR_EMAIL:
                     break;
+                case ABRIR_FICHERO:
+                    Uri uri = data.getData();
+                    String ruta_real = "";
+
+                    ruta_real = Utilidades.getPathFromUri(getContext(), uri);
+                    Log.i("USUARIO", "path real:" + ruta_real);
+                    JSONObject jsonConsulta = new JSONObject();
+                    try {
+                        jsonConsulta.put(Tags.USUARIO_ID, Usuario.getID(getActivity()));
+                        jsonConsulta.put(Tags.TOKEN, Usuario.getToken(getActivity()));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    //Hacemos petición de lista de centros al servidor
+                    jsonConsulta = JSONUtil.hacerPeticionServidorFile("usuarios/java/set_foto/", ruta_real, jsonConsulta);
+                    Log.i("MOSTRANDO JSON", String.valueOf(jsonConsulta));
+                    try {
+                        if (jsonConsulta.getString(Tags.RESULTADO).contains("ok")) {
+                            cargarUsuario();
+                        } else {
+                            Toast.makeText(getContext(), jsonConsulta.getString(Tags.MENSAJE), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case Tags.CAMBIAR_DATOS:
+//                  Recibir los datos cambiados para cambiar los datos del objeto usuario.
+                    Usuario usuarioModificado = data.getParcelableExtra("usuario");
+                    usuario.setNombre(usuarioModificado.getNombre());
+                    usuario.setApellidos(usuarioModificado.getApellidos());
+                    usuario.setCodigo_postal(usuarioModificado.getCodigo_postal());
+                    usuario.setDireccion(usuarioModificado.getDireccion());
+                    usuario.setTelefono(usuarioModificado.getTelefono());
+                    cargarDatos();
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

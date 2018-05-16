@@ -1,5 +1,7 @@
 package com.example.jblandii.protectora.Models;
 
+import android.util.Log;
+
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
 import org.json.JSONException;
@@ -11,7 +13,7 @@ import java.io.Serializable;
  * Created by jblandii on 25/04/18.
  */
 
-public class Animal implements Serializable{
+public class Animal implements Serializable {
     private int pk;
     private String mascota;
     private String nombre;
@@ -30,9 +32,10 @@ public class Animal implements Serializable{
     private String me_gusta;
     private String descripcion;
     private String fecha;
+    private String imagenURL;
 
     public Animal(int pk, String nombre, String mascota, String raza, String color, String edad, String tipo_pelaje, String sexo, String tamano, String peso,
-                  String enfermedad, String vacuna, String chip, String estado, String id_protectora, String me_gusta, String descripcion, String fecha) {
+                  String enfermedad, String vacuna, String chip, String estado, String id_protectora, String me_gusta, String descripcion, String fecha, String imagenURL) {
         this.setPk(pk);
         this.setNombre(nombre);
         this.setMascota(mascota);
@@ -51,6 +54,7 @@ public class Animal implements Serializable{
         this.setMe_gusta(me_gusta);
         this.setMe_gusta(descripcion);
         this.setFecha(fecha);
+        this.setImagenURL(imagenURL);
     }
 
     public int getPk() {
@@ -197,6 +201,14 @@ public class Animal implements Serializable{
         this.fecha = fecha;
     }
 
+    public String getImagenURL() {
+        return imagenURL;
+    }
+
+    public void setImagenURL(String imagenURL) {
+        this.imagenURL = imagenURL;
+    }
+
     public Animal(JSONObject json) {
         try {
             setPk(json.getInt(Tags.PK));
@@ -305,6 +317,14 @@ public class Animal implements Serializable{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        try {
+//            this.imagenURL = json.getString(Tags.FOTO);
+            setImagenURL("static/media/" + json.getString(Tags.FOTO));
+            Log.v("fotoanimal", this.imagenURL);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -328,6 +348,7 @@ public class Animal implements Serializable{
                 ", me_gusta='" + me_gusta + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha='" + fecha + '\'' +
+                ", imagenURL='" + imagenURL + '\'' +
                 '}';
     }
 }

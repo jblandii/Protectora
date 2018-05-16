@@ -2,6 +2,7 @@ package com.example.jblandii.protectora;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class CambiarDatos extends AppCompatActivity {
     Spinner s_provincias, s_comunidades;
     Boolean primera_carga = true;
     int comunidad_usuario, provincia_usuario;
+    String mensaje = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,43 @@ public class CambiarDatos extends AppCompatActivity {
         btn_actualizar_datos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (tie_nombre.getText().toString().isEmpty()) {
+                    til_nombre.setError(getResources().getString(R.string.mensaje_nombre_vacio));
+                } else if (tie_apellidos.getText().toString().isEmpty()) {
+                    til_nombre.setErrorEnabled(false);
+                    til_apellidos.setError(getResources().getString(R.string.mensaje_apellidos_vacio));
+                } else if (tie_direccion.getText().toString().isEmpty()) {
+                    til_nombre.setErrorEnabled(false);
+                    til_apellidos.setErrorEnabled(false);
+                    til_direccion.setError(getResources().getString(R.string.mensaje_direccion_vacio));
+                } else if (tie_codigo_postal.getText().toString().isEmpty()) {
+                    til_nombre.setErrorEnabled(false);
+                    til_apellidos.setErrorEnabled(false);
+                    til_direccion.setErrorEnabled(false);
+                    til_codigo_postal.setError(getResources().getString(R.string.mensaje_cp_vacio));
+                } else if (tie_telefono.getText().toString().isEmpty()) {
+                    til_nombre.setErrorEnabled(false);
+                    til_apellidos.setErrorEnabled(false);
+                    til_direccion.setErrorEnabled(false);
+                    til_codigo_postal.setErrorEnabled(false);
+                    til_telefono.setError(getResources().getString(R.string.mensaje_tlfn_vacio));
+                } else {
+                    if (actualizarDatos()) {
+                        Intent intentmain = getIntent();
+                        usuario.setNombre(tie_nombre.getText().toString());
+                        usuario.setApellidos(tie_apellidos.getText().toString());
+                        usuario.setDireccion(tie_direccion.getText().toString());
+                        usuario.setDireccion(tie_codigo_postal.getText().toString());
+                        usuario.setTelefono(tie_telefono.getText().toString());
+                        usuario.setProvincia(s_provincias.getSelectedItem().toString());
+                        intentmain.putExtra("usuario", usuario);
+                        setResult(Activity.RESULT_OK, intentmain);
+                        finish();
+                    } else {
+                        Snackbar.make(v, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        mensaje = "";
+                    }
+                }
             }
         });
 
@@ -185,8 +223,7 @@ public class CambiarDatos extends AppCompatActivity {
                         comunidades.add(comunidad);
                         lista_comunidades.add(comunidad.getComunidad_autonoma());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_comunidades);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lista_comunidades);
                     s_comunidades.setAdapter(adapter);
                     comunidad_usuario = json.getInt(Tags.COMUNIDAD_USUARIO);
                     Log.v("comunidad_usuario", comunidad_usuario + "");
@@ -249,4 +286,47 @@ public class CambiarDatos extends AppCompatActivity {
         }
     }
 
+    private boolean actualizarDatos() {
+        //Creamos el JSON que vamos a mandar al servidor
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.NOMBRE, tie_nombre.getText().toString());
+            json.put(Tags.APELLIDOS, tie_apellidos.getText().toString());
+            json.put(Tags.DIRECCION, tie_direccion.getText().toString());
+            json.put(Tags.PROVINCIA, s_provincias.getSelectedItem().toString());
+            json.put(Tags.TELEFONO, tie_telefono.getText().toString());
+            json.put(Tags.COD_POSTAL, tie_codigo_postal.getText().toString());
+            json.put(Tags.TOKEN, Preferencias.getToken(CambiarDatos.this));
+            json.put(Tags.USUARIO_ID, Preferencias.getID(CambiarDatos.this));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /* Se hace petición de login al servidor. */
+        json = JSONUtil.hacerPeticionServidor("usuarios/java/cambiar_datos/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                mensaje = getResources().getString(R.string.error_conexion);
+                return false;
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                return true;
+            }
+
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+                mensaje = msg;
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

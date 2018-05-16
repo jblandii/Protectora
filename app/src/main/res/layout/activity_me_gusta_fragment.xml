@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    tools:context="com.example.jblandii.protectora.fragments.MeGustaFragment">
+    android:layout_margin="@dimen/margen_8_layout"
+    tools:context="com.example.jblandii.protectora.fragments.AnimalFragment">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recycler_animales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_filtrar_animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/margen_8_layout"
+        android:backgroundTint="@color/colorPrimary"
+        android:tint="@color/secondaryTextColor"
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_filter" />
+
+</FrameLayout>

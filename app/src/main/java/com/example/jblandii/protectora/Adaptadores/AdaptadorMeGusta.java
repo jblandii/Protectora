@@ -31,7 +31,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * Created by jblandii on 28/04/18.
  */
 
-public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.AnimalesViewHolder> {
+public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.AnimalesViewHolder> {
 
     ArrayList<Animal> listaAnimales;
     private Context context;
@@ -40,7 +40,7 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
     ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
 
-    public AdaptadorAnimales(ArrayList<Animal> listaAnimales) {
+    public AdaptadorMeGusta(ArrayList<Animal> listaAnimales) {
         this.listaAnimales = listaAnimales;
         puente = new Handler() {
             @Override

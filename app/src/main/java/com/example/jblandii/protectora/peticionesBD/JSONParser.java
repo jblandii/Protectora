@@ -140,8 +140,7 @@ public class JSONParser {
     }
 
 
-    public static JSONObject makeHttpRequestFile(String url,
-                                                 String ruta, JSONObject json_enviar) {
+    public static JSONObject makeHttpRequestFile(String url, String ruta, JSONObject json_enviar) {
         JSONObject resultado = null;
         resultado = new JSONObject();
 

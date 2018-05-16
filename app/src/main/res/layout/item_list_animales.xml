@@ -22,6 +22,8 @@
             android:layout_marginBottom="@dimen/margen_4_layout"
             android:background="@color/secondaryTextColor"
             android:scaleType="centerCrop"
+            android:src="@drawable/nueva_pancarta"
+            android:tag="logo"
             cardview:layout_constraintBottom_toTopOf="@+id/tv_nombre_animal"
             cardview:layout_constraintEnd_toEndOf="parent"
             cardview:layout_constraintStart_toStartOf="parent"
@@ -39,7 +41,7 @@
             android:textColor="@color/colorAccent"
             android:textSize="13sp"
             cardview:layout_constraintBottom_toTopOf="@+id/tv_raza_animal"
-            cardview:layout_constraintEnd_toStartOf="@+id/imageButton"
+            cardview:layout_constraintEnd_toStartOf="@+id/ib_megusta"
             cardview:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -53,11 +55,11 @@
             android:textColor="@color/colorAccent"
             android:textSize="13sp"
             cardview:layout_constraintBottom_toBottomOf="parent"
-            cardview:layout_constraintEnd_toStartOf="@+id/imageButton"
+            cardview:layout_constraintEnd_toStartOf="@+id/ib_megusta"
             cardview:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ib_megusta"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?android:selectableItemBackground"

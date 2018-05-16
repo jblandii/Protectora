@@ -22,6 +22,11 @@
     <string name="mensaje_contrasena_vacia">Debe de introducir la contraseña</string>
     <string name="mensaje_email_vacio">Debe de introducir el email</string>
     <string name="mensaje_email_confirmar_vacio">Debe de confirmar el email</string>
+    <string name="mensaje_nombre_vacio">Debe de introducir un nombre</string>
+    <string name="mensaje_apellidos_vacio">Debe de introducir sus apellidos</string>
+    <string name="mensaje_direccion_vacio">Debe de introducir una dirección</string>
+    <string name="mensaje_cp_vacio">Debe de introducir un código postal</string>
+    <string name="mensaje_tlfn_vacio">Debe de introducir un número de telefono</string>
     <string name="mensaje_contrasena_confirmar_vacia">Debe de confirmar la contraseña</string>
     <string name="email">Email</string>
     <string name="email_confirmar">Confirmar email</string>
