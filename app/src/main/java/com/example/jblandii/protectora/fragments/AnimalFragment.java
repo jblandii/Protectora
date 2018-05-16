@@ -59,7 +59,7 @@ public class AnimalFragment extends Fragment {
         cargarAnimales();
         Log.v("animalesoncreateview", listaAnimales.toString());
 
-        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales);
+        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
         recyclerView.setAdapter(adaptadorAnimales);
 
 //        adaptadorAnimales.setOnClickListener(new View.OnClickListener() {

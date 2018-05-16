@@ -1,5 +1,6 @@
 package com.example.jblandii.protectora.Adaptadores;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,9 +20,16 @@ import android.widget.Toast;
 import com.example.jblandii.protectora.DetallesAnimal;
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Tarea;
+import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.Util.DescargarImagen;
+import com.example.jblandii.protectora.fragments.AnimalFragment;
+import com.example.jblandii.protectora.peticionesBD.JSONUtil;
+import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -40,8 +48,9 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
     ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
 
-    public AdaptadorAnimales(ArrayList<Animal> listaAnimales) {
+    public AdaptadorAnimales(ArrayList<Animal> listaAnimales, Context context) {
         this.listaAnimales = listaAnimales;
+        this.context = context;
         puente = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -62,7 +71,6 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);
-
         return new AnimalesViewHolder(view);
     }
 
@@ -93,16 +101,17 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         holder.ib_megusta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listaAnimales.get(position).getMe_gusta().equals("true")) {
-                    holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
-                    listaAnimales.get(position).setMe_gusta("false");
-                } else {
-                    holder.ib_megusta.setImageResource(R.drawable.ic_megusta);
-                    listaAnimales.get(position).setMe_gusta("true");
+                if (dar_mg(position)) {
+                    if (listaAnimales.get(position).getMe_gusta().equals("true")) {
+                        holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
+                        listaAnimales.get(position).setMe_gusta("false");
+                    } else {
+                        holder.ib_megusta.setImageResource(R.drawable.ic_megusta);
+                        listaAnimales.get(position).setMe_gusta("true");
+                    }
                 }
             }
         });
-//        Picasso.with(get).load(R.drawable.ic_launcher_background).fit().into(holder.iv_animal);
     }
 
     @Override
@@ -142,6 +151,46 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
         }
         return bitmap;
+    }
+
+    public boolean dar_mg(int position) {
+        //Creamos el JSON que vamos a mandar al servidor
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.USUARIO_ID, Usuario.getID(context));
+            json.put(Tags.TOKEN, Usuario.getToken(context));
+            json.put(Tags.ANIMAL, listaAnimales.get(position).getPk());
+            json.put(Tags.MEGUSTA, listaAnimales.get(position).getMe_gusta());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /* Se hace petición de login al servidor. */
+        json = JSONUtil.hacerPeticionServidor("protectora/dar_mg/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+//                mensaje = "Error de conexión";
+                return false;
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                return true;
+            }
+
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+//                mensaje = msg;
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public class AnimalesViewHolder extends RecyclerView.ViewHolder {

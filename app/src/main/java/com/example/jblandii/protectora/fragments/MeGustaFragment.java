@@ -50,7 +50,7 @@ public class MeGustaFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         cargarAnimales();
-        AdaptadorMeGusta adaptadorMegusta = new AdaptadorMeGusta(listaAnimales);
+        AdaptadorMeGusta adaptadorMegusta = new AdaptadorMeGusta(listaAnimales, getContext());
         recyclerView.setAdapter(adaptadorMegusta);
         return view;
     }
