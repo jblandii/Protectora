@@ -56,12 +56,14 @@
             android:label="@string/datos_animal"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CambiarContrasena"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".CambiarEmail" />
-        <activity android:name=".CambiarDatos"></activity>
+        <activity
+            android:name=".CambiarDatos"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

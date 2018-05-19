@@ -60,4 +60,13 @@
     <string name="actualizar">Actualizar Datos</string>
     <string name="ocurrido_error">Ha ocurrido un error, inténtelo de nuevo o más tarde</string>
     <string name="datos_animal">Datos del animal</string>
+    <string name="contactar">Contactar</string>
+    <string name="informacion_animal">Información</string>
+    <string name="sexo_animal">Sexo:</string>
+    <string name="raza_animal">Raza:</string>
+    <string name="tamano_animal">Tamaño:</string>
+    <string name="pelaje_animal">Tipo de pelaje:</string>
+    <string name="edad_animal">Edad:</string>
+    <string name="chip_animal">Chip:</string>
+    <string name="descripcion_animal">Descripción</string>
 </resources>

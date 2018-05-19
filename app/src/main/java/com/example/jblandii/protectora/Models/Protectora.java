@@ -91,4 +91,15 @@ public class Protectora {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Protectora{" +
+                "pk=" + pk +
+                ", nombre='" + nombre + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", codigo_postal='" + codigo_postal + '\'' +
+                '}';
+    }
 }
