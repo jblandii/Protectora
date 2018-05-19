@@ -12,6 +12,7 @@ public class Tags {
             EMAIL_ANTIGUO = "antiguo",
             SIN_CONEXION_INTERNET = "Sin conexión a internet.",
             PASSWORD_NUEVA = "nueva",
+            MEDIA = "static/media/",
             EMAIL_NUEVO = "nuevo",
             USERNAME = "username",
             NOMBREPROTECTORA = "nombre_protectora",

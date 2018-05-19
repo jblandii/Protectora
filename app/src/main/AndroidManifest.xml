@@ -53,7 +53,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DetallesAnimal"
-            android:label="@string/registrar"
+            android:label="@string/datos_animal"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

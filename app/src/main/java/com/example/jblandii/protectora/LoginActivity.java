@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
             /* Se comprueba la conexión al servidor. */
             if (p.contains(Tags.ERRORCONEXION)) {
-                mensaje = "Error de conexión";
+                mensaje = getResources().getString(R.string.error_conexion);
                 return false;
             }
             /* En caso de que conecte */

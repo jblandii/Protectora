@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.example.jblandii.protectora.Models.Tarea;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.Util.DescargarImagen;
+import com.example.jblandii.protectora.Util.Utilidades;
 import com.example.jblandii.protectora.fragments.AnimalFragment;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
@@ -83,14 +86,16 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
             holder.iv_animal.setScaleType(ImageView.ScaleType.FIT_CENTER);
             holder.iv_animal.setImageResource(R.drawable.logo);
             arrayTareas.add(new Tarea("descargarFoto", listaAnimales.get(position), holder.iv_animal));
-            hacerTarea();
+            Log.v("estaesssss", listaAnimales.get(position).getPk() + "");
+            hacerTarea(position);
         }
         holder.cv_animales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), listaAnimales.get(position).getNombre() + "" + listaAnimales.get(position).getColor(), Toast.LENGTH_SHORT).show();
-                Intent intentTrabajo = new Intent(v.getContext(), DetallesAnimal.class);
-                v.getContext().startActivity(intentTrabajo);
+                Intent intentDetallesAnimal = new Intent(v.getContext(), DetallesAnimal.class);
+                Log.v("probandoanimal", listaAnimales.get(position).toString());
+                intentDetallesAnimal.putExtra("animal", (Parcelable) listaAnimales.get(position));
+                v.getContext().startActivity(intentDetallesAnimal);
             }
         });
 
@@ -106,8 +111,12 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
                         listaAnimales.get(position).setMe_gusta("false");
                     } else {
+                        Log.v("entro", "entro");
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta);
                         listaAnimales.get(position).setMe_gusta("true");
+                        holder.iv_animal.buildDrawingCache();
+                        Bitmap bitmap = holder.iv_animal.getDrawingCache();
+                        DescargarImagen.guardaImagen(bitmap, "favoritos/", "animal" + listaAnimales.get(position).getPk());
                     }
                 }
             }
@@ -119,15 +128,19 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         return listaAnimales.size();
     }
 
-    private void hacerTarea() {
+    private void hacerTarea(final int position) {
         pool.execute(new Thread() {
             @Override
             public void run() {
                 while (arrayTareas.size() > 0) {
                     if (arrayTareas.get(0).getFuncion().contains("descargarFoto")) {
-                        Bitmap bmp = descargarFoto((Animal) arrayTareas.get(0).getDato());
+                        Bitmap bmp;
+                        if (!(listaAnimales.get(position).getMe_gusta()).equals("true")) {
+                            bmp = descargarFoto((Animal) arrayTareas.get(0).getDato(), -1000);
+                        } else {
+                            bmp = descargarFoto((Animal) arrayTareas.get(0).getDato(), ((Animal) arrayTareas.get(0).getDato()).getPk());
+                        }
                         int pk = ((Animal) arrayTareas.get(0).getDato()).getPk();
-
                         arrayTareas.get(0).setDatoExtra(bmp);
                         Message msg = new Message();
                         msg.what = 100;
@@ -141,12 +154,15 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         });
     }
 
-    private Bitmap descargarFoto(Object objeto) {
+    private Bitmap descargarFoto(Object objeto, int pk) {
         Bitmap bitmap;
         int longitud = ((Animal) objeto).getImagenURL().length();
         String url = ((Animal) objeto).getImagenURL();
         if (longitud > 0) {
             bitmap = DescargarImagen.descargarImagen(Tags.SERVIDOR + url);
+            if (pk != -1000) {
+                DescargarImagen.guardaImagen(bitmap, "favoritos/", "animal" + pk);
+            }
         } else {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
         }

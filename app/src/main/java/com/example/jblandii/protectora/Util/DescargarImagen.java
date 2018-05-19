@@ -3,7 +3,11 @@ package com.example.jblandii.protectora.Util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -50,6 +54,57 @@ public class DescargarImagen {
                 e.printStackTrace();
             }
             return mIcon_val;
+        }
+    }
+
+    public static void guardaImagen(Bitmap b, String ruta, String picName) {
+        if (b != null) {
+            crearCarpeta(ruta);
+            FileOutputStream fos;
+            File f = new File(Environment.getExternalStorageDirectory()
+                    + "/Mimame/" + ruta + picName);
+            try {
+                fos = new FileOutputStream(f);
+                b.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.close();
+            } catch (FileNotFoundException e) {
+                // Log.d("IMAGEN NO ENCONTRADA", "file not found");
+                e.printStackTrace();
+            } catch (IOException e) {
+                // Log.d("IO", "io exception");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Bitmap comprobarImagen(String ruta, String picName) {
+        File f = new File(Environment.getExternalStorageDirectory()
+                + "/Mimame/" + ruta + picName);
+        if (f.exists()) {
+            Bitmap imagen_guardada = BitmapFactory.decodeFile(f.getAbsolutePath());
+            return imagen_guardada;
+        } else {
+            return null;
+        }
+    }
+
+    public static Bitmap borrarImagen(String ruta, String picName) {
+        File f = new File(Environment.getExternalStorageDirectory()
+                + "/Mimame/" + ruta + picName);
+        if (f.exists()) {
+            Bitmap imagen_guardada = BitmapFactory.decodeFile(f.getAbsolutePath());
+            return imagen_guardada;
+        } else {
+            return null;
+        }
+    }
+
+    public static void crearCarpeta(String ruta) {
+        String folder_main = "Mimame/";
+        File f = new File(Environment.getExternalStorageDirectory() + "/"
+                + folder_main, ruta);
+        if (!f.exists()) {
+            f.mkdirs();
         }
     }
 }

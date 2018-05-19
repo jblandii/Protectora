@@ -1,5 +1,7 @@
 package com.example.jblandii.protectora.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -13,7 +15,7 @@ import java.io.Serializable;
  * Created by jblandii on 25/04/18.
  */
 
-public class Animal implements Serializable {
+public class Animal implements Serializable, Parcelable{
     private int pk;
     private String mascota;
     private String nombre;
@@ -56,6 +58,40 @@ public class Animal implements Serializable {
         this.setFecha(fecha);
         this.setImagenURL(imagenURL);
     }
+
+    protected Animal(Parcel in) {
+        pk = in.readInt();
+        mascota = in.readString();
+        nombre = in.readString();
+        raza = in.readString();
+        color = in.readString();
+        edad = in.readString();
+        tipo_pelaje = in.readString();
+        sexo = in.readString();
+        tamano = in.readString();
+        peso = in.readString();
+        enfermedad = in.readString();
+        vacuna = in.readString();
+        chip = in.readString();
+        estado = in.readString();
+        id_protectora = in.readString();
+        me_gusta = in.readString();
+        descripcion = in.readString();
+        fecha = in.readString();
+        imagenURL = in.readString();
+    }
+
+    public static final Creator<Animal> CREATOR = new Creator<Animal>() {
+        @Override
+        public Animal createFromParcel(Parcel in) {
+            return new Animal(in);
+        }
+
+        @Override
+        public Animal[] newArray(int size) {
+            return new Animal[size];
+        }
+    };
 
     public int getPk() {
         return pk;
@@ -350,5 +386,33 @@ public class Animal implements Serializable {
                 ", fecha='" + fecha + '\'' +
                 ", imagenURL='" + imagenURL + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(pk);
+        dest.writeString(mascota);
+        dest.writeString(nombre);
+        dest.writeString(raza);
+        dest.writeString(color);
+        dest.writeString(edad);
+        dest.writeString(tipo_pelaje);
+        dest.writeString(sexo);
+        dest.writeString(tamano);
+        dest.writeString(peso);
+        dest.writeString(enfermedad);
+        dest.writeString(vacuna);
+        dest.writeString(chip);
+        dest.writeString(estado);
+        dest.writeString(id_protectora);
+        dest.writeString(me_gusta);
+        dest.writeString(descripcion);
+        dest.writeString(fecha);
+        dest.writeString(imagenURL);
     }
 }

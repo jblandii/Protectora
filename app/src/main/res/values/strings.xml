@@ -59,4 +59,5 @@
     <string name="telefono">Telefono</string>
     <string name="actualizar">Actualizar Datos</string>
     <string name="ocurrido_error">Ha ocurrido un error, inténtelo de nuevo o más tarde</string>
+    <string name="datos_animal">Datos del animal</string>
 </resources>
