@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.jblandii.protectora.Adaptadores.AdaptadorDetallesProtectora_ViewPager;
 import com.example.jblandii.protectora.Models.Protectora;
+import com.example.jblandii.protectora.Models.RedSocial;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
@@ -28,6 +29,7 @@ public class DetallesProtectora extends AppCompatActivity {
     private ArrayList<String> imagenes;
     private TextView tv_provincia_protectora, tv_direccion_protectora, tv_codigopostal_protectora, tv_descripcion_dela_protectora;
     private Protectora protectora;
+    private ArrayList<RedSocial> redesSociales;
 
 
     @Override
@@ -77,6 +79,7 @@ public class DetallesProtectora extends AppCompatActivity {
     }
 
     private void cargarBotones() {
+        redesSociales = new ArrayList<>();
         imagenes = new ArrayList<>();
         tv_provincia_protectora = findViewById(R.id.tv_provincia_dela_protectora);
         tv_direccion_protectora = findViewById(R.id.tv_direccion_dela_protectora);
@@ -110,6 +113,13 @@ public class DetallesProtectora extends AppCompatActivity {
             }
             /* En caso de que conecte */
             else if (p.contains(Tags.OK)) {
+                JSONArray a_redes = json.getJSONArray(Tags.REDES);
+                if (a_redes != null) {
+                    for (int i = 0; i < a_redes.length(); i++) {
+                        RedSocial redSocial = new RedSocial(a_redes.getJSONObject(i));
+                        redesSociales.add(redSocial);
+                    }
+                }
                 JSONArray a_imagenes = json.getJSONArray(Tags.FOTO);
                 if (a_imagenes != null) {
                     for (int i = 0; i < a_imagenes.length(); i++) {
