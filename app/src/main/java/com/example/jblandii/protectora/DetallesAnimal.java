@@ -1,16 +1,23 @@
 package com.example.jblandii.protectora;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +49,7 @@ public class DetallesAnimal extends AppCompatActivity {
             tv_raza_del_animal, tv_tamano_del_animal, tv_pelaje_del_animal, tv_edad_del_animal,
             tv_chip_del_animal, tv_descripcion_del_animal;
     private Protectora protectora;
-
+    private Button btn_contactar_protectora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +126,7 @@ public class DetallesAnimal extends AppCompatActivity {
         tv_chip_del_animal = findViewById(R.id.tv_chip_del_animal);
         tv_descripcion_del_animal = findViewById(R.id.tv_descripcion_del_animal);
         cv_protectora_info_animal = findViewById(R.id.cv_protectora_info_animal);
+        btn_contactar_protectora = findViewById(R.id.btn_contactar_protectora);
 
         ib_megusta_detalle_animal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +153,15 @@ public class DetallesAnimal extends AppCompatActivity {
                 v.getContext().startActivity(intentDetallesProtectora);
             }
         });
+
+        btn_contactar_protectora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirDialogo();
+            }
+        });
+
+
     }
 
     private void cargarImagenesAnimal() {
@@ -235,5 +252,77 @@ public class DetallesAnimal extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void abrirDialogo() {
+        LayoutInflater inflater = LayoutInflater.from(DetallesAnimal.this);
+        View subView = inflater.inflate(R.layout.dialogo_contactar, null);
+        final TextInputLayout til_mensaje_protectora = subView.findViewById(R.id.til_mensaje_protectora);
+        final TextInputEditText tie_mensaje_protectora = subView.findViewById(R.id.tie_mensaje_protectora);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.contactar_con) + " " + protectora.getNombre())
+                .setView(subView);
+        final AlertDialog alertDialog = builder.create();
+        builder.setPositiveButton(getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (!tie_mensaje_protectora.getText().toString().isEmpty()) {
+                    til_mensaje_protectora.setErrorEnabled(false);
+                    mandarMensaje(tie_mensaje_protectora.getText().toString());
+                } else {
+                    til_mensaje_protectora.setError(getResources().getString(R.string.mensaje_vacio));
+                }
+            }
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(DetallesAnimal.this, "Cancel", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void mandarMensaje(String mensaje) {
+        //Creamos el JSON que vamos a mandar al servidor
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.USUARIO_ID, Preferencias.getID(DetallesAnimal.this));
+            json.put(Tags.TOKEN, Preferencias.getToken(DetallesAnimal.this));
+            json.put(Tags.MENSAJE, mensaje);
+            json.put(Tags.PROTECTORA, protectora.getPk());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /* Se hace petición de login al servidor. */
+        json = JSONUtil.hacerPeticionServidor("conversacion/enviar_mensaje_protectora/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                mensaje = getResources().getString(R.string.error_conexion);
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                /* Guarda en las preferencias el token. */
+                mensaje = json.getString(Tags.MENSAJE);
+            }
+
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+                mensaje = msg;
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
