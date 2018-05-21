@@ -3,9 +3,11 @@ package com.example.jblandii.protectora;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +37,7 @@ public class DetallesAnimal extends AppCompatActivity {
     private Animal animal;
     private ImageView ib_megusta_detalle_animal;
     private ArrayList<String> imagenes;
+    private CardView cv_protectora_info_animal;
     private TextView tv_nombre_protectora, tv_protectora_provincia, tv_sexo_del_animal,
             tv_raza_del_animal, tv_tamano_del_animal, tv_pelaje_del_animal, tv_edad_del_animal,
             tv_chip_del_animal, tv_descripcion_del_animal;
@@ -115,6 +118,7 @@ public class DetallesAnimal extends AppCompatActivity {
         tv_edad_del_animal = findViewById(R.id.tv_edad_del_animal);
         tv_chip_del_animal = findViewById(R.id.tv_chip_del_animal);
         tv_descripcion_del_animal = findViewById(R.id.tv_descripcion_del_animal);
+        cv_protectora_info_animal = findViewById(R.id.cv_protectora_info_animal);
 
         ib_megusta_detalle_animal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +133,16 @@ public class DetallesAnimal extends AppCompatActivity {
                         animal.setMe_gusta("true");
                     }
                 }
+            }
+        });
+
+        cv_protectora_info_animal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentDetallesProtectora = new Intent(v.getContext(), DetallesProtectora.class);
+                Log.v("probandoprotectora", protectora.toString());
+                intentDetallesProtectora.putExtra("protectora", (Parcelable) protectora);
+                v.getContext().startActivity(intentDetallesProtectora);
             }
         });
     }

@@ -50,16 +50,16 @@ public class ProtectoraFragment extends Fragment {
 
         cargarProtectoras();
 
-        AdaptadorProtectoras adaptadorProtectoras = new AdaptadorProtectoras(lista_protectoras);
+        AdaptadorProtectoras adaptadorProtectoras = new AdaptadorProtectoras(lista_protectoras, getContext());
         recyclerView.setAdapter(adaptadorProtectoras);
 
-        adaptadorProtectoras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Seleccion: " +
-                        lista_protectoras.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        adaptadorProtectoras.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "Seleccion: " +
+//                        lista_protectoras.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         return view;
