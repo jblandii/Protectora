@@ -110,6 +110,7 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
                     if (listaAnimales.get(position).getMe_gusta().equals("true")) {
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
                         listaAnimales.get(position).setMe_gusta("false");
+                        DescargarImagen.borrarImagen("favoritos/", "animal" + listaAnimales.get(position).getPk());
                     } else {
                         Log.v("entro", "entro");
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta);

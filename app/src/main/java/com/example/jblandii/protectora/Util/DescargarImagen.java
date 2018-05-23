@@ -88,21 +88,17 @@ public class DescargarImagen {
         }
     }
 
-    public static Bitmap borrarImagen(String ruta, String picName) {
+    public static void borrarImagen(String ruta, String picName) {
         File f = new File(Environment.getExternalStorageDirectory()
                 + "/Mimame/" + ruta + picName);
         if (f.exists()) {
-            Bitmap imagen_guardada = BitmapFactory.decodeFile(f.getAbsolutePath());
-            return imagen_guardada;
-        } else {
-            return null;
+            f.delete();
         }
     }
 
     public static void crearCarpeta(String ruta) {
         String folder_main = "Mimame/";
-        File f = new File(Environment.getExternalStorageDirectory() + "/"
-                + folder_main, ruta);
+        File f = new File(Environment.getExternalStorageDirectory() + "/" + folder_main, ruta);
         if (!f.exists()) {
             f.mkdirs();
         }

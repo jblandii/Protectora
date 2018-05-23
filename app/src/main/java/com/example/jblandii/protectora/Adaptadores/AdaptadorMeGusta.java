@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jblandii.protectora.DetallesAnimal;
 import com.example.jblandii.protectora.Models.Animal;
@@ -24,11 +23,8 @@ import com.example.jblandii.protectora.Models.Tarea;
 import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.Util.DescargarImagen;
-import com.example.jblandii.protectora.Util.Utilidades;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
-import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +109,9 @@ public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.Anim
                 if (dar_mg(position)) {
                     if (listaAnimales.get(position).getMe_gusta().equals("true")) {
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
+//                        DescargarImagen.borrarImagen("favoritos/", "animal" + listaAnimales.get(position).getPk());
+                        Log.v("animalborrar", listaAnimales.get(position).getPk() + "");
+
                         listaAnimales.get(position).setMe_gusta("false");
 
                         listaAnimales.remove(position);

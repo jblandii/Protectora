@@ -36,8 +36,7 @@ public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtecto
     @Override
     public ProtectorasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_protectoras, null, false);
-        RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);
 
         return new ProtectorasViewHolder(view);

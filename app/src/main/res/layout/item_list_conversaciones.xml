@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cv_protectoras"
+    android:id="@+id/cv_mensajes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    cardview:cardBackgroundColor="@color/secondaryTextColor"
-    cardview:cardCornerRadius="5dp"
-    cardview:cardUseCompatPadding="true">
+    cardview:cardBackgroundColor="@color/secondaryTextColor">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_nombre_protectora"
+            android:id="@+id/tv_nombre_protectora_conversacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margen_16_layout"
             android:layout_marginStart="@dimen/margen_8_layout"
-            android:layout_marginTop="@dimen/margen_8_layout"
+            android:layout_marginTop="@dimen/margen_16_layout"
+            android:text="@string/mensaje"
             android:textColor="@color/colorAccent"
             android:textSize="25sp"
             android:textStyle="bold"
+            cardview:layout_constraintBottom_toBottomOf="parent"
+            cardview:layout_constraintEnd_toStartOf="@+id/tv_mensaje"
+            cardview:layout_constraintHorizontal_bias="0.5"
             cardview:layout_constraintStart_toStartOf="parent"
             cardview:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_direccion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margen_8_layout"
-            android:layout_marginEnd="@dimen/margen_8_layout"
-            android:layout_marginStart="@dimen/margen_8_layout"
-            android:layout_marginTop="@dimen/margen_8_layout"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            cardview:layout_constraintBottom_toBottomOf="parent"
-            cardview:layout_constraintEnd_toStartOf="@+id/tv_nombre_provincia"
-            cardview:layout_constraintStart_toStartOf="parent"
-            cardview:layout_constraintTop_toBottomOf="@+id/tv_nombre_protectora" />
-
-        <TextView
-            android:id="@+id/tv_nombre_provincia"
+            android:id="@+id/tv_mensaje"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margen_8_layout"
+            android:layout_marginBottom="@dimen/margen_16_layout"
             android:layout_marginEnd="@dimen/margen_8_layout"
-            android:layout_marginStart="@dimen/margen_8_layout"
+            android:text="@string/mensaje"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             cardview:layout_constraintBottom_toBottomOf="parent"
             cardview:layout_constraintEnd_toEndOf="parent"
-            cardview:layout_constraintHorizontal_bias="1.0"
-            cardview:layout_constraintStart_toEndOf="@+id/tv_direccion" />
+            cardview:layout_constraintHorizontal_bias="0.5"
+            cardview:layout_constraintStart_toEndOf="@+id/tv_nombre_protectora_conversacion"
+            cardview:layout_constraintTop_toBottomOf="@+id/tv_numero_mensajes" />
+
+        <TextView
+            android:id="@+id/tv_numero_mensajes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="@dimen/margen_8_layout"
+            android:layout_marginTop="@dimen/margen_8_layout"
+            android:text="@string/mensaje"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            cardview:layout_constraintBottom_toTopOf="@+id/tv_mensaje"
+            cardview:layout_constraintEnd_toEndOf="parent"
+            cardview:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

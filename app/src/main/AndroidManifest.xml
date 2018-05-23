@@ -66,6 +66,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Conversacion_Mensajes"></activity>
     </application>
 
 </manifest>

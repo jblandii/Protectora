@@ -25,8 +25,4 @@
         app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_filter" />
 
-</FrameLayout><!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--tools:context="com.example.jblandii.protectora.fragments.ProtectoraFragment">-->
-
-    <!--<android.support.design.widget.FloatingActionButton--><!--android:id="@+id/fab_filtrar_protectora"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="bottom|end"--><!--android:layout_marginBottom="@dimen/fab_margin"--><!--android:layout_marginRight="@dimen/fab_margin_right"--><!--android:backgroundTint="@color/colorPrimary"--><!--android:tint="@color/secondaryTextColor"--><!--app:srcCompat="@drawable/ic_filter" />-->
-
-    <!--</android.support.design.widget.CoordinatorLayout>-->
+</FrameLayout>
