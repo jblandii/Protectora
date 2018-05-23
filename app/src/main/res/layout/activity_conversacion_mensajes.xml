@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context="com.example.jblandii.protectora.Conversacion_Mensajes">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recycler_mensajes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_mensaje_a_enviar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_enviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:backgroundTint="@color/colorAccent"
+        android:padding="@dimen/margen_16_layout"
+        android:src="@drawable/ic_enviar"
+        android:stateListAnimator="@null"
+        android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/et_mensaje_a_enviar" />
+
+    <EditText
+        android:id="@+id/et_mensaje_a_enviar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margen_8_layout"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxHeight="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ib_enviar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -12,40 +12,22 @@ import org.json.JSONObject;
  * Created by jblandii on 22/05/18.
  */
 
-public class Mensaje implements Parcelable {
+public class Mensaje{
     private int pk;
     private Usuario usuario;
     private Protectora protectora;
     private String mensaje;
     private String hora;
+    private String emisario;
 
-    public Mensaje(int pk, Usuario usuario, Protectora protectora, String mensaje, String hora) {
+    public Mensaje(int pk, Usuario usuario, Protectora protectora, String mensaje, String hora, String emisario) {
         this.pk = pk;
         this.usuario = usuario;
         this.protectora = protectora;
         this.mensaje = mensaje;
         this.hora = hora;
+        this.emisario = emisario;
     }
-
-    protected Mensaje(Parcel in) {
-        pk = in.readInt();
-        usuario = in.readParcelable(Usuario.class.getClassLoader());
-        protectora = in.readParcelable(Protectora.class.getClassLoader());
-        mensaje = in.readString();
-        hora = in.readString();
-    }
-
-    public static final Creator<Mensaje> CREATOR = new Creator<Mensaje>() {
-        @Override
-        public Mensaje createFromParcel(Parcel in) {
-            return new Mensaje(in);
-        }
-
-        @Override
-        public Mensaje[] newArray(int size) {
-            return new Mensaje[size];
-        }
-    };
 
     public int getPk() {
         return pk;
@@ -87,6 +69,14 @@ public class Mensaje implements Parcelable {
         this.hora = hora;
     }
 
+    public String getEmisario() {
+        return emisario;
+    }
+
+    public void setEmisario(String emisario) {
+        this.emisario = emisario;
+    }
+
     public Mensaje(JSONObject json) {
         try {
             setPk(json.getInt(Tags.PK));
@@ -105,7 +95,7 @@ public class Mensaje implements Parcelable {
         }
 
         try {
-            setMensaje(json.getString(Tags.MSG));
+            setMensaje(json.getString(Tags.MSN));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -115,19 +105,23 @@ public class Mensaje implements Parcelable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        try {
+            setEmisario(json.getString(Tags.EMISARIO));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(pk);
-        dest.writeParcelable(usuario, flags);
-        dest.writeParcelable(protectora, flags);
-        dest.writeString(mensaje);
-        dest.writeString(hora);
+    public String toString() {
+        return "Mensaje{" +
+                "pk=" + pk +
+                ", usuario=" + usuario +
+                ", protectora=" + protectora +
+                ", mensaje='" + mensaje + '\'' +
+                ", hora='" + hora + '\'' +
+                ", emisario='" + emisario + '\'' +
+                '}';
     }
 }

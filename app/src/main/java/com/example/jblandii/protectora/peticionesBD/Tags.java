@@ -2,8 +2,8 @@ package com.example.jblandii.protectora.peticionesBD;
 
 public class Tags {
 
-//    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
-    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
+    public static final String SERVIDOR = "http://192.168.0.22:8000/"; //LA IP DEL SERVIDOR
+//    public static final String SERVIDOR = "http://192.168.1.22:8000/"; //LA IP DEL SERVIDOR
 
     public static final String USUARIO = "usuario",
             USUARIOS = "usuarios",
@@ -19,6 +19,7 @@ public class Tags {
             EMAIL_NUEVO = "nuevo",
             USERNAME = "username",
             NOMBREPROTECTORA = "nombre_protectora",
+            EMISARIO = "emisario",
             PK = "pk",
             HORA = "hora",
             MASCOTA = "mascota",
@@ -51,6 +52,7 @@ public class Tags {
             OK_SIN_PROTECTORAS = "ok_sin_protectoras",
             ERROR = "error",
             MENSAJE = "message",
+            MSN = "mensaje",
             USUARIOLOGUEADO = "Usuario logueado",
             USUARIO_ID = "usuario_id",
             DESTINATARIO_ID = "destinatario_id",

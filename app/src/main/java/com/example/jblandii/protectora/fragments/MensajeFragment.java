@@ -48,7 +48,7 @@ public class MensajeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), 1));
 
-        cargarMensajes();
+        cargarConversaciones();
 
         AdaptadorConversaciones adaptadorConversaciones = new AdaptadorConversaciones(listaConversaciones, getContext());
         recyclerView.setAdapter(adaptadorConversaciones);
@@ -57,7 +57,7 @@ public class MensajeFragment extends Fragment {
     }
 
 
-    public void cargarMensajes() {
+    public void cargarConversaciones() {
         String token = Preferencias.getToken(getActivity());
         String usuario_id = Preferencias.getID(getActivity());
         //Creamos el JSON que vamos a mandar al servidor

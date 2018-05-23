@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by jblandii on 28/04/18.
  */
 
-public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConversaciones.MensajesViewHolder> {
+public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConversaciones.ConversacionesViewHolder> {
 
     ArrayList<Conversacion> listaConversaciones;
     Context context;
@@ -32,17 +32,17 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
     }
 
     @Override
-    public MensajesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ConversacionesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_conversaciones, null, false);
         RecyclerView.LayoutParams layParams = new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layParams);
 
-        return new MensajesViewHolder(view);
+        return new ConversacionesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MensajesViewHolder holder, final int position) {
+    public void onBindViewHolder(ConversacionesViewHolder holder, final int position) {
         holder.tv_nombre_protectora_conversacion.setText(listaConversaciones.get(position).getProtectora().getNombre());
 //        holder.tv_mensaje.setText(listaMensajes.get(position).getMensaje());
 //        holder.tv_mensaje.setText("hola");
@@ -64,11 +64,11 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
         return listaConversaciones.size();
     }
 
-    public class MensajesViewHolder extends RecyclerView.ViewHolder {
+    public class ConversacionesViewHolder extends RecyclerView.ViewHolder {
         TextView tv_nombre_protectora_conversacion, tv_mensaje, tv_numero_mensajes;
         CardView cv_mensajes;
 
-        public MensajesViewHolder(View itemView) {
+        public ConversacionesViewHolder(View itemView) {
             super(itemView);
             tv_nombre_protectora_conversacion = itemView.findViewById(R.id.tv_nombre_protectora_conversacion);
             tv_mensaje = itemView.findViewById(R.id.tv_mensaje);
