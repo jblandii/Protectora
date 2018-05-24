@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.Adaptadores.AdaptadorConversaciones;
 import com.example.jblandii.protectora.Adaptadores.AdaptadorMensajes;
-import com.example.jblandii.protectora.Models.Conversacion;
 import com.example.jblandii.protectora.Models.Mensaje;
 import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -34,6 +34,7 @@ public class Conversacion_Mensajes extends AppCompatActivity {
     private ImageButton ib_enviar;
     private ArrayList<Mensaje> listaMensajes;
     private RecyclerView recyclerView;
+    private AdaptadorMensajes adaptadorMensajes;
 
 
     @Override
@@ -47,8 +48,9 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         cargarMensajes();
         Log.v("Mensajebuclecon", listaMensajes.toString());
 
-        AdaptadorMensajes adaptadorMensajes = new AdaptadorMensajes(listaMensajes, Conversacion_Mensajes.this);
+        adaptadorMensajes = new AdaptadorMensajes(listaMensajes, Conversacion_Mensajes.this);
         recyclerView.setAdapter(adaptadorMensajes);
+        recyclerView.scrollToPosition(listaMensajes.size() - 1);
     }
 
     private void cargarBotones() {
@@ -56,11 +58,24 @@ public class Conversacion_Mensajes extends AppCompatActivity {
 
         et_mensaje_a_enviar = findViewById(R.id.et_mensaje_a_enviar);
         ib_enviar = findViewById(R.id.ib_enviar);
+        ib_enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!et_mensaje_a_enviar.getText().toString().isEmpty()) {
+                    mandarMensajeDeUsuario(et_mensaje_a_enviar.getText().toString());
+                    et_mensaje_a_enviar.setText("");
+                }
+            }
+        });
+
+        if (et_mensaje_a_enviar.getShowSoftInputOnFocus()) {
+            recyclerView.scrollToPosition(listaMensajes.size() - 1);
+        }
     }
 
     private void asignarValores() {
         if (recogerDatosConversacion()) {
-
+            getSupportActionBar().setTitle(protectora.getNombre());
         } else {
             Intent intentmain = getIntent();
             setResult(Activity.RESULT_CANCELED, intentmain);
@@ -121,5 +136,56 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void mandarMensajeDeUsuario(String mensaje) {
+        //Creamos el JSON que vamos a mandar al servidor
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.USUARIO_ID, Preferencias.getID(Conversacion_Mensajes.this));
+            json.put(Tags.TOKEN, Preferencias.getToken(Conversacion_Mensajes.this));
+            json.put(Tags.MENSAJE, mensaje);
+            json.put(Tags.PROTECTORA, protectora.getPk());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /* Se hace petición de login al servidor. */
+        json = JSONUtil.hacerPeticionServidor("conversacion/enviar_mensaje_protectora_de_usuario/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+                mensaje = getResources().getString(R.string.error_conexion);
+            }
+            /* En caso de que conecte */
+            else if (p.contains(Tags.OK)) {
+                /* Guarda en las preferencias el token. */
+                JSONArray array = json.getJSONArray(Tags.LISTA_CONVERSACIONES);
+                Log.v("Mensajebuclesin", array.toString());
+                if (array.length() > 0) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Mensaje mensaje_enviado = new Mensaje(array.getJSONObject(i));
+                        listaMensajes.add(mensaje_enviado);
+                        Log.v("Mensajebuclecon", mensaje.toString());
+                        adaptadorMensajes.notifyItemInserted(listaMensajes.size() - 1);
+                        adaptadorMensajes.notifyItemInserted(listaMensajes.size());
+                        recyclerView.scrollToPosition(listaMensajes.size() - 1);
+                    }
+                }
+            }
+
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+                mensaje = msg;
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

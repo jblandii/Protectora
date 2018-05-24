@@ -1,12 +1,10 @@
 package com.example.jblandii.protectora.fragments;
 
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
-import com.example.jblandii.protectora.DetallesAnimal;
-import com.example.jblandii.protectora.LoginActivity;
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.R;
-import com.example.jblandii.protectora.RegistrarActivity;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;

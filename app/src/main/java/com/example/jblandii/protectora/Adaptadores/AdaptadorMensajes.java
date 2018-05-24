@@ -40,13 +40,17 @@ public class AdaptadorMensajes extends RecyclerView.Adapter<AdaptadorMensajes.Me
 
     @Override
     public void onBindViewHolder(MensajesViewHolder holder, final int position) {
+        Log.v("esteeeeeeeeeeeeee", listaMensajes.get(position).getMensaje() + " - " + listaMensajes.get(position).getEmisario());
         if (listaMensajes.get(position).getEmisario().equals("usuario")) {
             holder.mensaje_de_usuario.setText(listaMensajes.get(position).getMensaje());
             holder.mensaje_de_usuario.setVisibility(View.VISIBLE);
+            holder.mensaje_de_protectora.setVisibility(View.GONE);
         } else if (listaMensajes.get(position).getEmisario().equals("protectora")) {
             holder.mensaje_de_protectora.setText(listaMensajes.get(position).getMensaje());
             holder.mensaje_de_protectora.setVisibility(View.VISIBLE);
+            holder.mensaje_de_usuario.setVisibility(View.GONE);
         }
+
     }
 
     @Override
