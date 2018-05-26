@@ -1,6 +1,8 @@
 package com.example.jblandii.protectora.fragments;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
+import com.example.jblandii.protectora.FiltrosAnimalActivity;
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -29,10 +32,10 @@ import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
 
 public class AnimalFragment extends Fragment {
 
-    FloatingActionButton fab_filtrar_protectora;
-    ArrayList<Animal> listaAnimales;
-    RecyclerView recyclerView;
-    String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
+    private FloatingActionButton fab_filtrar_protectora;
+    private ArrayList<Animal> listaAnimales;
+    private RecyclerView recyclerView;
+    private String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
             peso = "", chip = "", id_protectora = "", fecha = "", estado = "";
 
     public AnimalFragment() {
@@ -47,6 +50,13 @@ public class AnimalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_animal_fragment, container, false);
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_animal);
+        fab_filtrar_protectora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentFilter = new Intent(getContext(), FiltrosAnimalActivity.class);
+                startActivity(intentFilter);
+            }
+        });
         listaAnimales = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_animales);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -56,6 +66,7 @@ public class AnimalFragment extends Fragment {
 
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
         recyclerView.setAdapter(adaptadorAnimales);
+
 
         return view;
     }
@@ -128,7 +139,7 @@ public class AnimalFragment extends Fragment {
     }
 
 
-//    @Override
+    //    @Override
 //    public void onAttach(Context context) {
 //        super.onAttach(context);
 //        if(context instanceof Activity){
@@ -136,4 +147,9 @@ public class AnimalFragment extends Fragment {
 //            interfaceComunicaFragments = (IComunicaFragments) this.activity;
 //        }
 //    }
+    public void pasarAnimales(ArrayList<Animal> animales) {
+        listaAnimales = animales;
+
+        cargarAnimales();
+    }
 }

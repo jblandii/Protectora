@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jblandii.protectora.FiltrosAnimalActivity">
+
+
+    <ScrollView
+        android:id="@+id/sv_filtros_animal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_aplicar_filtros"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_animal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:text="@string/f_animal"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/rg_animal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_24_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_animal">
+
+                <RadioButton
+                    android:id="@+id/rb_todos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:checked="true"
+                    android:text="@string/f_todos" />
+
+                <RadioButton
+                    android:id="@+id/rb_perro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_perro" />
+
+                <RadioButton
+                    android:id="@+id/rb_gato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_gato" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_color"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/s_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_animal" />
+
+            <Spinner
+                android:id="@+id/s_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_color"
+                app:layout_constraintTop_toTopOf="@+id/tv_color" />
+
+            <TextView
+                android:id="@+id/tv_pelaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_pelaje"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_color" />
+
+            <RadioGroup
+                android:id="@+id/rg_pelaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_24_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_pelaje">
+
+                <RadioButton
+                    android:id="@+id/rb_todos2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:checked="true"
+                    android:text="@string/f_todos" />
+
+                <RadioButton
+                    android:id="@+id/rb_corto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_corto" />
+
+                <RadioButton
+                    android:id="@+id/rb_largo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_largo" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_sexo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_sexo"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_pelaje" />
+
+            <RadioGroup
+                android:id="@+id/rg_sexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_24_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sexo">
+
+                <RadioButton
+                    android:id="@+id/rb_todos3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:checked="true"
+                    android:text="@string/f_todos" />
+
+                <RadioButton
+                    android:id="@+id/rb_macho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_macho" />
+
+                <RadioButton
+                    android:id="@+id/rb_hembra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_hembra" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_tamanio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_tamanio"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/s_tamanio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_sexo" />
+
+            <Spinner
+                android:id="@+id/s_tamanio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_tamanio"
+                app:layout_constraintTop_toTopOf="@+id/tv_tamanio" />
+
+            <TextView
+                android:id="@+id/tv_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_chip"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tamanio" />
+
+            <RadioGroup
+                android:id="@+id/rg_chip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_24_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_chip">
+
+                <RadioButton
+                    android:id="@+id/rb_todos4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:checked="true"
+                    android:text="@string/f_todos" />
+
+                <RadioButton
+                    android:id="@+id/rb_si"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_si" />
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/tv_estado"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_chip" />
+
+            <RadioGroup
+                android:id="@+id/rg_estado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_24_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_estado">
+
+                <RadioButton
+                    android:id="@+id/rb_todos5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:checked="true"
+                    android:text="@string/f_todos" />
+
+                <RadioButton
+                    android:id="@+id/rb_adopcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_adopcion" />
+
+                <RadioButton
+                    android:id="@+id/rb_acogida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margen_8_layout"
+                    android:layout_marginEnd="@dimen/margen_8_layout"
+                    android:layout_marginTop="@dimen/margen_8_layout"
+                    android:text="@string/f_acogida" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_comunidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_8_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_comunidad"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/s_comunidad"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_estado" />
+
+            <Spinner
+                android:id="@+id/s_comunidad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_comunidad"
+                app:layout_constraintTop_toTopOf="@+id/tv_comunidad" />
+
+            <TextView
+                android:id="@+id/tv_provincia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_32_layout"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_16_layout"
+                android:text="@string/f_provincia"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/s_provincia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comunidad" />
+
+            <Spinner
+                android:id="@+id/s_provincia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_provincia"
+                app:layout_constraintTop_toTopOf="@+id/tv_provincia" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_aplicar_filtros"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/aplicar_filtros"
+        android:textColor="@color/secondaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

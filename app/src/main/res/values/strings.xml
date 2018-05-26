@@ -75,4 +75,25 @@
     <string name="direccion_protectora">Dirección:</string>
     <string name="contactar_con">Enviar mensaje a </string>
     <string name="mensaje_vacio">Mensaje vacío</string>
+    <string name="f_animal">Animal:</string>
+    <string name="f_perro">Perro</string>
+    <string name="f_gato">Gato</string>
+    <string name="f_todos">Todos</string>
+    <string name="f_color">Color:</string>
+    <string name="f_pelaje">Pelaje:</string>
+    <string name="f_corto">Corto</string>
+    <string name="f_largo">Largo</string>
+    <string name="f_sexo">Sexo:</string>
+    <string name="f_macho">Macho</string>
+    <string name="f_hembra">Hembra</string>
+    <string name="f_tamanio">Tamaño:</string>
+    <string name="f_chip">Chip:</string>
+    <string name="aplicar_filtros">Aplicar Filtros</string>
+    <string name="f_si">Sí</string>
+    <string name="f_no">No</string>
+    <string name="tv_estado">Estado:</string>
+    <string name="f_adopcion">Adopción</string>
+    <string name="f_acogida">Acogida</string>
+    <string name="f_provincia">Provincia:</string>
+    <string name="f_comunidad">Comunidad:</string>
 </resources>

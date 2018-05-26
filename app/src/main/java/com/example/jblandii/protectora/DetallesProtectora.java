@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +43,7 @@ public class DetallesProtectora extends AppCompatActivity {
     private Protectora protectora;
     private Button btn_contactar_protectora;
     private ArrayList<RedSocial> redesSociales;
+    private CardView cv_protectora_info_animal;
 
 
     @Override
@@ -89,6 +95,7 @@ public class DetallesProtectora extends AppCompatActivity {
     private void cargarBotones() {
         redesSociales = new ArrayList<>();
         imagenes = new ArrayList<>();
+        cv_protectora_info_animal = findViewById(R.id.cv_protectora_info_animal);
         tv_provincia_protectora = findViewById(R.id.tv_provincia_dela_protectora);
         tv_direccion_protectora = findViewById(R.id.tv_direccion_dela_protectora);
         tv_codigopostal_protectora = findViewById(R.id.tv_codigopostal_dela_protectora);
@@ -131,9 +138,35 @@ public class DetallesProtectora extends AppCompatActivity {
                 JSONArray a_redes = json.getJSONArray(Tags.REDES);
                 if (a_redes != null) {
                     for (int i = 0; i < a_redes.length(); i++) {
-                        RedSocial redSocial = new RedSocial(a_redes.getJSONObject(i));
+                        final RedSocial redSocial = new RedSocial(a_redes.getJSONObject(i));
                         redesSociales.add(redSocial);
+                        View view = getLayoutInflater().inflate(R.layout.red_social, null);
+                        ImageButton imageButton = view.findViewById(R.id.ib_red_social);
+                        if (!redSocial.getRed().isEmpty()) {
+                            if (redSocial.getRed().equals("Twitter")) {
+                                imageButton.setImageResource(R.drawable.tw);
+                                cv_protectora_info_animal.addView(view);
+                            } else if (redSocial.getRed().equals("Facebook")) {
+                                imageButton.setImageResource(R.drawable.fb);
+                                cv_protectora_info_animal.addView(view);
+                            } else if (redSocial.getRed().equals("Instagram")) {
+                                imageButton.setImageResource(R.drawable.instagram);
+                                cv_protectora_info_animal.addView(view);
+                            }
+                            imageButton.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+                                    Uri uri = Uri.parse(redSocial.getValor());
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                    startActivity(intent);
+                                }
+                            });
+                        } else {
+                            cv_protectora_info_animal.setVisibility(View.GONE);
+                        }
                     }
+                    Log.v("imagenesparadescargar", redesSociales.toString());
                 }
                 JSONArray a_imagenes = json.getJSONArray(Tags.FOTO);
                 if (a_imagenes != null) {
