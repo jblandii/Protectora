@@ -261,7 +261,7 @@ public class RegistrarActivity extends AppCompatActivity {
                         lista_comunidades.add(comunidad.getComunidad_autonoma());
                     }
                     ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_comunidades);
+                            android.R.layout.simple_spinner_dropdown_item, lista_comunidades);
                     s_comunidades.setAdapter(adapter);
                 }
             } else if (p.contains(Tags.ERROR)) {
@@ -307,8 +307,7 @@ public class RegistrarActivity extends AppCompatActivity {
                         provincias.add(provincia);
                         lista_provincias.add(provincia.getProvincia());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_provincias);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_provincias);
                     s_provincias.setAdapter(adapter);
                 }
             } else if (p.contains(Tags.ERROR)) {

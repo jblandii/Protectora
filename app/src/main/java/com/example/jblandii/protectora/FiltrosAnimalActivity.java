@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 public class FiltrosAnimalActivity extends AppCompatActivity {
 
     private Spinner s_color, s_tamanio, s_comunidad, s_provincia;
-    private Button btn_aplicar_filtros;
     private ArrayList<String> lista_comunidades, lista_provincias;
     private ArrayList<Comunidad> comunidades;
     private ArrayList<Provincia> provincias;
+    Button btn_aplicar_filtros;
+    RadioGroup rg_animal, rg_pelaje, rg_sexo, rg_chip, rg_estado;
+    String estado = "", animal = "", tamanio = "", provincia = "", color = "", sexo = "", pelaje = "", chip = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,106 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         provincias = new ArrayList<>();
         lista_comunidades = new ArrayList<>();
         lista_provincias = new ArrayList<>();
-        s_color = findViewById(R.id.s_color);
-        s_tamanio = findViewById(R.id.s_tamanio);
-        s_comunidad = findViewById(R.id.s_comunidad);
-        s_provincia = findViewById(R.id.s_provincia);
+
+        rg_animal = findViewById(R.id.rg_animal);
+        rg_animal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_gato:
+                        animal = "Gato";
+                        break;
+                    case R.id.rb_perro:
+                        animal = "Perro";
+                        break;
+                    case R.id.rb_todos:
+                        animal = "";
+                        break;
+                }
+            }
+        });
+
+        rg_pelaje = findViewById(R.id.rg_pelaje);
+        rg_pelaje.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_corto:
+                        pelaje = "Corto";
+                        break;
+                    case R.id.rb_largo:
+                        pelaje = "Largo";
+                        break;
+                    case R.id.rb_todos2:
+                        pelaje = "";
+                        break;
+                }
+            }
+        });
+
+        rg_sexo = findViewById(R.id.rg_sexo);
+        rg_sexo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_macho:
+                        sexo = "Macho";
+                        break;
+                    case R.id.rb_hembra:
+                        sexo = "Hembra";
+                        break;
+                    case R.id.rb_todos3:
+                        sexo = "";
+                        break;
+                }
+            }
+        });
+
+        rg_chip = findViewById(R.id.rg_chip);
+        rg_chip.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_si:
+                        chip = "Sí";
+                        break;
+                    case R.id.rb_no:
+                        chip = "No";
+                        break;
+                    case R.id.rb_todos4:
+                        chip = "";
+                        break;
+                }
+            }
+        });
+
+        rg_estado = findViewById(R.id.rg_estado);
+        rg_estado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_acogida:
+                        estado = "Acogida";
+                        break;
+                    case R.id.rb_adopcion:
+                        estado = "Adopción";
+                        break;
+                    case R.id.rb_todos5:
+                        estado = "";
+                        break;
+                }
+            }
+        });
+
         btn_aplicar_filtros = findViewById(R.id.btn_aplicar_filtros);
+        btn_aplicar_filtros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recogerDatos();
+            }
+        });
+
+        s_comunidad = findViewById(R.id.s_comunidad);
         s_comunidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -58,6 +156,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             }
         });
 
+        s_provincia = findViewById(R.id.s_provincia);
         s_provincia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +167,25 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
 
             }
         });
+
+        s_color = findViewById(R.id.s_color);
+        ArrayAdapter spinerColoresAdapter = ArrayAdapter.createFromResource(this, R.array.colores, android.R.layout.simple_spinner_dropdown_item);
+        s_color.setAdapter(spinerColoresAdapter);
+
+        s_tamanio = findViewById(R.id.s_tamanio);
+        ArrayAdapter spinerTamaniosAdapter = ArrayAdapter.createFromResource(this, R.array.tamanios, android.R.layout.simple_spinner_dropdown_item);
+        s_tamanio.setAdapter(spinerTamaniosAdapter);
+    }
+
+    private void recogerDatos() {
+        color = s_color.getSelectedItem().toString();
+        tamanio = s_tamanio.getSelectedItem().toString();
+        provincia = s_provincia.getSelectedItem().toString();
+        Log.v("esteanimal", animal);
+        Log.v("estepelaje", pelaje);
+        Log.v("estesexo", sexo);
+        Log.v("estechip", chip);
+        Log.v("esteestado", estado);
     }
 
     /**
@@ -100,8 +218,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                         comunidades.add(comunidad);
                         lista_comunidades.add(comunidad.getComunidad_autonoma());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_comunidades);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_comunidades);
                     s_comunidad.setAdapter(adapter);
                 }
             } else if (p.contains(Tags.ERROR)) {
@@ -147,8 +264,8 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                         provincias.add(provincia);
                         lista_provincias.add(provincia.getProvincia());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_provincias);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_provincias);
+
                     s_provincia.setAdapter(adapter);
                 }
             } else if (p.contains(Tags.ERROR)) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="colores">
+        <item>Todos</item>
+        <item>Blanco</item>
+        <item>Negro</item>
+        <item>Gris</item>
+        <item>Marrón</item>
+    </string-array>
+
+    <string-array name="tamanios">
+        <item>Todos</item>
+        <item>Pequeño</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+    </string-array>
+</resources>

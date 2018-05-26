@@ -223,7 +223,7 @@ public class CambiarDatos extends AppCompatActivity {
                         comunidades.add(comunidad);
                         lista_comunidades.add(comunidad.getComunidad_autonoma());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lista_comunidades);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_comunidades);
                     s_comunidades.setAdapter(adapter);
                     comunidad_usuario = json.getInt(Tags.COMUNIDAD_USUARIO);
                     Log.v("comunidad_usuario", comunidad_usuario + "");
@@ -273,7 +273,7 @@ public class CambiarDatos extends AppCompatActivity {
                         Log.v("esteprovincia", provincia.getProvincia() + provincia.getPk());
                     }
                     ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_item, lista_provincias);
+                            android.R.layout.simple_spinner_dropdown_item, lista_provincias);
                     s_provincias.setAdapter(adapter);
                     provincia_usuario = json.getInt(Tags.PROVINCIA_USUARIO);
                     Log.v("esteprovincia_usuario", provincia_usuario + "");

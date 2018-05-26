@@ -95,9 +95,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margen_32_layout"
                 android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_color"
-                app:layout_constraintTop_toTopOf="@+id/tv_color" />
+                app:layout_constraintTop_toBottomOf="@+id/rg_animal" />
 
             <TextView
                 android:id="@+id/tv_pelaje"
@@ -230,9 +231,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margen_32_layout"
                 android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_tamanio"
-                app:layout_constraintTop_toTopOf="@+id/tv_tamanio" />
+                app:layout_constraintTop_toBottomOf="@+id/rg_sexo" />
 
             <TextView
                 android:id="@+id/tv_chip"
@@ -359,9 +361,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margen_32_layout"
                 android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_comunidad"
-                app:layout_constraintTop_toTopOf="@+id/tv_comunidad" />
+                app:layout_constraintTop_toBottomOf="@+id/rg_estado" />
 
             <TextView
                 android:id="@+id/tv_provincia"
@@ -384,9 +387,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margen_32_layout"
                 android:layout_marginStart="14dp"
+                android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_provincia"
-                app:layout_constraintTop_toTopOf="@+id/tv_provincia" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_comunidad" />
 
 
 
