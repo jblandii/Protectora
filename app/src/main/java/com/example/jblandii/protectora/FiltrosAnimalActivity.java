@@ -1,5 +1,7 @@
 package com.example.jblandii.protectora;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Comunidad;
 import com.example.jblandii.protectora.Models.Provincia;
+import com.example.jblandii.protectora.fragments.AnimalFragment;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
@@ -140,6 +143,20 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recogerDatos();
+                Bundle args = new Bundle();
+                AnimalFragment animalFragment = new AnimalFragment();
+                Intent intentFiltros = getIntent();
+                args.putString("mascota", animal);
+                animalFragment.setArguments(args);
+//                intentFiltros.putExtra("mascota", animal);
+//                intentFiltros.putExtra("color", color);
+//                intentFiltros.putExtra("pelaje", pelaje);
+//                intentFiltros.putExtra("sexo", sexo);
+//                intentFiltros.putExtra("tamanio", tamanio);
+//                intentFiltros.putExtra("chip", chip);
+//                intentFiltros.putExtra("estado", estado);
+                setResult(Activity.RESULT_OK, intentFiltros);
+                finish();
             }
         });
 

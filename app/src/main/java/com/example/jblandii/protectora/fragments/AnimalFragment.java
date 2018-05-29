@@ -1,7 +1,6 @@
 package com.example.jblandii.protectora.fragments;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -28,13 +27,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
 
 public class AnimalFragment extends Fragment {
 
-    private FloatingActionButton fab_filtrar_protectora;
+    FloatingActionButton fab_filtrar_protectora;
     private ArrayList<Animal> listaAnimales;
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
     private String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
             peso = "", chip = "", id_protectora = "", fecha = "", estado = "";
 
@@ -54,7 +54,7 @@ public class AnimalFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentFilter = new Intent(getContext(), FiltrosAnimalActivity.class);
-                startActivity(intentFilter);
+                startActivityForResult(intentFilter, Tags.FILTRO_ANIMAL);
             }
         });
         listaAnimales = new ArrayList<>();
@@ -66,7 +66,6 @@ public class AnimalFragment extends Fragment {
 
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
         recyclerView.setAdapter(adaptadorAnimales);
-
 
         return view;
     }
@@ -147,9 +146,32 @@ public class AnimalFragment extends Fragment {
 //            interfaceComunicaFragments = (IComunicaFragments) this.activity;
 //        }
 //    }
-    public void pasarAnimales(ArrayList<Animal> animales) {
-        listaAnimales = animales;
 
-        cargarAnimales();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("FragmentA.java", "onActivityResult called");
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Tags.FILTRO_ANIMAL:
+                    if (getArguments() != null) {
+                        mascota = getArguments().getString("mascota");
+                        color = getArguments().getString("color");
+                        pelaje = getArguments().getString("pelaje");
+                        sexo = getArguments().getString("sexo");
+                        tamano = getArguments().getString("tamanio");
+                        chip = getArguments().getString("chip");
+                        fecha = getArguments().getString("fecha");
+                        estado = getArguments().getString("estado");
+                        Log.v("estecreateview", mascota + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
+
+                    }
+
+                    Log.v("este", mascota + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
+
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 }

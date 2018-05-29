@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        for (Fragment fragment : getSupportFragmentManager ().findFragmentById()) {
+//            fragment.onActivityResult(requestCode, resultCode, data);
+//        }
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.LOGIN:
@@ -165,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.v("pasando", "pasando");
                     cerradoSesion = true;
+                    break;
+
+                case Tags.FILTRO_ANIMAL:
+                    Log.v("este", "Estoyentrandoenelfiltro");
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

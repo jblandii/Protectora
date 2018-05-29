@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -37,13 +39,14 @@ import java.util.ArrayList;
 
 public class DetallesProtectora extends AppCompatActivity {
 
-    private ViewPager vp_imagenes_protectora;
     private ArrayList<String> imagenes;
-    private TextView tv_provincia_protectora, tv_direccion_protectora, tv_codigopostal_protectora, tv_descripcion_dela_protectora;
-    private Protectora protectora;
-    private Button btn_contactar_protectora;
     private ArrayList<RedSocial> redesSociales;
     private CardView cv_protectora_info_animal;
+    private LinearLayout ll_protectora_info_animal;
+    private TextView tv_provincia_protectora, tv_direccion_protectora, tv_codigopostal_protectora, tv_descripcion_dela_protectora;
+    private Protectora protectora;
+    Button btn_contactar_protectora;
+    ViewPager vp_imagenes_protectora;
 
 
     @Override
@@ -96,6 +99,7 @@ public class DetallesProtectora extends AppCompatActivity {
         redesSociales = new ArrayList<>();
         imagenes = new ArrayList<>();
         cv_protectora_info_animal = findViewById(R.id.cv_protectora_info_animal);
+        ll_protectora_info_animal = findViewById(R.id.ll_protectora_info_animal);
         tv_provincia_protectora = findViewById(R.id.tv_provincia_dela_protectora);
         tv_direccion_protectora = findViewById(R.id.tv_direccion_dela_protectora);
         tv_codigopostal_protectora = findViewById(R.id.tv_codigopostal_dela_protectora);
@@ -142,16 +146,20 @@ public class DetallesProtectora extends AppCompatActivity {
                         redesSociales.add(redSocial);
                         View view = getLayoutInflater().inflate(R.layout.red_social, null);
                         ImageButton imageButton = view.findViewById(R.id.ib_red_social);
+//                        ll_protectora_info_animal.setOrientation(LinearLayout.VERTICAL);
                         if (!redSocial.getRed().isEmpty()) {
                             if (redSocial.getRed().equals("Twitter")) {
                                 imageButton.setImageResource(R.drawable.tw);
-                                cv_protectora_info_animal.addView(view);
+//                                cv_protectora_info_animal.addView(view);
+                                ll_protectora_info_animal.addView(view);
                             } else if (redSocial.getRed().equals("Facebook")) {
                                 imageButton.setImageResource(R.drawable.fb);
-                                cv_protectora_info_animal.addView(view);
+//                                cv_protectora_info_animal.addView(view);
+                                ll_protectora_info_animal.addView(view);
                             } else if (redSocial.getRed().equals("Instagram")) {
                                 imageButton.setImageResource(R.drawable.instagram);
-                                cv_protectora_info_animal.addView(view);
+//                                cv_protectora_info_animal.addView(view);
+                                ll_protectora_info_animal.addView(view);
                             }
                             imageButton.setOnClickListener(new View.OnClickListener() {
 
@@ -166,14 +174,12 @@ public class DetallesProtectora extends AppCompatActivity {
                             cv_protectora_info_animal.setVisibility(View.GONE);
                         }
                     }
-                    Log.v("imagenesparadescargar", redesSociales.toString());
                 }
                 JSONArray a_imagenes = json.getJSONArray(Tags.FOTO);
                 if (a_imagenes != null) {
                     for (int i = 0; i < a_imagenes.length(); i++) {
                         imagenes.add(a_imagenes.get(i).toString());
                     }
-                    Log.v("imagenesparadescargar", imagenes.toString());
                 }
                 JSONObject json_protectora = json.getJSONObject(Tags.PROTECTORA);
                 protectora = new Protectora(json_protectora);
