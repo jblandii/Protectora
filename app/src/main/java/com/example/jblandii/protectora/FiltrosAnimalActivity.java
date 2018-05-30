@@ -13,10 +13,12 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Comunidad;
 import com.example.jblandii.protectora.Models.Provincia;
 import com.example.jblandii.protectora.fragments.AnimalFragment;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
+import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
 import org.json.JSONArray;
@@ -25,12 +27,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
+
 public class FiltrosAnimalActivity extends AppCompatActivity {
 
     private Spinner s_color, s_tamanio, s_comunidad, s_provincia;
     private ArrayList<String> lista_comunidades, lista_provincias;
     private ArrayList<Comunidad> comunidades;
-    private ArrayList<Provincia> provincias;
+    ArrayList<Provincia> provincias;
+    ArrayList<String> listaDeCodigos;
+    ArrayList<Animal> listaAnimales;
     Button btn_aplicar_filtros;
     RadioGroup rg_animal, rg_pelaje, rg_sexo, rg_chip, rg_estado;
     String estado = "", animal = "", tamanio = "", provincia = "", color = "", sexo = "", pelaje = "", chip = "";
@@ -43,6 +49,8 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
     }
 
     private void cargarBotones() {
+        listaDeCodigos = new ArrayList<>();
+        listaAnimales = new ArrayList<>();
         comunidades = new ArrayList<>();
         provincias = new ArrayList<>();
         lista_comunidades = new ArrayList<>();
@@ -143,18 +151,15 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recogerDatos();
+                cargarAnimales();
                 Bundle args = new Bundle();
                 AnimalFragment animalFragment = new AnimalFragment();
                 Intent intentFiltros = getIntent();
-                args.putString("mascota", animal);
+//                args.putString("mascota", animal);
                 animalFragment.setArguments(args);
 //                intentFiltros.putExtra("mascota", animal);
-//                intentFiltros.putExtra("color", color);
-//                intentFiltros.putExtra("pelaje", pelaje);
-//                intentFiltros.putExtra("sexo", sexo);
-//                intentFiltros.putExtra("tamanio", tamanio);
-//                intentFiltros.putExtra("chip", chip);
-//                intentFiltros.putExtra("estado", estado);
+                intentFiltros.putStringArrayListExtra("codigos", listaDeCodigos);
+                intentFiltros.putExtra("color", color);
                 setResult(Activity.RESULT_OK, intentFiltros);
                 finish();
             }
@@ -195,8 +200,13 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
     }
 
     private void recogerDatos() {
-        color = s_color.getSelectedItem().toString();
-        tamanio = s_tamanio.getSelectedItem().toString();
+//        color = s_color.getSelectedItem().toString();
+        color = (s_color.getSelectedItem().toString().equals("Todos")) ? "" : s_color.getSelectedItem().toString();
+        if (s_color.getSelectedItem().toString().equals("Marrón")) {
+            color = "Marron";
+        }
+        tamanio = (s_tamanio.getSelectedItem().toString().equals("Todos")) ? "" : s_tamanio.getSelectedItem().toString();
+//        tamanio = s_tamanio.getSelectedItem().toString();
         provincia = s_provincia.getSelectedItem().toString();
         Log.v("esteanimal", animal);
         Log.v("estepelaje", pelaje);
@@ -297,5 +307,62 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         cargarComunidades();
+    }
+
+    public void cargarAnimales() {
+        String token = Preferencias.getToken(FiltrosAnimalActivity.this);
+        String usuario_id = Preferencias.getID(FiltrosAnimalActivity.this);
+        //Creamos el JSON que vamos a mandar al servidor
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Tags.TOKEN, token);
+            json.put(Tags.USUARIO_ID, usuario_id);
+            json.put(Tags.MASCOTA, animal);
+            json.put(Tags.COLOR, color);
+            json.put(Tags.PELAJE, pelaje);
+            json.put(Tags.SEXO, sexo);
+            json.put(Tags.TAMANO, tamanio);
+            json.put(Tags.CHIP, chip);
+            json.put(Tags.ESTADO, estado);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /* Se hace petición de login al servidor. */
+        json = JSONUtil.hacerPeticionServidor("protectora/cargar_animales/", json);
+
+        try {
+            String p = json.getString(Tags.RESULTADO);
+
+            /* Se comprueba la conexión al servidor. */
+            if (p.contains(Tags.ERRORCONEXION)) {
+//                mensaje = "Error de conexión";
+            }
+            /* En caso de que conecte y no haya animales para dicha busqueda. */
+            else if (p.contains(Tags.OK_SIN_ANIMALES)) {
+                Toast.makeText(FiltrosAnimalActivity.this, ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
+            } else if (p.contains(Tags.OK)) {
+                String res = json.getString(Tags.RESULTADO);
+                JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
+                Log.v("animalesjson", array.toString());
+                if (array != null) {
+                    for (int i = 0; i < array.length(); i++) {
+                        Animal animal = new Animal(array.getJSONObject(i));
+                        Log.v("animalesjson", animal.toString());
+                        listaAnimales.add(animal);
+                        listaDeCodigos.add(String.valueOf(animal.getPk()));
+                    }
+                    Log.v("estecreateviewbucleeeee", listaDeCodigos.toString());
+                }
+//                Toast.makeText(FiltrosAnimalActivity.this, listaAnimales.toString(), Toast.LENGTH_LONG).show();
+            }
+            /* Resultado falla por otro error. */
+            else if (p.contains(Tags.ERROR)) {
+                String msg = json.getString(Tags.MENSAJE);
+//                mensaje = msg;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

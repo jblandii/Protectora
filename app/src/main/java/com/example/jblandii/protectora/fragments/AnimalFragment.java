@@ -2,6 +2,7 @@ package com.example.jblandii.protectora.fragments;
 
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class AnimalFragment extends Fragment {
 
     FloatingActionButton fab_filtrar_protectora;
     private ArrayList<Animal> listaAnimales;
+    private ArrayList<Animal> listaAnimalesNueva;
+    ArrayList<String> listaDeCodigos;
     RecyclerView recyclerView;
     private String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
             peso = "", chip = "", id_protectora = "", fecha = "", estado = "";
@@ -58,17 +61,19 @@ public class AnimalFragment extends Fragment {
             }
         });
         listaAnimales = new ArrayList<>();
+        listaAnimalesNueva = new ArrayList<>();
+        listaDeCodigos = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_animales);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         cargarAnimales();
-        Log.v("animalesoncreateview", listaAnimales.toString());
 
         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
         recyclerView.setAdapter(adaptadorAnimales);
 
         return view;
     }
+
 
     /**
      * Metodo que permite cargar los animales que pertenecen a la misma comunidad que el usuario.
@@ -153,20 +158,23 @@ public class AnimalFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.FILTRO_ANIMAL:
-                    if (getArguments() != null) {
-                        mascota = getArguments().getString("mascota");
-                        color = getArguments().getString("color");
-                        pelaje = getArguments().getString("pelaje");
-                        sexo = getArguments().getString("sexo");
-                        tamano = getArguments().getString("tamanio");
-                        chip = getArguments().getString("chip");
-                        fecha = getArguments().getString("fecha");
-                        estado = getArguments().getString("estado");
-                        Log.v("estecreateview", mascota + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
-
+                    if (data != null) {
+                        listaAnimalesNueva.clear();
+                        Log.v("estecreateview", data.getExtras().toString());
+                        listaDeCodigos = data.getStringArrayListExtra("codigos");
+                        for (int i = 0; i < listaDeCodigos.size(); i++) {
+                            for (int j = 0; j < listaAnimales.size(); j++) {
+                                if (listaDeCodigos.get(i).equals(String.valueOf(listaAnimales.get(j).getPk()))) {
+                                    listaAnimalesNueva.add(listaAnimales.get(j));
+                                }
+                            }
+                        }
+                        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimalesNueva, getContext());
+                        recyclerView.setAdapter(adaptadorAnimales);
+                        Log.v("estecreateview", listaDeCodigos + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
                     }
 
-                    Log.v("este", mascota + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
+                    Log.v("onActivityResult", "onActivityResult");
 
                     break;
                 default:
