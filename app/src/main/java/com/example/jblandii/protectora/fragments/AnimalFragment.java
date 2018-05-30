@@ -159,19 +159,11 @@ public class AnimalFragment extends Fragment {
             switch (requestCode) {
                 case Tags.FILTRO_ANIMAL:
                     if (data != null) {
-                        listaAnimalesNueva.clear();
-                        Log.v("estecreateview", data.getExtras().toString());
-                        listaDeCodigos = data.getStringArrayListExtra("codigos");
-                        for (int i = 0; i < listaDeCodigos.size(); i++) {
-                            for (int j = 0; j < listaAnimales.size(); j++) {
-                                if (listaDeCodigos.get(i).equals(String.valueOf(listaAnimales.get(j).getPk()))) {
-                                    listaAnimalesNueva.add(listaAnimales.get(j));
-                                }
-                            }
-                        }
-                        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimalesNueva, getContext());
+                        listaAnimales.clear();
+                        listaAnimales = data.getParcelableArrayListExtra("animales");
+                        AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
                         recyclerView.setAdapter(adaptadorAnimales);
-                        Log.v("estecreateview", listaDeCodigos + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
+                        Log.v("estecreateview", listaAnimales + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
                     }
 
                     Log.v("onActivityResult", "onActivityResult");

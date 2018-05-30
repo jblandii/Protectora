@@ -2,6 +2,7 @@ package com.example.jblandii.protectora;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
     ArrayList<Animal> listaAnimales;
     Button btn_aplicar_filtros;
     RadioGroup rg_animal, rg_pelaje, rg_sexo, rg_chip, rg_estado;
-    String estado = "", animal = "", tamanio = "", provincia = "", color = "", sexo = "", pelaje = "", chip = "";
+    String mensaje = "", estado = "", animal = "", tamanio = "", provincia = "", color = "", sexo = "", pelaje = "", chip = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +117,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_si:
-                        chip = "Sí";
+                        chip = "Si";
                         break;
                     case R.id.rb_no:
                         chip = "No";
@@ -137,7 +138,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                         estado = "Acogida";
                         break;
                     case R.id.rb_adopcion:
-                        estado = "Adopción";
+                        estado = "Adopcion";
                         break;
                     case R.id.rb_todos5:
                         estado = "";
@@ -151,17 +152,18 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recogerDatos();
-                cargarAnimales();
-                Bundle args = new Bundle();
-                AnimalFragment animalFragment = new AnimalFragment();
-                Intent intentFiltros = getIntent();
-//                args.putString("mascota", animal);
-                animalFragment.setArguments(args);
-//                intentFiltros.putExtra("mascota", animal);
-                intentFiltros.putStringArrayListExtra("codigos", listaDeCodigos);
-                intentFiltros.putExtra("color", color);
-                setResult(Activity.RESULT_OK, intentFiltros);
-                finish();
+                if (cargarAnimales()) {
+                    Bundle args = new Bundle();
+                    AnimalFragment animalFragment = new AnimalFragment();
+                    Intent intentFiltros = getIntent();
+                    animalFragment.setArguments(args);
+                    intentFiltros.putParcelableArrayListExtra("animales", listaAnimales);
+                    setResult(Activity.RESULT_OK, intentFiltros);
+                    finish();
+                } else {
+                    Snackbar.make(v, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    mensaje = "";
+                }
             }
         });
 
@@ -200,19 +202,12 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
     }
 
     private void recogerDatos() {
-//        color = s_color.getSelectedItem().toString();
         color = (s_color.getSelectedItem().toString().equals("Todos")) ? "" : s_color.getSelectedItem().toString();
         if (s_color.getSelectedItem().toString().equals("Marrón")) {
             color = "Marron";
         }
         tamanio = (s_tamanio.getSelectedItem().toString().equals("Todos")) ? "" : s_tamanio.getSelectedItem().toString();
-//        tamanio = s_tamanio.getSelectedItem().toString();
         provincia = s_provincia.getSelectedItem().toString();
-        Log.v("esteanimal", animal);
-        Log.v("estepelaje", pelaje);
-        Log.v("estesexo", sexo);
-        Log.v("estechip", chip);
-        Log.v("esteestado", estado);
     }
 
     /**
@@ -309,7 +304,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         cargarComunidades();
     }
 
-    public void cargarAnimales() {
+    public Boolean cargarAnimales() {
         String token = Preferencias.getToken(FiltrosAnimalActivity.this);
         String usuario_id = Preferencias.getID(FiltrosAnimalActivity.this);
         //Creamos el JSON que vamos a mandar al servidor
@@ -324,6 +319,7 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
             json.put(Tags.TAMANO, tamanio);
             json.put(Tags.CHIP, chip);
             json.put(Tags.ESTADO, estado);
+            json.put(Tags.PROVINCIA, provincia);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -336,15 +332,17 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
 
             /* Se comprueba la conexión al servidor. */
             if (p.contains(Tags.ERRORCONEXION)) {
-//                mensaje = "Error de conexión";
+                mensaje = getResources().getString(R.string.error_conexion);
+                return false;
             }
             /* En caso de que conecte y no haya animales para dicha busqueda. */
             else if (p.contains(Tags.OK_SIN_ANIMALES)) {
-                Toast.makeText(FiltrosAnimalActivity.this, ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
+//                Toast.makeText(FiltrosAnimalActivity.this, ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
+                mensaje = ucFirst(json.getString(Tags.MENSAJE));
+                return false;
             } else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
                 JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
-                Log.v("animalesjson", array.toString());
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
                         Animal animal = new Animal(array.getJSONObject(i));
@@ -352,17 +350,17 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                         listaAnimales.add(animal);
                         listaDeCodigos.add(String.valueOf(animal.getPk()));
                     }
-                    Log.v("estecreateviewbucleeeee", listaDeCodigos.toString());
                 }
+                return true;
 //                Toast.makeText(FiltrosAnimalActivity.this, listaAnimales.toString(), Toast.LENGTH_LONG).show();
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }
