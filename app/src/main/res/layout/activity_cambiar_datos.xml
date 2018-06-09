@@ -7,154 +7,165 @@
     tools:context="com.example.jblandii.protectora.CambiarDatos">
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:passwordToggleTint="@color/colorAccent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tie_nombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nombre"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_apellidos"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_nombre"
-        app:passwordToggleTint="@color/colorAccent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tie_apellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/appellidos"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_direccion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_apellidos"
-        app:passwordToggleTint="@color/colorAccent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tie_direccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/direccion"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_codigo_postal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:minWidth="130dp"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintEnd_toStartOf="@+id/til_telefono"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_direccion"
-        app:passwordToggleTint="@color/colorAccent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tie_codigo_postal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/cod_postal"
-            android:inputType="number"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_telefono"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_8_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/til_codigo_postal"
-        app:layout_constraintTop_toBottomOf="@+id/til_direccion"
-        app:passwordToggleTint="@color/colorAccent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tie_telefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/telefono"
-            android:inputType="phone"
-            android:phoneNumber="true"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/s_comunidades"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margen_16_layout"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_8_layout"
-        android:paddingTop="@dimen/margen_8_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_telefono" />
+        android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/s_provincias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margen_16_layout"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_8_layout"
-        android:paddingTop="@dimen/margen_8_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/s_comunidades" />
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_actualizar_datos"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margen_32_layout"
-        android:layout_marginStart="@dimen/margen_32_layout"
-        android:layout_marginTop="@dimen/margen_32_layout"
-        android:background="@color/colorPrimary"
-        android:text="@string/actualizar"
-        android:textColor="@color/secondaryTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/s_provincias" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_nombre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:passwordToggleTint="@color/colorAccent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tie_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nombre"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_apellidos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_nombre"
+                app:passwordToggleTint="@color/colorAccent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tie_apellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/appellidos"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_direccion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_apellidos"
+                app:passwordToggleTint="@color/colorAccent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tie_direccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/direccion"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_codigo_postal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:minWidth="130dp"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/til_telefono"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_direccion"
+                app:passwordToggleTint="@color/colorAccent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tie_codigo_postal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cod_postal"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_telefono"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_8_layout"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/til_codigo_postal"
+                app:layout_constraintTop_toBottomOf="@+id/til_direccion"
+                app:passwordToggleTint="@color/colorAccent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tie_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/telefono"
+                    android:inputType="phone"
+                    android:phoneNumber="true"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/s_comunidades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_16_layout"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:paddingTop="@dimen/margen_8_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_telefono" />
+
+            <Spinner
+                android:id="@+id/s_provincias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margen_16_layout"
+                android:layout_marginEnd="@dimen/margen_32_layout"
+                android:layout_marginStart="@dimen/margen_32_layout"
+                android:layout_marginTop="@dimen/margen_8_layout"
+                android:paddingTop="@dimen/margen_8_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/s_comunidades" />
+
+            <Button
+                android:id="@+id/btn_actualizar_datos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margen_32_layout"
+                android:background="@color/colorPrimary"
+                android:text="@string/actualizar"
+                android:textColor="@color/secondaryTextColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/s_provincias" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
