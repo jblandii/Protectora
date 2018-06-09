@@ -117,7 +117,8 @@ public class Tags {
             CAMBIAR_CONTRASENA = 26,
             CAMBIAR_EMAIL = 27,
             CAMBIAR_DATOS = 28,
-            FILTRO_ANIMAL = 29;
+            FILTRO_ANIMAL = 29,
+            FILTRO_PROTECTORA = 30;
 
 
     public static final String PREMIUM_ADMINISTRADO = "premium_administrado";

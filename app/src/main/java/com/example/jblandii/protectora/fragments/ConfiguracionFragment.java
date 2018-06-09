@@ -181,7 +181,10 @@ public class ConfiguracionFragment extends Fragment {
      * Metodo que permite cargar los datos del usuario.
      */
     public void cargarDatos() {
-        String nombreyapellidos = usuario.getNombre() + " " + usuario.getApellidos();
+        String nombreyapellidos = "";
+        if (!(usuario.getNombre().isEmpty() && usuario.getApellidos().isEmpty())) {
+            nombreyapellidos = usuario.getNombre() + " " + usuario.getApellidos();
+        }
         tv_nombre_usuario.setText(nombreyapellidos);
         tv_username.setText(usuario.getUsername());
     }

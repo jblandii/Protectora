@@ -106,7 +106,7 @@ public class CambiarDatos extends AppCompatActivity {
                         usuario.setNombre(tie_nombre.getText().toString());
                         usuario.setApellidos(tie_apellidos.getText().toString());
                         usuario.setDireccion(tie_direccion.getText().toString());
-                        usuario.setDireccion(tie_codigo_postal.getText().toString());
+                        usuario.setCodigo_postal(tie_codigo_postal.getText().toString());
                         usuario.setTelefono(tie_telefono.getText().toString());
                         usuario.setProvincia(s_provincias.getSelectedItem().toString());
                         intentmain.putExtra("usuario", usuario);
@@ -226,7 +226,6 @@ public class CambiarDatos extends AppCompatActivity {
                     ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_comunidades);
                     s_comunidades.setAdapter(adapter);
                     comunidad_usuario = json.getInt(Tags.COMUNIDAD_USUARIO);
-                    Log.v("comunidad_usuario", comunidad_usuario + "");
                 }
             } else if (p.contains(Tags.ERROR)) {
                 Toast.makeText(getApplicationContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_SHORT).show();
@@ -270,13 +269,10 @@ public class CambiarDatos extends AppCompatActivity {
                         Provincia provincia = new Provincia(array.getJSONObject(i));
                         provincias.add(provincia);
                         lista_provincias.add(provincia.getProvincia());
-                        Log.v("esteprovincia", provincia.getProvincia() + provincia.getPk());
                     }
-                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
-                            android.R.layout.simple_spinner_dropdown_item, lista_provincias);
+                    ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, lista_provincias);
                     s_provincias.setAdapter(adapter);
                     provincia_usuario = json.getInt(Tags.PROVINCIA_USUARIO);
-                    Log.v("esteprovincia_usuario", provincia_usuario + "");
                 }
             } else if (p.contains(Tags.ERROR)) {
                 Toast.makeText(getApplicationContext(), json.getString(Tags.MENSAJE), Toast.LENGTH_SHORT).show();
@@ -320,8 +316,7 @@ public class CambiarDatos extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
                 return false;
             }
         } catch (JSONException e) {

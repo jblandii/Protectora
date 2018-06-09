@@ -64,7 +64,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Conversacion_Mensajes" />
-        <activity android:name=".FiltrosAnimalActivity"></activity>
+        <activity android:name=".FiltrosAnimalActivity" />
+        <activity android:name=".FiltrosProtectoraActivity"></activity>
     </application>
 
 </manifest>

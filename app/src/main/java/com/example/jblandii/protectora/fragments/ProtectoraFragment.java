@@ -1,16 +1,21 @@
 package com.example.jblandii.protectora.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
 import com.example.jblandii.protectora.Adaptadores.AdaptadorProtectoras;
+import com.example.jblandii.protectora.FiltrosAnimalActivity;
+import com.example.jblandii.protectora.FiltrosProtectoraActivity;
 import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -23,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
 
 public class ProtectoraFragment extends Fragment {
@@ -30,7 +36,7 @@ public class ProtectoraFragment extends Fragment {
     FloatingActionButton fab_filtrar_protectora;
     ArrayList<Protectora> lista_protectoras;
     RecyclerView recyclerView;
-    String direccion = "", provincia = "", codigo_postal = "";
+    String provincia = "";
 
     public ProtectoraFragment() {
     }
@@ -44,6 +50,15 @@ public class ProtectoraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_protectora_fragment, container, false);
         fab_filtrar_protectora = view.findViewById(R.id.fab_filtrar_protectora);
+
+        fab_filtrar_protectora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentFilter = new Intent(getContext(), FiltrosProtectoraActivity.class);
+                startActivityForResult(intentFilter, Tags.FILTRO_PROTECTORA);
+            }
+        });
+
         lista_protectoras = new ArrayList<>();
         recyclerView = view.findViewById(R.id.rv_recycler_protectora);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,16 +67,6 @@ public class ProtectoraFragment extends Fragment {
 
         AdaptadorProtectoras adaptadorProtectoras = new AdaptadorProtectoras(lista_protectoras, getContext());
         recyclerView.setAdapter(adaptadorProtectoras);
-
-//        adaptadorProtectoras.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "Seleccion: " +
-//                        lista_protectoras.get(recyclerView.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
         return view;
     }
 
@@ -76,8 +81,6 @@ public class ProtectoraFragment extends Fragment {
         try {
             json.put(Tags.TOKEN, token);
             json.put(Tags.USUARIO_ID, usuario_id);
-            json.put(Tags.DIRECCION, direccion);
-            json.put(Tags.COD_POSTAL, codigo_postal);
             json.put(Tags.PROVINCIA, provincia);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,6 +117,29 @@ public class ProtectoraFragment extends Fragment {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("FragmentA.java", "onActivityResult called");
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Tags.FILTRO_PROTECTORA:
+                    if (data != null) {
+                        lista_protectoras.clear();
+                        lista_protectoras = data.getParcelableArrayListExtra("protectoras");
+                        AdaptadorProtectoras adaptadorProtectoras = new AdaptadorProtectoras(lista_protectoras, getContext());
+                        recyclerView.setAdapter(adaptadorProtectoras);
+                        Log.v("estecreateview", lista_protectoras + "");
+                    }
+
+                    Log.v("onActivityResult", "onActivityResult");
+
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }

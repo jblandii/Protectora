@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jblandii.protectora.FiltrosProtectoraActivity">
+
+    <TextView
+        android:id="@+id/tv_comunidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_8_layout"
+        android:layout_marginStart="@dimen/margen_32_layout"
+        android:layout_marginTop="@dimen/margen_16_layout"
+        android:text="@string/f_comunidad"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/s_comunidad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/s_comunidad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_32_layout"
+        android:layout_marginStart="@dimen/margen_8_layout"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_comunidad"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_provincia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_16_layout"
+        android:layout_marginStart="@dimen/margen_32_layout"
+        android:layout_marginTop="@dimen/margen_16_layout"
+        android:text="@string/f_provincia"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/s_provincia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_comunidad" />
+
+    <Spinner
+        android:id="@+id/s_provincia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margen_32_layout"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_provincia"
+        app:layout_constraintTop_toBottomOf="@+id/tv_comunidad" />
+
+    <Button
+        android:id="@+id/btn_aplicar_filtros"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/aplicar_filtros"
+        android:textColor="@color/secondaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

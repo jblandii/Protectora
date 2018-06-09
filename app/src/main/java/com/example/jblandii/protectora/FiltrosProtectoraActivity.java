@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Comunidad;
+import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.Models.Provincia;
 import com.example.jblandii.protectora.fragments.AnimalFragment;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
@@ -30,134 +31,42 @@ import java.util.ArrayList;
 
 import static com.example.jblandii.protectora.Util.ValidatorUtil.ucFirst;
 
-public class FiltrosAnimalActivity extends AppCompatActivity {
+public class FiltrosProtectoraActivity extends AppCompatActivity {
 
-    private Spinner s_color, s_tamanio, s_comunidad, s_provincia;
     private ArrayList<String> lista_comunidades, lista_provincias;
+    private Spinner s_comunidad, s_provincia;
     private ArrayList<Comunidad> comunidades;
     ArrayList<Provincia> provincias;
-    ArrayList<String> listaDeCodigos;
-    ArrayList<Animal> listaAnimales;
+    ArrayList<Protectora> listaProtectoras;
     Button btn_aplicar_filtros;
-    RadioGroup rg_animal, rg_pelaje, rg_sexo, rg_chip, rg_estado;
-    String mensaje = "", estado = "", animal = "", tamanio = "", provincia = "", color = "", sexo = "", pelaje = "", chip = "";
+    String mensaje = "", provincia = "", comunidad = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filtros_animal);
+        setContentView(R.layout.activity_filtros_protectora);
         cargarBotones();
     }
 
     private void cargarBotones() {
-        listaDeCodigos = new ArrayList<>();
-        listaAnimales = new ArrayList<>();
+        listaProtectoras = new ArrayList<>();
         comunidades = new ArrayList<>();
         provincias = new ArrayList<>();
         lista_comunidades = new ArrayList<>();
         lista_provincias = new ArrayList<>();
-
-        rg_animal = findViewById(R.id.rg_animal);
-        rg_animal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_gato:
-                        animal = "Gato";
-                        break;
-                    case R.id.rb_perro:
-                        animal = "Perro";
-                        break;
-                    case R.id.rb_todos:
-                        animal = "";
-                        break;
-                }
-            }
-        });
-
-        rg_pelaje = findViewById(R.id.rg_pelaje);
-        rg_pelaje.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_corto:
-                        pelaje = "Corto";
-                        break;
-                    case R.id.rb_largo:
-                        pelaje = "Largo";
-                        break;
-                    case R.id.rb_todos2:
-                        pelaje = "";
-                        break;
-                }
-            }
-        });
-
-        rg_sexo = findViewById(R.id.rg_sexo);
-        rg_sexo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_macho:
-                        sexo = "Macho";
-                        break;
-                    case R.id.rb_hembra:
-                        sexo = "Hembra";
-                        break;
-                    case R.id.rb_todos3:
-                        sexo = "";
-                        break;
-                }
-            }
-        });
-
-        rg_chip = findViewById(R.id.rg_chip);
-        rg_chip.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_si:
-                        chip = "Si";
-                        break;
-                    case R.id.rb_no:
-                        chip = "No";
-                        break;
-                    case R.id.rb_todos4:
-                        chip = "";
-                        break;
-                }
-            }
-        });
-
-        rg_estado = findViewById(R.id.rg_estado);
-        rg_estado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_acogida:
-                        estado = "Acogida";
-                        break;
-                    case R.id.rb_adopcion:
-                        estado = "Adopcion";
-                        break;
-                    case R.id.rb_todos5:
-                        estado = "";
-                        break;
-                }
-            }
-        });
 
         btn_aplicar_filtros = findViewById(R.id.btn_aplicar_filtros);
         btn_aplicar_filtros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recogerDatos();
-                if (cargarAnimales()) {
+                if (cargarProtectoras()) {
                     Bundle args = new Bundle();
                     AnimalFragment animalFragment = new AnimalFragment();
                     Intent intentFiltros = getIntent();
                     animalFragment.setArguments(args);
-                    intentFiltros.putParcelableArrayListExtra("animales", listaAnimales);
+                    intentFiltros.putParcelableArrayListExtra("protectoras", listaProtectoras);
                     setResult(Activity.RESULT_OK, intentFiltros);
                     finish();
                 } else {
@@ -191,22 +100,10 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
 
             }
         });
-
-        s_color = findViewById(R.id.s_color);
-        ArrayAdapter spinerColoresAdapter = ArrayAdapter.createFromResource(this, R.array.colores, android.R.layout.simple_spinner_dropdown_item);
-        s_color.setAdapter(spinerColoresAdapter);
-
-        s_tamanio = findViewById(R.id.s_tamanio);
-        ArrayAdapter spinerTamaniosAdapter = ArrayAdapter.createFromResource(this, R.array.tamanios, android.R.layout.simple_spinner_dropdown_item);
-        s_tamanio.setAdapter(spinerTamaniosAdapter);
     }
 
     private void recogerDatos() {
-        color = (s_color.getSelectedItem().toString().equals("Todos")) ? "" : s_color.getSelectedItem().toString();
-        if (s_color.getSelectedItem().toString().equals("Marrón")) {
-            color = "Marron";
-        }
-        tamanio = (s_tamanio.getSelectedItem().toString().equals("Todos")) ? "" : s_tamanio.getSelectedItem().toString();
+        comunidad = s_comunidad.getSelectedItem().toString();
         provincia = s_provincia.getSelectedItem().toString();
         if (s_provincia.getSelectedItem().toString().equals("Todas")) {
             provincia = "";
@@ -311,28 +208,22 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         cargarComunidades();
     }
 
-    public Boolean cargarAnimales() {
-        String token = Preferencias.getToken(FiltrosAnimalActivity.this);
-        String usuario_id = Preferencias.getID(FiltrosAnimalActivity.this);
+    public Boolean cargarProtectoras() {
+        String token = Preferencias.getToken(FiltrosProtectoraActivity.this);
+        String usuario_id = Preferencias.getID(FiltrosProtectoraActivity.this);
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
         try {
             json.put(Tags.TOKEN, token);
             json.put(Tags.USUARIO_ID, usuario_id);
-            json.put(Tags.MASCOTA, animal);
-            json.put(Tags.COLOR, color);
-            json.put(Tags.PELAJE, pelaje);
-            json.put(Tags.SEXO, sexo);
-            json.put(Tags.TAMANO, tamanio);
-            json.put(Tags.CHIP, chip);
-            json.put(Tags.ESTADO, estado);
             json.put(Tags.PROVINCIA, provincia);
+            json.put(Tags.COMUNIDAD_AUTONOMA, comunidad);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         /* Se hace petición de login al servidor. */
-        json = JSONUtil.hacerPeticionServidor("protectora/cargar_animales/", json);
+        json = JSONUtil.hacerPeticionServidor("protectora/cargar_protectoras/", json);
 
         try {
             String p = json.getString(Tags.RESULTADO);
@@ -343,23 +234,20 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                 return false;
             }
             /* En caso de que conecte y no haya animales para dicha busqueda. */
-            else if (p.contains(Tags.OK_SIN_ANIMALES)) {
+            else if (p.contains(Tags.OK_SIN_PROTECTORAS)) {
 //                Toast.makeText(FiltrosAnimalActivity.this, ucFirst(json.getString(Tags.MENSAJE)), Toast.LENGTH_LONG).show();
                 mensaje = ucFirst(json.getString(Tags.MENSAJE));
                 return false;
             } else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
-                JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
+                JSONArray array = json.getJSONArray(Tags.LISTA_PROTECTORAS);
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
-                        Animal animal = new Animal(array.getJSONObject(i));
-                        Log.v("animalesjson", animal.toString());
-                        listaAnimales.add(animal);
-                        listaDeCodigos.add(String.valueOf(animal.getPk()));
+                        Protectora protectora = new Protectora(array.getJSONObject(i));
+                        listaProtectoras.add(protectora);
                     }
                 }
                 return true;
-//                Toast.makeText(FiltrosAnimalActivity.this, listaAnimales.toString(), Toast.LENGTH_LONG).show();
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {

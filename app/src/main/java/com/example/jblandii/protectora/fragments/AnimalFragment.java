@@ -87,16 +87,12 @@ public class AnimalFragment extends Fragment {
             json.put(Tags.TOKEN, token);
             json.put(Tags.USUARIO_ID, usuario_id);
             json.put(Tags.MASCOTA, mascota);
-            json.put(Tags.RAZA, raza);
             json.put(Tags.COLOR, color);
-            json.put(Tags.EDAD, edad);
             json.put(Tags.PELAJE, pelaje);
             json.put(Tags.SEXO, sexo);
             json.put(Tags.TAMANO, tamano);
             json.put(Tags.PESO, peso);
             json.put(Tags.CHIP, chip);
-            json.put(Tags.ID_PROTECTORA, id_protectora);
-            json.put(Tags.FECHA, fecha);
             json.put(Tags.ESTADO, estado);
         } catch (JSONException e) {
             e.printStackTrace();
