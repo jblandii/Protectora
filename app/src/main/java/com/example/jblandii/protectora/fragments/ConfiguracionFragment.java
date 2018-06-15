@@ -3,13 +3,11 @@ package com.example.jblandii.protectora.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +27,8 @@ import com.example.jblandii.protectora.peticionesBD.JSONUtil;
 import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -222,7 +217,6 @@ public class ConfiguracionFragment extends Fragment {
                     String ruta_real = "";
 
                     ruta_real = Utilidades.getPathFromUri(getContext(), uri);
-                    Log.i("USUARIO", "path real:" + ruta_real);
                     JSONObject jsonConsulta = new JSONObject();
                     try {
                         jsonConsulta.put(Tags.USUARIO_ID, Usuario.getID(getActivity()));
@@ -233,7 +227,6 @@ public class ConfiguracionFragment extends Fragment {
 
                     //Hacemos petición de lista de centros al servidor
                     jsonConsulta = JSONUtil.hacerPeticionServidorFile("usuarios/java/set_foto/", ruta_real, jsonConsulta);
-                    Log.i("MOSTRANDO JSON", String.valueOf(jsonConsulta));
                     try {
                         if (jsonConsulta.getString(Tags.RESULTADO).contains("ok")) {
                             cargarUsuario();

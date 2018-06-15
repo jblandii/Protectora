@@ -355,7 +355,6 @@ public class Animal implements Serializable, Parcelable{
         }
 
         try {
-//            this.imagenURL = json.getString(Tags.FOTO);
             setImagenURL("static/media/" + json.getString(Tags.FOTO));
             Log.v("fotoanimal", this.imagenURL);
         } catch (JSONException e) {

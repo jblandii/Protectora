@@ -31,7 +31,7 @@ public class Conversacion_Mensajes extends AppCompatActivity {
 
     private Protectora protectora;
     private EditText et_mensaje_a_enviar;
-    private ImageButton ib_enviar;
+    ImageButton ib_enviar;
     private ArrayList<Mensaje> listaMensajes;
     private RecyclerView recyclerView;
     private AdaptadorMensajes adaptadorMensajes;
@@ -46,13 +46,15 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         cargarBotones();
         asignarValores();
         cargarMensajes();
-        Log.v("Mensajebuclecon", listaMensajes.toString());
 
         adaptadorMensajes = new AdaptadorMensajes(listaMensajes, Conversacion_Mensajes.this);
         recyclerView.setAdapter(adaptadorMensajes);
         recyclerView.scrollToPosition(listaMensajes.size() - 1);
     }
 
+    /**
+     * Metodo que se utiliza para cargar los elementos del layout.
+     */
     private void cargarBotones() {
         listaMensajes = new ArrayList<>();
 
@@ -73,6 +75,10 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para pone en la toolbar el nombre de la protectora o volver a la pantalla de las conversaciones dependiendo del resultado que reciba
+     * del metodo recogerDatosConversacion.
+     */
     private void asignarValores() {
         if (recogerDatosConversacion()) {
             getSupportActionBar().setTitle(protectora.getNombre());
@@ -84,10 +90,14 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para recoger los datos que se reciben de la conversacion.
+     *
+     * @return devuelve si se recoge true o false dependiendo de si se recogen correctamtente los datos.
+     */
     private boolean recogerDatosConversacion() {
         try {
             protectora = getIntent().getExtras().getParcelable("conversacion");
-//            Toast.makeText(this, protectora.toString(), Toast.LENGTH_LONG).show();
             return true;
         } catch (Exception e) {
             Log.v("Exception", e.toString());
@@ -95,6 +105,9 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo para cargar todos los mensajes del usuario.
+     */
     public void cargarMensajes() {
         String token = Preferencias.getToken(Conversacion_Mensajes.this);
         String usuario_id = Preferencias.getID(Conversacion_Mensajes.this);
@@ -110,7 +123,6 @@ public class Conversacion_Mensajes extends AppCompatActivity {
 
         /* Se hace petición de login al servidor. */
         json = JSONUtil.hacerPeticionServidor("conversacion/cargar_mensajes/", json);
-        Log.v("mensajesmostrar", json.toString());
         try {
             String p = json.getString(Tags.RESULTADO);
 
@@ -120,7 +132,6 @@ public class Conversacion_Mensajes extends AppCompatActivity {
             } else if (p.contains(Tags.OK)) {
 
                 JSONArray array = json.getJSONArray(Tags.LISTA_CONVERSACIONES);
-                Log.v("Mensajebuclesin", array.toString());
                 if (array.length() > 0) {
                     for (int i = 0; i < array.length(); i++) {
                         Mensaje mensaje = new Mensaje(array.getJSONObject(i));
@@ -138,6 +149,11 @@ public class Conversacion_Mensajes extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo para enviar al servidor el nuevo mensaje que ha escrito el usuario.
+     *
+     * @param mensaje
+     */
     private void mandarMensajeDeUsuario(String mensaje) {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -164,7 +180,6 @@ public class Conversacion_Mensajes extends AppCompatActivity {
             else if (p.contains(Tags.OK)) {
                 /* Guarda en las preferencias el token. */
                 JSONArray array = json.getJSONArray(Tags.LISTA_CONVERSACIONES);
-                Log.v("Mensajebuclesin", array.toString());
                 if (array.length() > 0) {
                     for (int i = 0; i < array.length(); i++) {
                         Mensaje mensaje_enviado = new Mensaje(array.getJSONObject(i));
@@ -179,8 +194,7 @@ public class Conversacion_Mensajes extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
 
             }
         } catch (JSONException e) {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ import java.util.ArrayList;
 
 public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConversaciones.ConversacionesViewHolder> {
 
-    ArrayList<Conversacion> listaConversaciones;
-    Context context;
+    private ArrayList<Conversacion> listaConversaciones;
+    private Context context;
 
     public AdaptadorConversaciones(ArrayList<Conversacion> listaConversaciones, Context context) {
         this.listaConversaciones = listaConversaciones;
@@ -44,15 +43,10 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
     @Override
     public void onBindViewHolder(ConversacionesViewHolder holder, final int position) {
         holder.tv_nombre_protectora_conversacion.setText(listaConversaciones.get(position).getProtectora().getNombre());
-//        holder.tv_mensaje.setText(listaMensajes.get(position).getMensaje());
-//        holder.tv_mensaje.setText("hola");
-//        holder.tv_numero_mensajes.setText(listaMensajes.get(position).get());
-//        holder.tv_numero_mensajes.setText("hola");
         holder.cv_mensajes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentDetallesProtectora = new Intent(v.getContext(), Conversacion_Mensajes.class);
-                Log.v("probandoConversacion", listaConversaciones.get(position).getProtectora().toString());
                 intentDetallesProtectora.putExtra("conversacion", (Parcelable) listaConversaciones.get(position).getProtectora());
                 v.getContext().startActivity(intentDetallesProtectora);
             }

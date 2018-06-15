@@ -34,6 +34,9 @@ public class CambiarContrasena extends AppCompatActivity {
         cargarBotones();
     }
 
+    /**
+     * Metodo que se utiliza para cargar todos los elementos del layout.
+     */
     private void cargarBotones() {
         btn_cambiar_contrasena = findViewById(R.id.btn_cambiar);
         til_contrasena_actual = findViewById(R.id.til_contrasena_actual);
@@ -73,8 +76,6 @@ public class CambiarContrasena extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if (cambiarContrasena()) {
                                 if (!mensaje.isEmpty()) {
-//                                  Snackbar.make(v, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                                  mensaje = "";
                                     Intent intentmain = getIntent();
                                     setResult(Activity.RESULT_OK, intentmain);
                                     finish();
@@ -98,6 +99,10 @@ public class CambiarContrasena extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo que se utiliza para cambiar la contraseña en el servidor.
+     * @return
+     */
     private boolean cambiarContrasena() {
         String contrasena_antigua = tie_contrasena_actual.getText().toString();
         String contrasena_nueva = tie_contrasena_nueva.getText().toString();

@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentRecordarContrasena = new Intent(LoginActivity.this, RecordarContrasenaActivity.class);
-//                startActivity(intentRecordarContrasena);
                 startActivityForResult(intentRecordarContrasena, Tags.RECORDAR);
             }
         });
@@ -143,8 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
                 return false;
             }
         } catch (JSONException e) {

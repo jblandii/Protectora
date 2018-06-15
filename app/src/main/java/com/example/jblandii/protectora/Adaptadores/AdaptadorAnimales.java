@@ -86,14 +86,12 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
             holder.iv_animal.setScaleType(ImageView.ScaleType.FIT_CENTER);
             holder.iv_animal.setImageResource(R.drawable.logo);
             arrayTareas.add(new Tarea("descargarFoto", listaAnimales.get(position), holder.iv_animal));
-            Log.v("estaesssss", listaAnimales.get(position).getPk() + "");
             hacerTarea(position);
         }
         holder.cv_animales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentDetallesAnimal = new Intent(v.getContext(), DetallesAnimal.class);
-                Log.v("probandoanimal", listaAnimales.get(position).toString());
                 intentDetallesAnimal.putExtra("animal", (Parcelable) listaAnimales.get(position));
                 v.getContext().startActivity(intentDetallesAnimal);
             }
@@ -112,7 +110,6 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
                         listaAnimales.get(position).setMe_gusta("false");
                         DescargarImagen.borrarImagen("favoritos/", "animal" + listaAnimales.get(position).getPk());
                     } else {
-                        Log.v("entro", "entro");
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta);
                         listaAnimales.get(position).setMe_gusta("true");
                         holder.iv_animal.buildDrawingCache();
@@ -170,6 +167,11 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
         return bitmap;
     }
 
+    /**
+     * Metodo que utilizo para dar o quitar me gustas a los animales.
+     * @param position
+     * @return
+     */
     public boolean dar_mg(int position) {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -201,7 +203,6 @@ public class AdaptadorAnimales extends RecyclerView.Adapter<AdaptadorAnimales.An
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
                 return false;
             }
         } catch (JSONException e) {

@@ -49,6 +49,9 @@ public class FiltrosProtectoraActivity extends AppCompatActivity {
         cargarBotones();
     }
 
+    /**
+     * Metodo que se utiliza para cargar los elementos del layout.
+     */
     private void cargarBotones() {
         listaProtectoras = new ArrayList<>();
         comunidades = new ArrayList<>();
@@ -102,6 +105,9 @@ public class FiltrosProtectoraActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo que se utiliza para recoger los datos de los spinner.
+     */
     private void recogerDatos() {
         comunidad = s_comunidad.getSelectedItem().toString();
         provincia = s_provincia.getSelectedItem().toString();
@@ -208,6 +214,10 @@ public class FiltrosProtectoraActivity extends AppCompatActivity {
         cargarComunidades();
     }
 
+    /**
+     * Metodo que se utiliza para cargar las protectoras filtradas.
+     * @return
+     */
     public Boolean cargarProtectoras() {
         String token = Preferencias.getToken(FiltrosProtectoraActivity.this);
         String usuario_id = Preferencias.getID(FiltrosProtectoraActivity.this);

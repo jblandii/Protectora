@@ -34,6 +34,9 @@ public class CambiarEmail extends AppCompatActivity {
         cargarBotones();
     }
 
+    /**
+     * Metodo que se utiliza para cargar todos los elementos del layout.
+     */
     private void cargarBotones() {
         btn_cambiar_email = findViewById(R.id.btn_cambiar_email);
         til_email_actual = findViewById(R.id.til_email_actual);
@@ -73,8 +76,6 @@ public class CambiarEmail extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if (cambiaremail()) {
                                 if (!mensaje.isEmpty()) {
-//                                  Snackbar.make(v, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//                                  mensaje = "";
                                     Intent intentmain = getIntent();
                                     setResult(Activity.RESULT_OK, intentmain);
                                     finish();
@@ -98,6 +99,11 @@ public class CambiarEmail extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo para cambiar el email en el servidor.
+     *
+     * @return devuelve si se ha realizado correctamente o no.
+     */
     private boolean cambiaremail() {
         String email_antigua = tie_email_actual.getText().toString();
         String email_nueva = tie_email_nueva.getText().toString();
@@ -133,8 +139,7 @@ public class CambiarEmail extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
                 return false;
 
             }

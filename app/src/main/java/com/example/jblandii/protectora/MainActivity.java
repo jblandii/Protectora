@@ -53,28 +53,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-//                switch (item.getItemId()) {
-//                    case R.id.navigation_animales:
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
-//                        break;
-//                    case R.id.navigation_protectoras:
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragmentContainer, protectoraFragment).commit();
-//                        break;
-//                    case R.id.navigation_megustas:
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragmentContainer, meGustaFragment).commit();
-//                        break;
-//                    case R.id.navigation_mensajes:
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragmentContainer, mensajeFragment).commit();
-//                        break;
-//                    case R.id.navigation_configuracion:
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragmentContainer, configuracionFragment).commit();
-//                        break;
-//                }
                 if (item.getItemId() == R.id.navigation_animales) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentContainer, animalFragment).commit();
@@ -158,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        for (Fragment fragment : getSupportFragmentManager ().findFragmentById()) {
-//            fragment.onActivityResult(requestCode, resultCode, data);
-//        }
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.LOGIN:

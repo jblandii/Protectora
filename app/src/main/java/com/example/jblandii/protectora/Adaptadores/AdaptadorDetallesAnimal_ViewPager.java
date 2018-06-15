@@ -3,20 +3,17 @@ package com.example.jblandii.protectora.Adaptadores;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
-import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Tarea;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.Util.DescargarImagen;
@@ -36,7 +33,7 @@ public class AdaptadorDetallesAnimal_ViewPager extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<String> imagenes;
     private Handler puente;
-    ArrayList<Tarea> arrayTareas = new ArrayList<>();
+    private ArrayList<Tarea> arrayTareas = new ArrayList<>();
     ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
     public AdaptadorDetallesAnimal_ViewPager(Context context, ArrayList<String> imagenes) {
@@ -74,7 +71,6 @@ public class AdaptadorDetallesAnimal_ViewPager extends PagerAdapter {
         ImageView iv_imagen_animal = view.findViewById(R.id.iv_imagen_animal);
         iv_imagen_animal.setImageResource(R.drawable.nueva_pancarta);
         arrayTareas.add(new Tarea("descargarFoto", imagenes.get(position), iv_imagen_animal));
-        Log.v("estaesssss", imagenes.get(position));
         hacerTarea();
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);

@@ -68,10 +68,13 @@ public class DetallesProtectora extends AppCompatActivity {
         vp_imagenes_protectora.setAdapter(adaptadorDetallesProtectora_viewPAger);
     }
 
+    /**
+     * Metodo que se utiliza para recoger los datos de la protectora que recibe desde otra actividad.
+     * @return devuelve true o false dependiendo de si los recoge bien.
+     */
     private boolean recogerDatosProtectora() {
         try {
             protectora = getIntent().getExtras().getParcelable("protectora");
-//            Toast.makeText(this, protectora.toString(), Toast.LENGTH_LONG).show();
             return true;
         } catch (Exception e) {
             Log.v("Exception", e.toString());
@@ -79,6 +82,9 @@ public class DetallesProtectora extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para mostrar todos los datos de la protectora en el layout.
+     */
     private void asignarValores() {
         if (recogerDatosProtectora()) {
             cargarImagenesProtectora();
@@ -95,6 +101,9 @@ public class DetallesProtectora extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para cargar todos los elementos del layout.
+     */
     private void cargarBotones() {
         redesSociales = new ArrayList<>();
         imagenes = new ArrayList<>();
@@ -113,6 +122,9 @@ public class DetallesProtectora extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo que se utiliza para cargar las imagenes de la protectora.
+     */
     private void cargarImagenesProtectora() {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -146,19 +158,15 @@ public class DetallesProtectora extends AppCompatActivity {
                         redesSociales.add(redSocial);
                         View view = getLayoutInflater().inflate(R.layout.red_social, null);
                         ImageButton imageButton = view.findViewById(R.id.ib_red_social);
-//                        ll_protectora_info_animal.setOrientation(LinearLayout.VERTICAL);
                         if (!redSocial.getRed().isEmpty()) {
                             if (redSocial.getRed().equals("Twitter")) {
                                 imageButton.setImageResource(R.drawable.tw);
-//                                cv_protectora_info_animal.addView(view);
                                 ll_protectora_info_animal.addView(view);
                             } else if (redSocial.getRed().equals("Facebook")) {
                                 imageButton.setImageResource(R.drawable.fb);
-//                                cv_protectora_info_animal.addView(view);
                                 ll_protectora_info_animal.addView(view);
                             } else if (redSocial.getRed().equals("Instagram")) {
                                 imageButton.setImageResource(R.drawable.instagram);
-//                                cv_protectora_info_animal.addView(view);
                                 ll_protectora_info_animal.addView(view);
                             }
                             imageButton.setOnClickListener(new View.OnClickListener() {
@@ -183,14 +191,12 @@ public class DetallesProtectora extends AppCompatActivity {
                 }
                 JSONObject json_protectora = json.getJSONObject(Tags.PROTECTORA);
                 protectora = new Protectora(json_protectora);
-//                Toast.makeText(this, protectora.toString(), Toast.LENGTH_LONG).show();
             }
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 Intent intentmain = getIntent();
                 setResult(Activity.RESULT_CANCELED, intentmain);
-//                Toast.makeText(DetallesAnimal.this, json.getString(Tags.MENSAJE), Toast.LENGTH_LONG).show();
                 finish();
             }
         } catch (JSONException e) {
@@ -198,6 +204,9 @@ public class DetallesProtectora extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para abrir un dialogo para poder contactar con la protectora que se está visualizando.
+     */
     private void abrirDialogo() {
         LayoutInflater inflater = LayoutInflater.from(DetallesProtectora.this);
         View subView = inflater.inflate(R.layout.dialogo_contactar, null);
@@ -223,13 +232,16 @@ public class DetallesProtectora extends AppCompatActivity {
         builder.setNegativeButton(getResources().getString(R.string.cancelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(DetallesAnimal.this, "Cancel", Toast.LENGTH_LONG).show();
             }
         });
 
         builder.show();
     }
 
+    /**
+     * Metodo que se utiliza para enviar el mensaje que el usuario desea a la protectora.
+     * @param mensaje se le pasa por parametro el mensaje que ha escrito el usuario en el dialogo.
+     */
     private void mandarMensaje(String mensaje) {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -260,8 +272,7 @@ public class DetallesProtectora extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
 
             }
         } catch (JSONException e) {

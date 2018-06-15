@@ -49,6 +49,9 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         cargarBotones();
     }
 
+    /**
+     * Metodo que se utiliza para cargar los elementos del layout.
+     */
     private void cargarBotones() {
         listaDeCodigos = new ArrayList<>();
         listaAnimales = new ArrayList<>();
@@ -201,6 +204,9 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         s_tamanio.setAdapter(spinerTamaniosAdapter);
     }
 
+    /**
+     * Metodo que se utiliza para recoger los datos de los spinner.
+     */
     private void recogerDatos() {
         color = (s_color.getSelectedItem().toString().equals("Todos")) ? "" : s_color.getSelectedItem().toString();
         if (s_color.getSelectedItem().toString().equals("Marrón")) {
@@ -311,6 +317,10 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
         cargarComunidades();
     }
 
+    /**
+     * Metodo que se utiliza para cargar los animales filtrados.
+     * @return
+     */
     public Boolean cargarAnimales() {
         String token = Preferencias.getToken(FiltrosAnimalActivity.this);
         String usuario_id = Preferencias.getID(FiltrosAnimalActivity.this);
@@ -353,13 +363,11 @@ public class FiltrosAnimalActivity extends AppCompatActivity {
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
                         Animal animal = new Animal(array.getJSONObject(i));
-                        Log.v("animalesjson", animal.toString());
                         listaAnimales.add(animal);
                         listaDeCodigos.add(String.valueOf(animal.getPk()));
                     }
                 }
                 return true;
-//                Toast.makeText(FiltrosAnimalActivity.this, listaAnimales.toString(), Toast.LENGTH_LONG).show();
             }
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {

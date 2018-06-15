@@ -59,7 +59,7 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo que utilizo para cargar los botones que tengo en el layout.
+     * Metodo que utilizo para cargar los elementos que tengo en el layout.
      */
     private void cargarBotones() {
         s_comunidades = findViewById(R.id.s_comunidades);
@@ -214,8 +214,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
                 return false;
             }
         } catch (JSONException e) {

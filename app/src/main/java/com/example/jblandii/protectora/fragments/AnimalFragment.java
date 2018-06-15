@@ -2,13 +2,11 @@ package com.example.jblandii.protectora.fragments;
 
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,9 @@ import android.widget.Toast;
 import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
 import com.example.jblandii.protectora.FiltrosAnimalActivity;
 import com.example.jblandii.protectora.Models.Animal;
+import com.example.jblandii.protectora.Models.Usuario;
 import com.example.jblandii.protectora.R;
 import com.example.jblandii.protectora.peticionesBD.JSONUtil;
-import com.example.jblandii.protectora.peticionesBD.Preferencias;
 import com.example.jblandii.protectora.peticionesBD.Tags;
 
 import org.json.JSONArray;
@@ -38,8 +36,8 @@ public class AnimalFragment extends Fragment {
     private ArrayList<Animal> listaAnimalesNueva;
     ArrayList<String> listaDeCodigos;
     RecyclerView recyclerView;
-    private String mascota = "", raza = "", color = "", edad = "", pelaje = "", sexo = "", tamano = "",
-            peso = "", chip = "", id_protectora = "", fecha = "", estado = "";
+    String mascota = "", color = "", pelaje = "", sexo = "", tamano = "",
+            peso = "", chip = "", fecha = "", estado = "";
 
     public AnimalFragment() {
     }
@@ -79,8 +77,8 @@ public class AnimalFragment extends Fragment {
      * Metodo que permite cargar los animales que pertenecen a la misma comunidad que el usuario.
      */
     public void cargarAnimales() {
-        String token = Preferencias.getToken(getActivity());
-        String usuario_id = Preferencias.getID(getActivity());
+        String token = Usuario.getToken(getActivity());
+        String usuario_id = Usuario.getID(getActivity());
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
         try {
@@ -114,11 +112,9 @@ public class AnimalFragment extends Fragment {
             } else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
                 JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
-                Log.v("animalesjson", array.toString());
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
                         Animal animal = new Animal(array.getJSONObject(i));
-                        Log.v("animalesbucle", animal.toString());
                         listaAnimales.add(animal);
                     }
                 }
@@ -126,7 +122,6 @@ public class AnimalFragment extends Fragment {
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -138,19 +133,8 @@ public class AnimalFragment extends Fragment {
         super.onResume();
     }
 
-
-    //    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if(context instanceof Activity){
-//            this.activity = (Activity) context;
-//            interfaceComunicaFragments = (IComunicaFragments) this.activity;
-//        }
-//    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("FragmentA.java", "onActivityResult called");
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.FILTRO_ANIMAL:
@@ -159,11 +143,7 @@ public class AnimalFragment extends Fragment {
                         listaAnimales = data.getParcelableArrayListExtra("animales");
                         AdaptadorAnimales adaptadorAnimales = new AdaptadorAnimales(listaAnimales, getContext());
                         recyclerView.setAdapter(adaptadorAnimales);
-                        Log.v("estecreateview", listaAnimales + " - " + color + " - " + pelaje + " - " + sexo + " - " + sexo + " - " + tamano + " - " + chip + " - " + fecha + " - " + estado);
                     }
-
-                    Log.v("onActivityResult", "onActivityResult");
-
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

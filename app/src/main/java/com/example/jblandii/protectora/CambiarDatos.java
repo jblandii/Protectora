@@ -63,6 +63,9 @@ public class CambiarDatos extends AppCompatActivity {
         }
     }
 
+    /**
+     * Meotodo que se utiliza para cargar todos los elementos del layout.
+     */
     private void cargarBotones() {
         s_provincias = findViewById(R.id.s_provincias);
         s_comunidades = findViewById(R.id.s_comunidades);
@@ -171,6 +174,9 @@ public class CambiarDatos extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo que se utiliza para asignar los valores
+     */
     private void asignarValores() {
         if (recogerDatosUsuario()) {
             tie_nombre.setText(usuario.getNombre());
@@ -282,6 +288,10 @@ public class CambiarDatos extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo para cambiar los datos del usuario en el servidor.
+     * @return devuelve si se ha realizado correctamente o no.
+     */
     private boolean actualizarDatos() {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();

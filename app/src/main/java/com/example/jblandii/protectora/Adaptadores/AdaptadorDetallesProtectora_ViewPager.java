@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class AdaptadorDetallesProtectora_ViewPager extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<String> imagenes;
     private Handler puente;
-    ArrayList<Tarea> arrayTareas = new ArrayList<>();
+    private ArrayList<Tarea> arrayTareas = new ArrayList<>();
     ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
     public AdaptadorDetallesProtectora_ViewPager(Context context, ArrayList<String> imagenes) {

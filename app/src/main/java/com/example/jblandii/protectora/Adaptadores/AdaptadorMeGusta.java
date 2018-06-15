@@ -9,7 +9,6 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.Anim
     ArrayList<Animal> listaAnimales;
     private Context context;
     private Handler puente;
-    ArrayList<Tarea> arrayTareas = new ArrayList<>();
+    private ArrayList<Tarea> arrayTareas = new ArrayList<>();
     ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
 
@@ -93,7 +92,6 @@ public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.Anim
             @Override
             public void onClick(View v) {
                 Intent intentDetallesAnimal = new Intent(v.getContext(), DetallesAnimal.class);
-                Log.v("probandoanimal", listaAnimales.get(position).toString());
                 intentDetallesAnimal.putExtra("animal", (Parcelable) listaAnimales.get(position));
                 v.getContext().startActivity(intentDetallesAnimal);
             }
@@ -110,7 +108,6 @@ public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.Anim
                     if (listaAnimales.get(position).getMe_gusta().equals("true")) {
                         holder.ib_megusta.setImageResource(R.drawable.ic_megusta_borde);
 //                        DescargarImagen.borrarImagen("favoritos/", "animal" + listaAnimales.get(position).getPk());
-                        Log.v("animalborrar", listaAnimales.get(position).getPk() + "");
 
                         listaAnimales.get(position).setMe_gusta("false");
 
@@ -163,6 +160,11 @@ public class AdaptadorMeGusta extends RecyclerView.Adapter<AdaptadorMeGusta.Anim
         return bitmap;
     }
 
+    /**
+     * Metodo que utilizo para dar o quitar me gustas a los animales.
+     * @param position
+     * @return
+     */
     public boolean dar_mg(int position) {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();

@@ -1,14 +1,11 @@
 package com.example.jblandii.protectora.Adaptadores;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jblandii.protectora.Models.Mensaje;
 import com.example.jblandii.protectora.R;
@@ -40,7 +37,6 @@ public class AdaptadorMensajes extends RecyclerView.Adapter<AdaptadorMensajes.Me
 
     @Override
     public void onBindViewHolder(MensajesViewHolder holder, final int position) {
-        Log.v("esteeeeeeeeeeeeee", listaMensajes.get(position).getMensaje() + " - " + listaMensajes.get(position).getEmisario());
         if (listaMensajes.get(position).getEmisario().equals("usuario")) {
             holder.mensaje_de_usuario.setText(listaMensajes.get(position).getMensaje());
             holder.mensaje_de_usuario.setVisibility(View.VISIBLE);

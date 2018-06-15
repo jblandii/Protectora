@@ -40,16 +40,16 @@ import java.util.ArrayList;
 
 public class DetallesAnimal extends AppCompatActivity {
 
-    private ViewPager vp_imagenes_animal;
+    ViewPager vp_imagenes_animal;
     private Animal animal;
     private ImageView ib_megusta_detalle_animal;
     private ArrayList<String> imagenes;
-    private CardView cv_protectora_info_animal;
+    CardView cv_protectora_info_animal;
     private TextView tv_nombre_protectora, tv_protectora_provincia, tv_sexo_del_animal,
             tv_raza_del_animal, tv_tamano_del_animal, tv_pelaje_del_animal, tv_edad_del_animal,
             tv_chip_del_animal, tv_descripcion_del_animal;
     private Protectora protectora;
-    private Button btn_contactar_protectora;
+    Button btn_contactar_protectora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +70,13 @@ public class DetallesAnimal extends AppCompatActivity {
         vp_imagenes_animal.setAdapter(adaptadorDetallesAnimal_viewPager);
     }
 
+    /**
+     * Metodo que se utiliza para recoger los datos del animal que recibe desde otra actividad.
+     * @return devuelve true o false dependiendo de si los recoge bien.
+     */
     private boolean recogerDatosAnimal() {
         try {
             animal = getIntent().getExtras().getParcelable("animal");
-//            Toast.makeText(this, animal.toString(), Toast.LENGTH_LONG).show();
             return true;
         } catch (Exception e) {
             Log.v("Exception", e.toString());
@@ -81,6 +84,9 @@ public class DetallesAnimal extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para mostrar todos los datos del animal en el layout.
+     */
     private void asignarValores() {
         if (recogerDatosAnimal()) {
             cargarImagenesAnimal();
@@ -113,6 +119,9 @@ public class DetallesAnimal extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para cargar todos los elementos del layout.
+     */
     private void cargarBotones() {
         imagenes = new ArrayList<>();
         ib_megusta_detalle_animal = findViewById(R.id.ib_megusta_detalle_animal);
@@ -164,6 +173,9 @@ public class DetallesAnimal extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo que se utiliza para cargar las imagenes del animal.
+     */
     private void cargarImagenesAnimal() {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -199,14 +211,12 @@ public class DetallesAnimal extends AppCompatActivity {
                 }
                 JSONObject json_protectora = json.getJSONObject(Tags.PROTECTORA);
                 protectora = new Protectora(json_protectora);
-//                Toast.makeText(this, protectora.toString(), Toast.LENGTH_LONG).show();
             }
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 Intent intentmain = getIntent();
                 setResult(Activity.RESULT_CANCELED, intentmain);
-//                Toast.makeText(DetallesAnimal.this, json.getString(Tags.MENSAJE), Toast.LENGTH_LONG).show();
                 finish();
             }
         } catch (JSONException e) {
@@ -214,6 +224,10 @@ public class DetallesAnimal extends AppCompatActivity {
         }
     }
 
+    /**
+     * Metodo que se utiliza para dar o quitar me gusta al animal.
+     * @return
+     */
     public boolean dar_mg() {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -245,7 +259,6 @@ public class DetallesAnimal extends AppCompatActivity {
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
                 return false;
             }
         } catch (JSONException e) {
@@ -254,6 +267,9 @@ public class DetallesAnimal extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Metodo que se utiliza para abrir un dialogo para poder contactar con la protectora a la que pertenece el animal que se está visualizando.
+     */
     private void abrirDialogo() {
         LayoutInflater inflater = LayoutInflater.from(DetallesAnimal.this);
         View subView = inflater.inflate(R.layout.dialogo_contactar, null);
@@ -279,13 +295,16 @@ public class DetallesAnimal extends AppCompatActivity {
         builder.setNegativeButton(getResources().getString(R.string.cancelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(DetallesAnimal.this, "Cancel", Toast.LENGTH_LONG).show();
             }
         });
 
         builder.show();
     }
 
+    /**
+     * Metodo que se utiliza para enviar el mensaje que el usuario desea a la protectora.
+     * @param mensaje se le pasa por parametro el mensaje que ha escrito el usuario en el dialogo.
+     */
     private void mandarMensaje(String mensaje) {
         //Creamos el JSON que vamos a mandar al servidor
         JSONObject json = new JSONObject();
@@ -316,8 +335,7 @@ public class DetallesAnimal extends AppCompatActivity {
 
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
-                String msg = json.getString(Tags.MENSAJE);
-                mensaje = msg;
+                mensaje = json.getString(Tags.MENSAJE);
 
             }
         } catch (JSONException e) {

@@ -1,17 +1,14 @@
 package com.example.jblandii.protectora.fragments;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
 import com.example.jblandii.protectora.Adaptadores.AdaptadorMeGusta;
 import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.R;
@@ -98,11 +95,9 @@ public class MeGustaFragment extends Fragment {
             } else if (p.contains(Tags.OK)) {
                 String res = json.getString(Tags.RESULTADO);
                 JSONArray array = json.getJSONArray(Tags.LISTA_ANIMALES);
-                Log.v("animalesjson", array.toString());
                 if (array != null) {
                     for (int i = 0; i < array.length(); i++) {
                         Animal animal = new Animal(array.getJSONObject(i));
-                        Log.v("animalesbucle", animal.toString());
                         listaAnimales.add(animal);
                     }
                 }
@@ -110,7 +105,6 @@ public class MeGustaFragment extends Fragment {
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
             }
         } catch (JSONException e) {
             e.printStackTrace();

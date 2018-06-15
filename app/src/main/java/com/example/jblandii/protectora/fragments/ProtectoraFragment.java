@@ -6,15 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.jblandii.protectora.Adaptadores.AdaptadorAnimales;
 import com.example.jblandii.protectora.Adaptadores.AdaptadorProtectoras;
-import com.example.jblandii.protectora.FiltrosAnimalActivity;
 import com.example.jblandii.protectora.FiltrosProtectoraActivity;
 import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.R;
@@ -113,7 +110,6 @@ public class ProtectoraFragment extends Fragment {
             /* Resultado falla por otro error. */
             else if (p.contains(Tags.ERROR)) {
                 String msg = json.getString(Tags.MENSAJE);
-//                mensaje = msg;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -122,7 +118,6 @@ public class ProtectoraFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("FragmentA.java", "onActivityResult called");
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Tags.FILTRO_PROTECTORA:
@@ -131,11 +126,7 @@ public class ProtectoraFragment extends Fragment {
                         lista_protectoras = data.getParcelableArrayListExtra("protectoras");
                         AdaptadorProtectoras adaptadorProtectoras = new AdaptadorProtectoras(lista_protectoras, getContext());
                         recyclerView.setAdapter(adaptadorProtectoras);
-                        Log.v("estecreateview", lista_protectoras + "");
                     }
-
-                    Log.v("onActivityResult", "onActivityResult");
-
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

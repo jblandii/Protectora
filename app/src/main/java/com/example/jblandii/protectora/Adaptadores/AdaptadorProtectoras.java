@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jblandii.protectora.DetallesAnimal;
 import com.example.jblandii.protectora.DetallesProtectora;
-import com.example.jblandii.protectora.Models.Animal;
 import com.example.jblandii.protectora.Models.Protectora;
 import com.example.jblandii.protectora.R;
 
@@ -25,8 +22,8 @@ import java.util.ArrayList;
 
 public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtectoras.ProtectorasViewHolder> {
 
-    ArrayList<Protectora> listaProtectoras;
-    Context context;
+    private ArrayList<Protectora> listaProtectoras;
+    private Context context;
 
     public AdaptadorProtectoras(ArrayList<Protectora> listaProtectoras, Context context) {
         this.listaProtectoras = listaProtectoras;
@@ -51,7 +48,6 @@ public class AdaptadorProtectoras extends RecyclerView.Adapter<AdaptadorProtecto
             @Override
             public void onClick(View v) {
                 Intent intentDetallesProtectora = new Intent(v.getContext(), DetallesProtectora.class);
-                Log.v("probandoprotectora", listaProtectoras.get(position).toString());
                 intentDetallesProtectora.putExtra("protectora", (Parcelable) listaProtectoras.get(position));
                 v.getContext().startActivity(intentDetallesProtectora);
             }

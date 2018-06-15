@@ -35,7 +35,7 @@ public class RecordarContrasenaActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo que utilizo para cargar los botones que tengo en el layout.
+     * Metodo que utilizo para cargar los elementos que tengo en el layout.
      */
     private void cargarBotones() {
         til_login = findViewById(R.id.til_login);
